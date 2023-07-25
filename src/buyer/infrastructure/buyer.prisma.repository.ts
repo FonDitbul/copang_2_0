@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { Buyer as BuyerEntity } from '@prisma/client';
-import { BuyerRepositoryWhere, IBuyerRepository } from '../domain/buyer.repository';
+import { BuyerWhere, IBuyerRepository } from '../domain/buyer.repository';
 import {
   BuyerChangeEmailOut,
   BuyerChangeNickNameOut,
@@ -15,14 +15,9 @@ import { removeUndefinedKey } from '../../util/json.util';
 export class BuyerPrismaRepository implements IBuyerRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(where: BuyerRepositoryWhere): Promise<BuyerEntity | null> {
+  async findOne(where: BuyerWhere): Promise<BuyerEntity | null> {
     const whereCondition = removeUndefinedKey({
-      id: where.id,
-      userId: where.userId,
-      name: where.name,
-      nickName: where.nickName,
-      email: where.email,
-      phoneNumber: where.phoneNumber,
+      ...where,
       deletedAt: null,
     });
     return this.prisma.buyer.findFirst({

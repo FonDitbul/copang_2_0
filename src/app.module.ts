@@ -4,9 +4,10 @@ import { HealthController } from './common/api/health.controller';
 import { PrismaService } from './database/infrastructure/prisma.service';
 import { LoggerMiddleware } from './common/api/logger.middleware';
 import { ProductModule } from './product/product.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
-  imports: [BuyerModule, ProductModule],
+  imports: [BuyerModule, ProductModule, ReviewModule],
   controllers: [HealthController],
   providers: [PrismaService],
 })

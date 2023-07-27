@@ -15,13 +15,14 @@ model Seller {
 
   ceoName     String @map("ceo_name") @db.VarChar(100)
   companyName String @map("company_name") @db.VarChar(100)
+  address     String @db.VarChar(100)
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Products     Product[]
-  OrderProduct OrderProduct[]
+  Products      Product[]
+  OrderProducts OrderProduct[]
 
   @@map("seller")
 }
@@ -41,9 +42,49 @@ model Buyer {
   deletedAt DateTime? @map("deleted_at")
 
   Carts          Cart[]
-  OrderHistories OrderHistory[]
+  Orders         Order[]
+  Reviews        Review[]
+  BuyerAddresses BuyerAddress[]
+  BuyerCards     BuyerCard[]
+  OrderProducts  OrderProduct[]
 
   @@map("buyer")
+}
+
+model BuyerAddress {
+  id               Int     @id @default(autoincrement())
+  buyerId          Int     @map("buyer_id")
+  address          String  @db.VarChar(100)
+  isRepresentative Boolean @map("is_representative")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  Buyer         Buyer          @relation(fields: [buyerId], references: [id])
+  OrderProducts OrderProduct[]
+
+  @@map("buyer_address")
+}
+
+model BuyerCard {
+  id               Int     @id @default(autoincrement())
+  buyerId          Int     @map("buyer_id")
+  isRepresentative Boolean @map("is_representative")
+
+  bankName       String @map("bank_name") @db.VarChar(100)
+  cardType       String @db.VarChar(100) // 신용, 체크카드
+  cardNumber     String @db.VarChar(100)
+  validityPeriod String @map("validity_period") @db.VarChar(5) // 유효 기간 mm/yy
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  Buyer         Buyer          @relation(fields: [buyerId], references: [id])
+  OrderPayments OrderPayment[]
+
+  @@map("buyer_card")
 }
 
 model Review {
@@ -51,16 +92,17 @@ model Review {
   star    Float
   content String @db.Text
 
-  productId Int    @map("product_id")
-  userId    Int    @map("user_id")
-  userType  String @map("user_type")
-  parentId  Int?   @map("parent_id")
+  productId      Int @map("product_id")
+  buyerId        Int @map("buyer_id")
+  orderProductId Int @unique @map("order_product_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Product Product @relation(fields: [productId], references: [id])
+  Product      Product      @relation(fields: [productId], references: [id])
+  Buyer        Buyer        @relation(fields: [buyerId], references: [id])
+  OrderProduct OrderProduct @relation(fields: [orderProductId], references: [id])
 
   @@map("review")
 }
@@ -73,7 +115,7 @@ model Product {
   information String  @db.VarChar(100)
   quantity    Int
   cost        Int
-  is_sale     Boolean
+  isSale      Boolean @default(true) @map("is_sale")
 
   sellerId Int @map("seller_id")
 
@@ -81,31 +123,19 @@ model Product {
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Reviews Review[]
-  Carts   Cart[]
-  Seller  Seller   @relation(fields: [sellerId], references: [id])
+  Reviews       Review[]
+  Carts         Cart[]
+  OrderProducts OrderProduct[]
+
+  Seller Seller @relation(fields: [sellerId], references: [id])
 
   @@map("product")
-}
-
-model ProductPolicy {
-  id     Int    @id @default(autoincrement())
-  type   String @db.VarChar(100)
-  policy String @db.VarChar(100)
-
-  productId Int @map("product_id")
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
-
-  @@map("product_policy")
 }
 
 model Cart {
   id              Int    @id @default(autoincrement())
   productQuantity Int    @map("product_quantity")
-  status          String @db.VarChar(100)
+  status          String @db.VarChar(100) // ACTIVE / DONE
 
   buyerId   Int @map("buyer_id")
   productId Int @map("product_id")
@@ -120,41 +150,83 @@ model Cart {
   @@map("cart")
 }
 
-model OrderHistory {
-  id        Int    @id @default(autoincrement())
-  orderCode String @unique @map("order_code") @db.VarChar(100)
+model Order {
+  id   Int    @id @default(autoincrement())
+  code String @unique @db.VarChar(100)
+  name String @db.VarChar(100)
 
-  buyerId Int @map("buyer_id")
+  buyerId   Int    @map("buyer_id")
+  status    String @db.VarChar(100) // CREATED / BUYING / BUYED / // REFUNDED / CANCELED
+  totalCost Int    @map("total_cost")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Buyer        Buyer          @relation(fields: [buyerId], references: [id])
-  OrderProduct OrderProduct[]
+  Buyer         Buyer          @relation(fields: [buyerId], references: [id])
+  OrderProducts OrderProduct[]
+  OrderPayments OrderPayment[]
 
-  @@map("order_history")
+  @@map("order")
 }
 
 model OrderProduct {
-  id          Int    @id @default(autoincrement())
-  code        String @db.VarChar(100)
-  cost        Int
-  name        String @db.VarChar(100)
-  description String @db.VarChar(100)
-  information String @db.VarChar(100)
-  quantity    Int
-  status      String @db.VarChar(100)
+  id             Int    @id @default(autoincrement())
+  code           String @db.VarChar(100)
+  cost           Int
+  name           String @db.VarChar(100)
+  description    String @db.VarChar(100)
+  information    String @db.VarChar(100)
+  quantity       Int
+  shippingStatus String @map("shipping_status") @db.VarChar(100) // 결제 진행중 / 배송준비중 / 배송중 / 배송완료
 
-  sellerId       Int @map("seller_id")
-  orderHistoryId Int @map("order_history_id")
+  sellerId       Int  @map("seller_id")
+  orderId        Int  @map("order_id")
+  prodcutId      Int  @map("prodcut_id")
+  buyerId        Int  @map("buyer_id")
+  buyerAddressId Int  @map("buyer_address_id")
+  reviewId       Int? @map("review_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   Seller       Seller       @relation(fields: [sellerId], references: [id])
-  OrderHistory OrderHistory @relation(fields: [orderHistoryId], references: [id])
+  Order        Order        @relation(fields: [orderId], references: [id])
+  Product      Product      @relation(fields: [prodcutId], references: [id])
+  Buyer        Buyer        @relation(fields: [buyerId], references: [id])
+  BuyerAddress BuyerAddress @relation(fields: [buyerAddressId], references: [id])
+  Review       Review?
 
   @@map("order_product")
+}
+
+model OrderPayment {
+  id          Int    @id @default(autoincrement())
+  bankName    String @map("bank_name") @db.VarChar(100)
+  cardNumber  String @map("card_number") @db.VarChar(100)
+  cardType    String @map("card_type") @db.VarChar(100) // 신용, 체크카드
+  buyerCardId Int?   @map("buyer_card_id")
+
+  paymentKey  String @map("payment_key") @db.VarChar(100) // 결제의 키 값 랜덤 uuid
+  type        String @db.VarChar(100) // 결제 타입 정보 "CARD"
+  orderCode   String @map("order_code") @db.VarChar(100)
+  orderName   String @map("order_name") @db.VarChar(100) // 주문명
+  method      String @db.VarChar(100) // "카드", "가상계좌" ,"간편결제" // 현재는 카드만 사용
+  totalAmount Int    @map("total_amount")
+  status      String @db.VarChar(100) // 결제 처리 상태 // READY, INPROGRESS, DONE, CANCELED
+
+  reqeustAt  DateTime  @map("reqeust_at") // 결제가 일어난 시간 날짜
+  approvedAt DateTime? @map("approved_at") // 결제 승인이 일어난 날짜
+
+  orderId Int @map("order_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  BuyerCard BuyerCard? @relation(fields: [buyerCardId], references: [id])
+  Order     Order      @relation(fields: [orderId], references: [id])
+
+  @@map("order_payment")
 }

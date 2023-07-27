@@ -3,9 +3,8 @@ export interface Review {
   star: number;
   content: string;
   productId: number;
-  userId: number;
-  userType: string;
-  parentId: number | null;
+  buyerId: number;
+  orderProductId: number;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

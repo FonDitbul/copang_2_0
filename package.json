@@ -22,7 +22,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "simple-git-hooks": "simple-git-hooks",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prisma-migrate": "npx prisma migrate dev --name migration",
+    "prisma-db-push": "npx prisma db push"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

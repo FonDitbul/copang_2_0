@@ -7,7 +7,6 @@ import {
   BuyerLoginReq,
   BuyerSignUpReq,
 } from './buyer.req.dto';
-import { TransformInterceptor } from '../../common/api/transform.interceptor';
 import { IBuyerService } from '../domain/buyer.service';
 import { BuyerLoginRes, BuyerSignUpRes } from './buyer.res.dto';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
@@ -15,7 +14,6 @@ import { UserInfo } from '../../auth/domain/login.token';
 import { Buyer } from './buyer-info.decorator';
 
 @Controller()
-@UseInterceptors(TransformInterceptor)
 export class BuyerController {
   constructor(@Inject('IBuyerService') private buyerService: IBuyerService) {}
 

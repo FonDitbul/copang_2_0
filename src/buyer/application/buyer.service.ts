@@ -24,7 +24,7 @@ export class BuyerService implements IBuyerService {
   async signUp(buyerSignIn: BuyerSignUpIn) {
     const password = await this.passwordEncrypt.encrypt(buyerSignIn.password);
 
-    const buyerSignUpOut: BuyerSignUpOut = { ...buyerSignIn };
+    const buyerSignUpOut: BuyerSignUpOut = { ...buyerSignIn, password };
 
     const createBuyer = await this.buyerRepository.signUp(buyerSignUpOut);
 

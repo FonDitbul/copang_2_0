@@ -50,8 +50,8 @@ describe('Buyer Service test  ', () => {
 
       const result = await sut.signUp(willSignUpBuyer);
 
-      expect(buyerRepositorySpy).toHaveBeenCalled();
       expect(passwordEncrypt.encrypt).toHaveBeenCalledWith(willSignUpBuyer.password);
+      expect(buyerRepositorySpy).toHaveBeenCalledWith({ ...willSignUpBuyer, password: testEncryptPassword });
       expect(result.phoneNumber).toEqual(expect.not.stringContaining(' '));
       expect(result.phoneNumber).toEqual(expect.not.stringContaining('-'));
     });

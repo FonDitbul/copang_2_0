@@ -1,7 +1,15 @@
-import { IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
+import { IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class Card {
+  @IsNotEmpty()
+  @IsIn(['CARD'])
+  method: string;
+
+  @IsNotEmpty()
+  @IsIn(['CARD'])
+  type: string;
+
   @IsNotEmpty()
   @MaxLength(100)
   bankName: string;
@@ -15,7 +23,7 @@ class Card {
   cardType: string;
 
   @IsNotEmpty()
-  @Matches(RegExp('^((0[1-9])|(1[0-2]))\\/(\\d{2})$'))
+  @Matches(RegExp('^((\\d{2})\\/(0[1-9])|(1[0-2]))$'))
   validityPeriod: string;
 }
 

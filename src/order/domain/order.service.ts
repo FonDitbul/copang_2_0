@@ -1,6 +1,5 @@
-import { OrderCard } from '../domain/orderCard';
-import { OrderBuyProduct } from '../domain/orderBuyProduct';
+import { OrderBuyIn } from './port/order.in';
 
 export interface IOrderService {
-  buyProduct(card: OrderCard, address: string, buyProduct: OrderBuyProduct[]): Promise<boolean>;
+  buy(buyProductIn: OrderBuyIn): Promise<boolean>;
 }

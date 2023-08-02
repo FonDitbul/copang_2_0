@@ -1,6 +1,6 @@
 import { Seller } from '../../seller/domain/seller';
 
-export interface Product {
+export class Product {
   id: number;
   name: string;
   code: string;
@@ -15,4 +15,12 @@ export interface Product {
   deletedAt: Date | null;
 
   Seller?: Partial<Seller>;
+
+  static isDeleted(product: Product) {
+    return !!product.deletedAt;
+  }
+
+  static isOverQuantity(product: Product, quantity: number) {
+    return product.quantity < quantity;
+  }
 }

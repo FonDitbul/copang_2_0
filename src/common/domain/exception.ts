@@ -16,6 +16,11 @@ export const EXCEPTION_STATUS = {
   PAGING_NUM_ERROR: { errorCode: 10201, message: '페이징 넘버 에러' },
   PAGING_SORT_BY_OPTION_ERROR: { errorCode: 10202, message: '존재하지 않는 정렬 옵션' },
   PAGING_ORDER_OPTION_ERROR: { errorCode: 10203, message: 'asc or desc 가 아닙니다' },
+
+  // 물품 관련 에러 20001 ~
+  PRODUCT_NOT_EXIST: { errorCode: 20001, message: '물품이 존재하지 않거나 삭제되었습니다.' },
+  PRODUCT_NOT_AVAILABLE_BUY: { errorCode: 20002, message: '해당 물품은 구매할 수 없습니다.' },
+  PRODUCT_NO_QUANTITY: { errorCode: 20003, message: '물품 수량이 존재하지 않습니다.' },
 };
 
 export class CoPangException extends Error {

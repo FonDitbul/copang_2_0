@@ -175,7 +175,7 @@ model OrderProduct {
   name           String @db.VarChar(100)
   description    String @db.VarChar(100)
   information    String @db.VarChar(100)
-  quantity       Int
+  buyQuantity    Int    @map("buy_quantity")
   shippingStatus String @default("PAYMENT_INPROGRESS") @map("shipping_status") @db.VarChar(100) // 결제 진행중 / 배송준비중 / 배송중 / 배송완료
   address        String @db.VarChar(100)
 

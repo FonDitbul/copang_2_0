@@ -61,8 +61,7 @@ model BuyerAddress {
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Buyer         Buyer          @relation(fields: [buyerId], references: [id])
-  OrderProducts OrderProduct[]
+  Buyer Buyer @relation(fields: [buyerId], references: [id])
 
   @@map("buyer_address")
 }
@@ -155,7 +154,7 @@ model Order {
   name String @db.VarChar(100)
 
   buyerId   Int    @map("buyer_id")
-  status    String @db.VarChar(100) // CREATED / BUYING / BUYED / // REFUNDED / CANCELED
+  status    String @default("CREATED") @db.VarChar(100) // CREATED / BUYING / BUYED / // REFUNDED / CANCELED
   totalCost Int    @map("total_cost")
 
   createdAt DateTime  @default(now()) @map("created_at")
@@ -177,25 +176,24 @@ model OrderProduct {
   description    String @db.VarChar(100)
   information    String @db.VarChar(100)
   quantity       Int
-  shippingStatus String @map("shipping_status") @db.VarChar(100) // 결제 진행중 / 배송준비중 / 배송중 / 배송완료
+  shippingStatus String @default("PAYMENT_INPROGRESS") @map("shipping_status") @db.VarChar(100) // 결제 진행중 / 배송준비중 / 배송중 / 배송완료
+  address        String @db.VarChar(100)
 
-  sellerId       Int  @map("seller_id")
-  orderId        Int  @map("order_id")
-  productId      Int  @map("product_id")
-  buyerId        Int  @map("buyer_id")
-  buyerAddressId Int  @map("buyer_address_id")
-  reviewId       Int? @map("review_id")
+  sellerId  Int  @map("seller_id")
+  orderId   Int  @map("order_id")
+  productId Int  @map("product_id")
+  buyerId   Int  @map("buyer_id")
+  reviewId  Int? @map("review_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  Seller       Seller       @relation(fields: [sellerId], references: [id])
-  Order        Order        @relation(fields: [orderId], references: [id])
-  Product      Product      @relation(fields: [productId], references: [id])
-  Buyer        Buyer        @relation(fields: [buyerId], references: [id])
-  BuyerAddress BuyerAddress @relation(fields: [buyerAddressId], references: [id])
-  Review       Review?
+  Seller  Seller  @relation(fields: [sellerId], references: [id])
+  Order   Order   @relation(fields: [orderId], references: [id])
+  Product Product @relation(fields: [productId], references: [id])
+  Buyer   Buyer   @relation(fields: [buyerId], references: [id])
+  Review  Review?
 
   @@map("order_product")
 }
@@ -213,7 +211,7 @@ model OrderPayment {
   orderName   String @map("order_name") @db.VarChar(100) // 주문명
   method      String @db.VarChar(100) // "카드", "가상계좌" ,"간편결제" // 현재는 카드만 사용
   totalAmount Int    @map("total_amount")
-  status      String @db.VarChar(100) // 결제 처리 상태 // READY, INPROGRESS, DONE, CANCELED
+  status      String @default("READY") @db.VarChar(100) // 결제 처리 상태 // READY, INPROGRESS, DONE, CANCELED
 
   requestAt  DateTime  @map("request_at") // 결제가 일어난 시간 날짜
   approvedAt DateTime? @map("approved_at") // 결제 승인이 일어난 날짜

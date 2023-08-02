@@ -70,4 +70,14 @@ export class ProductPrismaRepository implements IProductRepository {
     });
     return product;
   }
+
+  async findAllById(idArray: number[]) {
+    return this.prisma.product.findMany({
+      where: {
+        id: {
+          in: idArray,
+        },
+      },
+    });
+  }
 }

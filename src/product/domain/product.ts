@@ -1,3 +1,5 @@
+import { Seller } from '../../seller/domain/seller';
+
 export interface Product {
   id: number;
   name: string;
@@ -11,4 +13,6 @@ export interface Product {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+
+  Seller?: Partial<Seller>;
 }

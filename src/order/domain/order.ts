@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import { MergeOrderProduct, OrderBuyProduct } from './orderBuyProduct';
-import { Product } from '@prisma/client';
+import { Product } from '../../product/domain/product';
 
 export interface Order {
   id: number;

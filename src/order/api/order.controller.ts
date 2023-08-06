@@ -16,7 +16,7 @@ export class OrderController {
       buyerId: buyer.id,
       card: buyProductReq.card,
       address: buyProductReq.address,
-      buyProduct: buyProductReq.product,
+      buyProduct: buyProductReq.products,
     });
     return true;
   }

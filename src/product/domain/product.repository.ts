@@ -6,6 +6,6 @@ export type ProductWhere = Partial<Product>;
 export interface IProductRepository {
   findOne: (ProductWhere) => Promise<Product | null>;
   countForSale: (findAllOut: IProductFindAllOut) => Promise<number>;
-  findAllForSale: (findAllOut: IProductFindAllOut) => Promise<Product[]>;findOne: (where: ProductWhere) => Promise<Product | null>;
+  findAllForSale: (findAllOut: IProductFindAllOut) => Promise<Product[]>;
   findAllById: (idArray: number[]) => Promise<Product[]>;
 }

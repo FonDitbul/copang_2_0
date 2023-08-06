@@ -1,4 +1,4 @@
-import { IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
+import { ArrayNotEmpty, IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class Card {
@@ -51,8 +51,8 @@ export class OrderBuyProductReq {
   address: string;
 
   @IsNotEmpty()
-  @IsNotEmpty()
+  @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => BuyProduct)
-  product: BuyProduct[];
+  products: BuyProduct[];
 }

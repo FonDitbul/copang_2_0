@@ -6,9 +6,10 @@ import { LoggerMiddleware } from './common/api/logger.middleware';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
-  imports: [BuyerModule, ProductModule, ReviewModule, OrderModule],
+  imports: [BuyerModule, ProductModule, ReviewModule, OrderModule, CartModule],
   controllers: [HealthController],
   providers: [PrismaService],
 })

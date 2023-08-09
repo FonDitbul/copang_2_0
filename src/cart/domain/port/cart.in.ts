@@ -3,3 +3,9 @@ export interface ICartFindAllIn {
   limit: number;
   lastId: number;
 }
+
+export interface ICartAddIn {
+  buyerId: number;
+  productId: number;
+  productQuantity: number;
+}

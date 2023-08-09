@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
-import { ICartRepository } from '../domain/cart.repository';
-import { ICartCountOut, ICartFindAllOut } from '../domain/port/cart.out';
+import { CartWhereCondition, ICartRepository } from '../domain/cart.repository';
+import { ICartAddOut, ICartCountOut, ICartFindAllOut } from '../domain/port/cart.out';
+import { Cart } from '../domain/cart';
+import { removeUndefinedKey } from '../../util/json.util';
 
 @Injectable()
 export class CartPrismaRepository implements ICartRepository {
   constructor(private prisma: PrismaService) {}
+
+  findOne(where: CartWhereCondition) {
+    const whereCondition = removeUndefinedKey({
+      ...where,
+    });
+
+    return this.prisma.cart.findFirst({
+      where: {
+        ...whereCondition,
+      },
+    });
+  }
 
   async findAllByBuyerId(findAllOut: ICartFindAllOut) {
     const { buyerId, limit, lastId } = findAllOut;
@@ -46,5 +60,20 @@ export class CartPrismaRepository implements ICartRepository {
         id: 'desc',
       },
     });
+  }
+
+  async add(addOut: ICartAddOut): Promise<Cart> {
+    const { buyerId, productId, productQuantity } = addOut;
+
+    const cart = await this.prisma.cart.create({
+      data: {
+        buyerId,
+        productId,
+        productQuantity,
+        status: 'ACTIVE',
+      },
+    });
+
+    return cart;
   }
 }

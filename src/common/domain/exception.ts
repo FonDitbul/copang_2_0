@@ -21,6 +21,9 @@ export const EXCEPTION_STATUS = {
   PRODUCT_NOT_EXIST: { errorCode: 20001, message: '물품이 존재하지 않거나 삭제되었습니다.' },
   PRODUCT_NOT_AVAILABLE_BUY: { errorCode: 20002, message: '해당 물품은 구매할 수 없습니다.' },
   PRODUCT_NO_QUANTITY: { errorCode: 20003, message: '물품 수량이 존재하지 않습니다.' },
+
+  // 장바구니 (Cart) 관련 에러 21001 ~
+  CART_EXIST: { errorCode: 21001, message: '장바구니에 해당 제품이 이미 존재합니다.' },
 };
 
 export class CoPangException extends Error {

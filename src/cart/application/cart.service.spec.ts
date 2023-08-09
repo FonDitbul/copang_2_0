@@ -1,11 +1,16 @@
 import { CartService } from './cart.service';
 import { ICartRepository } from '../domain/cart.repository';
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-import { ICartFindAllIn } from '../domain/port/cart.in';
+import { ICartAddIn, ICartFindAllIn } from '../domain/port/cart.in';
+import { IProductRepository } from '../../product/domain/product.repository';
+import { Product } from '../../product/domain/product';
+import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
+import { Cart } from '../domain/cart';
 
 describe('cart Service test', () => {
   const cartRepository: MockProxy<ICartRepository> = mock<ICartRepository>();
-  const sut = new CartService(cartRepository);
+  const productRepository: MockProxy<IProductRepository> = mock<IProductRepository>();
+  const sut = new CartService(cartRepository, productRepository);
 
   beforeEach(() => {
     mockReset(cartRepository);
@@ -168,6 +173,99 @@ describe('cart Service test', () => {
           },
         },
       ]);
+    });
+  });
+
+  describe('add test', () => {
+    describe('성공 케이스', () => {
+      test('장바구니에 추가하고자 하는 구매자 id와 productId, quantity 를 받아 장바구니 추가에 성공한 경우', async () => {
+        const givenAddIn: ICartAddIn = {
+          buyerId: 1,
+          productId: 1,
+          productQuantity: 1,
+        };
+        const givenProduct: Product = {
+          id: 1,
+          name: '갤럭시북',
+          code: 'GALAXY-001',
+          description: '노트북',
+          information: '노트북',
+          quantity: 1,
+          cost: 1_000_000,
+          isSale: true,
+          sellerId: 1,
+          createdAt: new Date('2023-08-04T11:33:14.168'),
+          updatedAt: new Date('2023-08-04T11:33:14.168'),
+          deletedAt: null,
+        };
+        productRepository.findOne.mockResolvedValue(givenProduct);
+
+        const result = await sut.add(givenAddIn);
+
+        expect(cartRepository.add).toBeCalledWith(givenAddIn);
+      });
+    });
+    describe('실패 케이스', () => {
+      test('장바구니에 추가하고자 product 가 삭제되어 추가에 실패한 경우', async () => {
+        const givenAddIn: ICartAddIn = {
+          buyerId: 1,
+          productId: 1,
+          productQuantity: 1,
+        };
+        const givenProduct: Product = {
+          id: 1,
+          name: '갤럭시북',
+          code: 'GALAXY-001',
+          description: '노트북',
+          information: '노트북',
+          quantity: 1,
+          cost: 1_000_000,
+          isSale: true,
+          sellerId: 1,
+          createdAt: new Date('2023-08-04T11:33:14.168'),
+          updatedAt: new Date('2023-08-04T11:33:14.168'),
+          deletedAt: new Date(),
+        };
+        productRepository.findOne.mockResolvedValue(givenProduct);
+
+        await expect(async () => sut.add(givenAddIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.PRODUCT_NOT_EXIST));
+      });
+
+      test('장바구니에 이미 존재하여 추가에 실패한 경우', async () => {
+        const givenAddIn: ICartAddIn = {
+          buyerId: 1,
+          productId: 1,
+          productQuantity: 1,
+        };
+        const givenProduct: Product = {
+          id: 1,
+          name: '갤럭시북',
+          code: 'GALAXY-001',
+          description: '노트북',
+          information: '노트북',
+          quantity: 1,
+          cost: 1_000_000,
+          isSale: true,
+          sellerId: 1,
+          createdAt: new Date('2023-08-04T11:33:14.168'),
+          updatedAt: new Date('2023-08-04T11:33:14.168'),
+          deletedAt: null,
+        };
+        const givenCart: Cart = {
+          id: 1,
+          buyerId: 1,
+          productId: 1,
+          productQuantity: 1,
+          status: 'ACTIVE',
+          createdAt: new Date('2023-08-04T11:33:14.168'),
+          updatedAt: new Date('2023-08-04T11:33:14.168'),
+          deletedAt: null,
+        };
+        productRepository.findOne.mockResolvedValue(givenProduct);
+        cartRepository.findOne.mockResolvedValue(givenCart);
+
+        await expect(async () => sut.add(givenAddIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.CART_EXIST));
+      });
     });
   });
 });

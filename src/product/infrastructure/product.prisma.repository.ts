@@ -10,7 +10,6 @@ export class ProductPrismaRepository implements IProductRepository {
   async findOne(where: ProductWhere) {
     const whereCondition = removeUndefinedKey({
       ...where,
-      deletedAt: null,
     });
     return this.prisma.product.findFirst({
       where: {

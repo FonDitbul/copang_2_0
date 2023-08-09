@@ -1,7 +1,7 @@
 import { CartService } from './cart.service';
 import { ICartRepository } from '../domain/cart.repository';
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-import { ICartAddIn, ICartFindAllIn } from '../domain/port/cart.in';
+import { ICartAddIn, ICartChangeIn, ICartFindAllIn } from '../domain/port/cart.in';
 import { IProductRepository } from '../../product/domain/product.repository';
 import { Product } from '../../product/domain/product';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
@@ -265,6 +265,100 @@ describe('cart Service test', () => {
         cartRepository.findOne.mockResolvedValue(givenCart);
 
         await expect(async () => sut.add(givenAddIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.CART_EXIST));
+      });
+    });
+  });
+
+  describe('change test', () => {
+    describe('성공 케이스', () => {
+      test('변경하고자 하는 장바구니 id를 받아 변경에 성공한 경우', async () => {
+        const givenChangeIn: ICartChangeIn = {
+          buyerId: 1,
+          id: 1,
+          productQuantity: 1,
+          status: 'ACTIVE',
+        };
+        const givenCart: Cart = {
+          id: 1,
+          productId: 1,
+          productQuantity: 1,
+          buyerId: 1,
+          status: 'ACTIVE',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deletedAt: null,
+        };
+
+        cartRepository.findOne.mockResolvedValue(givenCart);
+
+        const result = await sut.change(givenChangeIn);
+
+        expect(cartRepository.change).toBeCalledWith({
+          id: givenChangeIn.id,
+          productQuantity: givenChangeIn.productQuantity,
+          status: givenChangeIn.status,
+        });
+      });
+    });
+
+    describe('실패 케이스', () => {
+      test('변경하고자 하는 장바구니 id가 존재하지 않아 실패한 경우', async () => {
+        const givenChangeIn: ICartChangeIn = {
+          buyerId: 1,
+          id: 1,
+          productQuantity: 1,
+          status: 'ACTIVE',
+        };
+
+        cartRepository.findOne.mockResolvedValue(null);
+
+        await expect(() => sut.change(givenChangeIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.CART_NOT_EXIST));
+      });
+
+      test('변경하고자 하는 장바구니가 삭제되어 실패한 경우', async () => {
+        const givenChangeIn: ICartChangeIn = {
+          buyerId: 1,
+          id: 1,
+          productQuantity: 1,
+          status: 'ACTIVE',
+        };
+
+        const givenCart: Cart = {
+          id: 1,
+          productId: 1,
+          productQuantity: 1,
+          buyerId: 1,
+          status: 'ACTIVE',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deletedAt: new Date(),
+        };
+        cartRepository.findOne.mockResolvedValue(givenCart);
+
+        await expect(() => sut.change(givenChangeIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.CART_DELETED));
+      });
+
+      test('변경하고자 하는 장바구니의 buyerId 와 입력받은 buyerId가 달라 실패한 경우', async () => {
+        const givenChangeIn: ICartChangeIn = {
+          buyerId: 1,
+          id: 1,
+          productQuantity: 1,
+          status: 'ACTIVE',
+        };
+
+        const givenCart: Cart = {
+          id: 1,
+          productId: 1,
+          productQuantity: 1,
+          buyerId: 2,
+          status: 'ACTIVE',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deletedAt: null,
+        };
+        cartRepository.findOne.mockResolvedValue(givenCart);
+
+        await expect(() => sut.change(givenChangeIn)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.CART_BUYER_ID_DIFFERENT));
       });
     });
   });

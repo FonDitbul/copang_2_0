@@ -1,5 +1,5 @@
 import { Cart } from './cart';
-import { ICartAddOut, ICartCountOut, ICartFindAllOut } from './port/cart.out';
+import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartFindAllOut } from './port/cart.out';
 
 export type CartWhereCondition = Partial<Cart>;
 
@@ -8,4 +8,5 @@ export interface ICartRepository {
   findAllByBuyerId(findAllOut: ICartFindAllOut): Promise<Cart[]>;
   countByBuyerId(countOut: ICartCountOut): Promise<number>;
   add(addOut: ICartAddOut): Promise<Cart>;
+  change(changeOut: ICartChangeOut): Promise<Cart>;
 }

@@ -8,3 +8,7 @@ export interface CartFindAllRes {
 export interface CartAddRes {
   cart: Cart;
 }
+
+export interface CartChangeRes {
+  cart: Cart;
+}

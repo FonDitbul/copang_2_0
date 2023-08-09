@@ -14,3 +14,9 @@ export interface ICartAddOut {
   productId: number;
   productQuantity: number;
 }
+
+export interface ICartChangeOut {
+  id: number;
+  productQuantity: number;
+  status: string;
+}

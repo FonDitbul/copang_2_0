@@ -12,3 +12,7 @@ export interface CartAddRes {
 export interface CartChangeRes {
   cart: Cart;
 }
+
+export interface CartDeleteRes {
+  cart: Cart;
+}

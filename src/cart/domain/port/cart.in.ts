@@ -9,9 +9,15 @@ export interface ICartAddIn {
   productId: number;
   productQuantity: number;
 }
+
 export interface ICartChangeIn {
   id: number;
   buyerId: number;
   productQuantity: number;
   status: string;
+}
+
+export interface ICartDeleteIn {
+  id: number;
+  buyerId: number;
 }

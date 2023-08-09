@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ICartRepository } from '../domain/cart.repository';
 import { ICartService } from '../domain/cart.service';
-import { ICartAddIn, ICartChangeIn, ICartFindAllIn } from '../domain/port/cart.in';
+import { ICartAddIn, ICartChangeIn, ICartDeleteIn, ICartFindAllIn } from '../domain/port/cart.in';
 import { IProductRepository } from '../../product/domain/product.repository';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { Product } from '../../product/domain/product';
@@ -63,6 +63,25 @@ export class CartService implements ICartService {
     }
 
     const cart = await this.cartRepository.change({ id, productQuantity, status });
+
+    return cart;
+  }
+
+  async delete(deleteIn: ICartDeleteIn): Promise<Cart> {
+    const { id, buyerId } = deleteIn;
+
+    const prevCart = await this.cartRepository.findOne({ id });
+    if (!Cart.isExist(prevCart)) {
+      throw new CoPangException(EXCEPTION_STATUS.CART_NOT_EXIST);
+    }
+    if (Cart.isDeleted(prevCart)) {
+      throw new CoPangException(EXCEPTION_STATUS.CART_DELETED);
+    }
+    if (!Cart.isSameBuyerId(prevCart, buyerId)) {
+      throw new CoPangException(EXCEPTION_STATUS.CART_BUYER_ID_DIFFERENT);
+    }
+
+    const cart = await this.cartRepository.delete({ id });
 
     return cart;
   }

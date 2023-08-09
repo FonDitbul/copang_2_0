@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { CartWhereCondition, ICartRepository } from '../domain/cart.repository';
-import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartFindAllOut } from '../domain/port/cart.out';
+import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartDeleteOut, ICartFindAllOut } from '../domain/port/cart.out';
 import { Cart } from '../domain/cart';
 import { removeUndefinedKey } from '../../util/json.util';
 
@@ -84,6 +84,22 @@ export class CartPrismaRepository implements ICartRepository {
       data: {
         productQuantity,
         status,
+      },
+      where: {
+        id,
+      },
+    });
+
+    return cart;
+  }
+
+  async delete(deleteOut: ICartDeleteOut) {
+    const { id } = deleteOut;
+    const deletedAt = new Date().toISOString();
+
+    const cart = await this.prisma.cart.update({
+      data: {
+        deletedAt,
       },
       where: {
         id,

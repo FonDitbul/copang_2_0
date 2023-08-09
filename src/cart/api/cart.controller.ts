@@ -1,11 +1,11 @@
-import { Body, Controller, DefaultValuePipe, Get, Inject, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Inject, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ICartService } from '../domain/cart.service';
 import { Buyer } from '../../buyer/api/buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
-import { CartAddRes, CartChangeRes, CartFindAllRes } from './cart.res.dto';
+import { CartAddRes, CartChangeRes, CartDeleteRes, CartFindAllRes } from './cart.res.dto';
 import { CART_MAX_COUNT } from '../domain/cart';
-import { CartAddReq, CartChangeReq } from './cart.req.dto';
+import { CartAddReq, CartChangeReq, CartDeleteReq } from './cart.req.dto';
 
 @Controller()
 export class CartController {
@@ -35,6 +35,13 @@ export class CartController {
   @UseGuards(AuthAuthorizationGuard)
   async change(@Buyer() buyer: UserInfo, @Body() changeReq: CartChangeReq): Promise<CartChangeRes> {
     const cart = await this.cartService.change({ buyerId: buyer.id, ...changeReq });
+    return { cart };
+  }
+
+  @Delete('/cart')
+  @UseGuards(AuthAuthorizationGuard)
+  async delete(@Buyer() buyer: UserInfo, @Body() deleteReq: CartDeleteReq): Promise<CartDeleteRes> {
+    const cart = await this.cartService.delete({ buyerId: buyer.id, ...deleteReq });
     return { cart };
   }
 }

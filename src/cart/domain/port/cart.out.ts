@@ -20,3 +20,7 @@ export interface ICartChangeOut {
   productQuantity: number;
   status: string;
 }
+
+export interface ICartDeleteOut {
+  id: number;
+}

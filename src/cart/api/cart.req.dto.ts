@@ -27,3 +27,10 @@ export class CartChangeReq {
   @IsIn(['ACTIVE', 'NONE'])
   status: string;
 }
+
+export class CartDeleteReq {
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  id: number;
+}

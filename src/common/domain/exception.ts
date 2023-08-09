@@ -24,6 +24,9 @@ export const EXCEPTION_STATUS = {
 
   // 장바구니 (Cart) 관련 에러 21001 ~
   CART_EXIST: { errorCode: 21001, message: '장바구니에 해당 제품이 이미 존재합니다.' },
+  CART_NOT_EXIST: { errorCode: 21002, message: '장바구니에 존재하지 않습니다.' },
+  CART_DELETED: { errorCode: 21003, message: '삭제된 장바구니 입니다.' },
+  CART_BUYER_ID_DIFFERENT: { errorCode: 21004, message: '장바구니의 buyerId와 요청한 buyerId가 다릅니다.' },
 };
 
 export class CoPangException extends Error {

@@ -17,4 +17,12 @@ export class Cart {
   static isExist(cart: Cart) {
     return !!cart;
   }
+
+  static isDeleted(cart: Cart) {
+    return !!cart.deletedAt;
+  }
+
+  static isSameBuyerId(cart: Cart, buyerId: number) {
+    return cart.buyerId === buyerId;
+  }
 }

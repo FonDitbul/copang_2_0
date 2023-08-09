@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsIn, IsInt, IsNotEmpty, Min } from 'class-validator';
 
 export class CartAddReq {
   @IsNotEmpty()
@@ -10,4 +10,20 @@ export class CartAddReq {
   @IsInt()
   @Min(1)
   productQuantity: number;
+}
+
+export class CartChangeReq {
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  id: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  productQuantity: number;
+
+  @IsNotEmpty()
+  @IsIn(['ACTIVE', 'NONE'])
+  status: string;
 }

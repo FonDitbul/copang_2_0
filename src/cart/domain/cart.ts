@@ -2,7 +2,7 @@ import { Product } from '../../product/domain/product';
 
 export const CART_MAX_COUNT = 50;
 
-export interface Cart {
+export class Cart {
   id: number;
   productQuantity: number;
   status: string;
@@ -12,5 +12,9 @@ export interface Cart {
   updatedAt: Date;
   deletedAt: Date | null;
 
-  Product: Partial<Product>;
+  Product?: Partial<Product>;
+
+  static isExist(cart: Cart) {
+    return !!cart;
+  }
 }

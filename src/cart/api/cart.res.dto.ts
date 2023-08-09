@@ -4,3 +4,7 @@ export interface CartFindAllRes {
   carts: Cart[];
   isEndPage: boolean;
 }
+
+export interface CartAddRes {
+  cart: Cart;
+}

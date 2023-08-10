@@ -41,7 +41,7 @@ export function mergeOrderProduct(productArray: Product[], willBuyProductMap: Ma
       throw new Error('존재하지 않는 product 입니다.');
     }
 
-    returnMap.set(product.id, { ...product, buyQuantity: willBuyProduct.quantity });
+    returnMap.set(product.id, { ...product, buyQuantity: willBuyProduct.buyQuantity });
   });
 
   return returnMap;

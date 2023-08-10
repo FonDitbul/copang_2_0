@@ -48,7 +48,7 @@ describe('order 테스트', () => {
         },
       ];
       const givenMap: Map<number, OrderBuyProduct> = new Map();
-      givenMap.set(1, { productId: 1, quantity: 1 });
+      givenMap.set(1, { productId: 1, buyQuantity: 1 });
 
       const sut = mergeOrderProduct(givenProductArray, givenMap);
 

@@ -37,11 +37,11 @@ export class OrderService implements IOrderService {
       if (Product.isDeleted(product)) {
         throw new CoPangException(EXCEPTION_STATUS.PRODUCT_NOT_EXIST);
       }
-
       if (Product.isOverQuantity(product, product.buyQuantity)) {
         throw new CoPangException(EXCEPTION_STATUS.PRODUCT_NOT_AVAILABLE_BUY);
       }
     }
+
     const productNameArray = productArray.map((product) => product.name);
     const totalCost = mergeProductArray.reduce(sumTotalCost, 0);
     const code = createOrderCode();

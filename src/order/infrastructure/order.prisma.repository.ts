@@ -16,7 +16,20 @@ export class OrderPrismaRepository implements IOrderRepository {
       });
 
       const createOrderProductArray = orderBuy.buyProduct.map((product) => {
-        return { ...product, buyerId: orderBuy.buyerId, orderId: order.id };
+        const { code, cost, name, description, information, buyQuantity, sellerId, productId, address } = product;
+        return {
+          code,
+          cost,
+          name,
+          description,
+          information,
+          buyQuantity,
+          sellerId,
+          productId,
+          address,
+          buyerId: orderBuy.buyerId,
+          orderId: order.id,
+        };
       });
 
       await tx.orderProduct.createMany({

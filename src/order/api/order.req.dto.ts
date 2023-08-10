@@ -36,7 +36,7 @@ class BuyProduct {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  quantity: number;
+  buyQuantity: number;
 }
 
 export class OrderBuyProductReq {

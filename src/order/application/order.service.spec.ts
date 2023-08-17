@@ -6,13 +6,15 @@ import { IOrderPaymentServer } from '../domain/order.payment.server';
 import { OrderCard } from '../domain/orderCard';
 import { OrderBuyProduct } from '../domain/orderBuyProduct';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
+import { ICartRepository } from '../../cart/domain/cart.repository';
 
 describe('order Service test', () => {
   const orderRepository: MockProxy<IOrderRepository> = mock<IOrderRepository>();
   const productRepository: MockProxy<IProductRepository> = mock<IProductRepository>();
   const orderPaymentServer: MockProxy<IOrderPaymentServer> = mock<IOrderPaymentServer>();
+  const cartRepository: MockProxy<ICartRepository> = mock<ICartRepository>();
 
-  const sut = new OrderService(orderRepository, productRepository, orderPaymentServer);
+  const sut = new OrderService(orderRepository, productRepository, orderPaymentServer, cartRepository);
 
   describe('buy 물품 구매 메소드 테스트', () => {
     describe('성공 케이스', () => {
@@ -55,6 +57,8 @@ describe('order Service test', () => {
         });
 
         expect(result).toBeTruthy();
+        expect(orderRepository.buy).toBeCalled();
+        expect(cartRepository.deleteByBuy).toBeCalled();
       });
     });
 

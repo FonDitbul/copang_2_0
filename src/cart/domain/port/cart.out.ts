@@ -24,3 +24,8 @@ export interface ICartChangeOut {
 export interface ICartDeleteOut {
   id: number;
 }
+
+export interface ICartDeleteByBuyOut {
+  buyerId: number;
+  productIdArray: number[];
+}

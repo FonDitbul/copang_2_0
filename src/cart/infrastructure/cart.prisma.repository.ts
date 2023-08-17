@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { CartWhereCondition, ICartRepository } from '../domain/cart.repository';
-import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartDeleteOut, ICartFindAllOut } from '../domain/port/cart.out';
+import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartDeleteByBuyOut, ICartDeleteOut, ICartFindAllOut } from '../domain/port/cart.out';
 import { Cart } from '../domain/cart';
 import { removeUndefinedKey } from '../../util/json.util';
+import { de } from 'date-fns/locale';
 
 @Injectable()
 export class CartPrismaRepository implements ICartRepository {
@@ -107,5 +108,23 @@ export class CartPrismaRepository implements ICartRepository {
     });
 
     return cart;
+  }
+
+  async deleteByBuy(deleteOut: ICartDeleteByBuyOut) {
+    const { buyerId, productIdArray } = deleteOut;
+    const deletedAt = new Date().toISOString();
+
+    const deletedCart = await this.prisma.cart.updateMany({
+      data: {
+        deletedAt,
+      },
+      where: {
+        buyerId,
+        productId: { in: productIdArray },
+        deletedAt: null,
+      },
+    });
+
+    return deletedCart.count;
   }
 }

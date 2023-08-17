@@ -9,6 +9,8 @@ import { listToMap } from '../../util/map-util';
 import { createOrderCode, createOrderName, mergeOrderProduct, sumTotalCost } from '../domain/order';
 import { OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } from '../domain/port/order.out';
 import { IOrderPaymentServer } from '../domain/order.payment.server';
+import { ICartRepository } from '../../cart/domain/cart.repository';
+import { ICartDeleteByBuyOut } from '../../cart/domain/port/cart.out';
 
 @Injectable()
 export class OrderService implements IOrderService {
@@ -16,8 +18,11 @@ export class OrderService implements IOrderService {
     @Inject('IOrderRepository') private orderRepository: IOrderRepository,
     @Inject('IProductRepository') private productRepository: IProductRepository,
     @Inject('IOrderPaymentServer') private orderPaymentServer: IOrderPaymentServer,
+    @Inject('ICartRepository') private cartRepository: ICartRepository,
   ) {}
   async buy(buyProductIn: OrderBuyIn): Promise<boolean> {
+    const buyerId = buyProductIn.buyerId;
+
     const productIdMap = listToMap(buyProductIn.buyProduct, (product) => product.productId);
     const productIdArray = Array.from(productIdMap.keys());
 
@@ -72,7 +77,13 @@ export class OrderService implements IOrderService {
         address,
       };
     });
+    const deleteCart: ICartDeleteByBuyOut = {
+      buyerId,
+      productIdArray: mergeProductArray.map((product) => product.id),
+    };
+
     await this.orderRepository.buy({ buyerId: buyProductIn.buyerId, order: order, payment: payment, buyProduct: orderProduct });
+    await this.cartRepository.deleteByBuy(deleteCart);
 
     return true;
   }

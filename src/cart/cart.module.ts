@@ -19,6 +19,6 @@ import { ProductModule } from '../product/product.module';
       useClass: CartPrismaRepository,
     },
   ],
-  exports: [],
+  exports: ['ICartRepository'],
 })
 export class CartModule {}

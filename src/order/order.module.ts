@@ -6,9 +6,10 @@ import { ProductModule } from '../product/product.module';
 import { OrderService } from './application/order.service';
 import { OrderPrismaRepository } from './infrastructure/order.prisma.repository';
 import { OrderPaymentHttpServer } from './infrastructure/order.payment.http.server';
+import { CartModule } from '../cart/cart.module';
 
 @Module({
-  imports: [RepositoryModule, AuthModule, ProductModule],
+  imports: [RepositoryModule, AuthModule, ProductModule, CartModule],
   controllers: [OrderController],
   providers: [
     {

@@ -27,7 +27,7 @@ describe('order Service test', () => {
           validityPeriod: '04/25',
         };
         const givenAddress = '서울시 양천구';
-        const givenBuyProducts: OrderBuyProduct[] = [{ productId: 1, quantity: 1 }];
+        const givenBuyProducts: OrderBuyProduct[] = [{ productId: 1, buyQuantity: 1 }];
 
         productRepository.findAllById.mockResolvedValue([
           {
@@ -70,7 +70,7 @@ describe('order Service test', () => {
           validityPeriod: '04/25',
         };
         const givenAddress = '서울시 양천구';
-        const givenBuyProducts: OrderBuyProduct[] = [{ productId: 1, quantity: 1 }];
+        const givenBuyProducts: OrderBuyProduct[] = [{ productId: 1, buyQuantity: 1 }];
 
         productRepository.findAllById.mockResolvedValue([]);
 

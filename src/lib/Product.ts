@@ -12,7 +12,6 @@ export interface Product {
   sellerId: number;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
 }
 
 interface getProductsByServer {

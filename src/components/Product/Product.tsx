@@ -1,0 +1,20 @@
+import {getProductsByServer, Product} from "@/lib/Product";
+import ProductDetail from "@/components/Product/ProductDetail";
+
+export default async function Product() {
+  const productArray = await getProductsByServer()
+
+  return (
+    <div>
+      {
+        productArray.products.map((product) => (
+          <ProductDetail
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            cost={product.cost} />
+          ))
+        }
+    </div>
+  )
+}

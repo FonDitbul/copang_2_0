@@ -1,5 +1,6 @@
-import {getProductsByServer, Product} from "@/lib/Product";
+import {getProductsByServer} from "@/lib/Product";
 import ProductDetail from "@/components/Product/ProductDetail";
+import {Product} from "@/interface/Product";
 
 export default async function Product() {
   const productArray = await getProductsByServer()

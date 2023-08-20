@@ -1,4 +1,5 @@
-import {getProductsByServer, Product} from "@/lib/Product";
+import {getProductsByServer} from "@/lib/Product";
+import {Product} from "@/interface/Product";
 
 type IProductDetail = Partial<Product>
 

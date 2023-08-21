@@ -1,7 +1,7 @@
 import {serverUrl} from "@/lib/api";
 import {Product} from "@/interface/Product";
 
-interface getProductsByServer {
+export interface getProductsByServer {
   products: Product[]
   isEndPage: boolean
 }

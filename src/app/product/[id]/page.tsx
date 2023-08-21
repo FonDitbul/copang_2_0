@@ -1,8 +1,25 @@
-"use client";
+import { getProductsByServer } from "@/lib/Product";
+import ProductCard from "@/components/Product/ProductCard";
 
-export default function ProductDetail({ params }: { params: { id: number } }) {
-  console.log(params.id)
-  console.log(params)
+export interface ProductDetailProps {
+  id: number;
+}
+
+export default async function ProductDetail({
+  params,
+}: {
+  params: ProductDetailProps;
+}) {
+
+  const productId = params.id;
   // TODO product id를 통한 product 조회
-  return <div>productDetail 받아오기</div>;
+  return (
+    <div>
+      <ProductCard
+        key={productId}
+        id={productId}
+        name={productId+''}
+        cost={productId}/>
+    </div>
+  );
 }

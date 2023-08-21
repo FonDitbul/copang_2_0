@@ -72,8 +72,8 @@ model BuyerCard {
   isRepresentative Boolean @map("is_representative")
 
   bankName       String @map("bank_name") @db.VarChar(100)
-  cardType       String @db.VarChar(100) // 신용, 체크카드
-  cardNumber     String @db.VarChar(100)
+  cardType       String @map("card_type") @db.VarChar(100) // 신용, 체크카드
+  cardNumber     String @map("card_number") @db.VarChar(100)
   validityPeriod String @map("validity_period") @db.VarChar(5) // 유효 기간 mm/yy
 
   createdAt DateTime  @default(now()) @map("created_at")

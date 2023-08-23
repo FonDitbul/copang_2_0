@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Headers from "@/components/common/Headers";
-import Footer from "@/components/common/Footers";
+import Headers from "@/components/Common/Headers";
+import Footer from "@/components/Common/Footers";
 
 export const metadata: Metadata = {
   title: 'copang!',

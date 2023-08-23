@@ -7,6 +7,7 @@ import { OrderService } from './application/order.service';
 import { OrderPrismaRepository } from './infrastructure/order.prisma.repository';
 import { OrderPaymentHttpServer } from './infrastructure/order.payment.http.server';
 import { CartModule } from '../cart/cart.module';
+import { OrderProductPrismaRepository } from './infrastructure/orderProduct.prisma.repository';
 
 @Module({
   imports: [RepositoryModule, AuthModule, ProductModule, CartModule],
@@ -21,10 +22,14 @@ import { CartModule } from '../cart/cart.module';
       useClass: OrderPrismaRepository,
     },
     {
+      provide: 'IOrderProductRepository',
+      useClass: OrderProductPrismaRepository,
+    },
+    {
       provide: 'IOrderPaymentServer',
       useClass: OrderPaymentHttpServer,
     },
   ],
-  exports: [],
+  exports: ['IOrderProductRepository'],
 })
 export class OrderModule {}

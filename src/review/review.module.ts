@@ -4,9 +4,11 @@ import { ReviewController } from './api/review.controller';
 import { ProductModule } from '../product/product.module';
 import { ReviewService } from './application/review.service';
 import { ReviewPrismaRepository } from './infrastructure/review.prisma.repository';
+import { AuthModule } from '../auth/auth.module';
+import { OrderModule } from '../order/order.module';
 
 @Module({
-  imports: [RepositoryModule, ProductModule],
+  imports: [RepositoryModule, ProductModule, AuthModule, OrderModule],
   controllers: [ReviewController],
   providers: [
     {

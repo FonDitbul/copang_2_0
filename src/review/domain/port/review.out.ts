@@ -7,3 +7,11 @@ export interface ReviewFindAllByProductIdOut {
   sort: SortType;
   sortColumn: string;
 }
+
+export interface CreateByBuyerOut {
+  star: number;
+  content: string;
+  productId: number;
+  buyerId: number;
+  orderProductId: number;
+}

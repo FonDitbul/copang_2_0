@@ -1,8 +1,12 @@
-import { Controller, DefaultValuePipe, Get, Inject, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Get, Inject, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
 import { SortType } from '../../common/domain/sort-type';
 import { SortValidationPipe } from '../../common/api/pipe/sort-validation.pipe';
 import { ReviewFindAllRes } from './review.res.dto';
 import { IReviewService } from '../domain/review.service';
+import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
+import { Buyer } from '../../buyer/api/buyer-info.decorator';
+import { UserInfo } from '../../auth/domain/login.token';
+import { ReviewCreateByBuyerReq } from './review.req.dto';
 
 @Controller()
 export class ReviewController {
@@ -26,5 +30,13 @@ export class ReviewController {
     return {
       list,
     };
+  }
+
+  @Post('/review/buyer')
+  @UseGuards(AuthAuthorizationGuard)
+  async createByBuyer(@Buyer() buyer: UserInfo, @Body() createByBuyerReq: ReviewCreateByBuyerReq) {
+    const review = await this.reviewService.createByBuyer({ buyerId: buyer.id, ...createByBuyerReq });
+
+    return review;
   }
 }

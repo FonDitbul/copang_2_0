@@ -27,6 +27,11 @@ export const EXCEPTION_STATUS = {
   CART_NOT_EXIST: { errorCode: 21002, message: '장바구니에 존재하지 않습니다.' },
   CART_DELETED: { errorCode: 21003, message: '삭제된 장바구니 입니다.' },
   CART_BUYER_ID_DIFFERENT: { errorCode: 21004, message: '장바구니의 buyerId와 요청한 buyerId가 다릅니다.' },
+
+  // 주문 물품 Order Product 관련 에러 22001 ~
+  ORDER_PRODUCT_NOT_EXIST: { errorCode: 22001, message: '주문 물품이 존재하지 않습니다' },
+  ORDER_PRODUCT_NOT_SHIPPING_COMPLETE: { errorCode: 22002, message: '주문 물품 배송이 완료되지 않았습니다.' },
+  ORDER_PRODUCT_NOT_MATCH_BUYER: { errorCode: 22003, message: 'buyer의 정보가 다릅니다.' },
 };
 
 export class CoPangException extends Error {

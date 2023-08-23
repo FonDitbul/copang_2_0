@@ -1,7 +1,7 @@
 import { IReviewRepository } from '../domain/reivew.repository';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { ReviewFindAllByProductIdOut } from '../domain/port/review.out';
+import { CreateByBuyerOut, ReviewFindAllByProductIdOut } from '../domain/port/review.out';
 import { Review as ReviewEntity } from '@prisma/client';
 
 @Injectable()
@@ -22,5 +22,18 @@ export class ReviewPrismaRepository implements IReviewRepository {
       ...(lastReviewId && { cursor: { id: lastReviewId } }),
     });
     return result;
+  }
+
+  async createByBuyer(createByBuyerOut: CreateByBuyerOut): Promise<ReviewEntity> {
+    const { star, content, productId, buyerId, orderProductId } = createByBuyerOut;
+    return this.prisma.review.create({
+      data: {
+        star,
+        content,
+        productId,
+        buyerId,
+        orderProductId,
+      },
+    });
   }
 }

@@ -1,3 +1,5 @@
+export type IShippingStatus = 'PAYMENT_INPROGRESS' | 'SHIPPING_READY' | 'SHIPPING' | 'SHIPPING_COMPLETE';
+
 export interface OrderProduct {
   id: number;
   code: string;
@@ -6,7 +8,7 @@ export interface OrderProduct {
   description: string;
   information: string;
   buyQuantity: number;
-  shippingStatus: string;
+  shippingStatus: string | IShippingStatus;
   address: string;
   sellerId: number;
   orderId: number;

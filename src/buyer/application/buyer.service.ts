@@ -76,6 +76,14 @@ export class BuyerService implements IBuyerService {
     return false;
   }
 
+  async checkExistUserPhoneNumber(phoneNumber: string) {
+    const existBuyer = await this.buyerRepository.findOne({ phoneNumber });
+    if (existBuyer) {
+      return true;
+    }
+    return false;
+  }
+
   async changePassword(changePasswordIn: BuyerChangePasswordIn) {
     const newPassword = changePasswordIn.password;
     const buyerId = changePasswordIn.id;

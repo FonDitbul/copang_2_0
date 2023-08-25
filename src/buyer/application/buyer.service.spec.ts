@@ -306,6 +306,42 @@ describe('Buyer Service test  ', () => {
     });
   });
 
+  describe('구매자 핸드폰 번호가 이미 존재하는 지 확인하는 기능 테스트', () => {
+    test('구매자의 핸드폰 번호를 사용하는 유저가 존재 경우', async () => {
+      const phoneNumber = '01012345678';
+      const givenBuyer: Buyer = {
+        id: 1,
+        userId: 'copang',
+        password: testEncryptPassword,
+        name: '코팡맨',
+        nickName: '코팡구매',
+        email: 'copang@copang.com',
+        phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
+      };
+
+      const buyerRepositorySpy = jest.spyOn(buyerRepository, 'findOne').mockResolvedValue(givenBuyer);
+
+      const result = await sut.checkExistUserPhoneNumber(phoneNumber);
+
+      expect(result).toEqual(true);
+      expect(buyerRepositorySpy).toHaveBeenCalled();
+    });
+
+    test('구매자의 핸드폰번호를 사용하는 유저가 존재하지 않는 경우', async () => {
+      const phoneNumber = '01012345678';
+
+      const buyerRepositorySpy = jest.spyOn(buyerRepository, 'findOne').mockResolvedValue(null);
+
+      const result = await sut.checkExistUserPhoneNumber(phoneNumber);
+
+      expect(result).toEqual(false);
+      expect(buyerRepositorySpy).toHaveBeenCalled();
+    });
+  });
+
   describe('구매자 비밀번호 변경 기능 테스트 ', () => {
     describe('성공 케이스', () => {
       test('비밀번호 변경이 성공한 케이스', async () => {

@@ -7,6 +7,8 @@ export class Buyer {
     public nickName: string,
     public email: string,
     public phoneNumber: string,
+    public createdAt: Date,
+    public updatedAt: Date,
     public deletedAt: Date | null,
   ) {}
 }

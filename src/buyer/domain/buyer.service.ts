@@ -4,6 +4,7 @@ import {
   BuyerChangeNickNameIn,
   BuyerChangePasswordIn,
   BuyerChangePhoneNumberIn,
+  BuyerGetAccountIn,
   BuyerLoginIn,
   BuyerSignUpIn,
 } from './port/buyer.in';
@@ -20,4 +21,5 @@ export interface IBuyerService {
   changeNickName: (changeNickNameIn: BuyerChangeNickNameIn) => Promise<Buyer>;
   changeEmail: (changeEmailIn: BuyerChangeEmailIn) => Promise<Buyer>;
   changePhoneNumber: (changePhoneNumberIn: BuyerChangePhoneNumberIn) => Promise<Buyer>;
+  getAccount: (id: number) => Promise<BuyerGetAccountIn>;
 }

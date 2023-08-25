@@ -35,6 +35,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@naver.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: null,
       };
       const willSignUpBuyer = {
@@ -67,6 +69,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@naver.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: null,
       };
 
@@ -108,6 +112,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@naver.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: new Date(),
       };
 
@@ -147,6 +153,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@naver.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: null,
       };
 
@@ -237,6 +245,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@naver.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: null,
       };
 
@@ -271,6 +281,8 @@ describe('Buyer Service test  ', () => {
         nickName: '코팡구매',
         email: 'copang@copang.com',
         phoneNumber: '01012345678',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deletedAt: null,
       };
 
@@ -308,6 +320,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -357,6 +371,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: new Date(),
         };
 
@@ -385,6 +401,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -419,6 +437,8 @@ describe('Buyer Service test  ', () => {
           nickName: '변경전코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -466,6 +486,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -477,6 +499,8 @@ describe('Buyer Service test  ', () => {
           nickName: '동일한닉네임',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
         loginToken.verifyByAccess.mockReturnValue(givenUserInfo);
@@ -508,6 +532,8 @@ describe('Buyer Service test  ', () => {
           nickName: '변경전코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -555,6 +581,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -566,6 +594,8 @@ describe('Buyer Service test  ', () => {
           nickName: '닉네임',
           email: email,
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
         loginToken.verifyByAccess.mockReturnValue(givenUserInfo);
@@ -595,6 +625,8 @@ describe('Buyer Service test  ', () => {
           nickName: '변경전코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -644,6 +676,8 @@ describe('Buyer Service test  ', () => {
           nickName: '코팡구매',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
 
@@ -655,6 +689,8 @@ describe('Buyer Service test  ', () => {
           nickName: '닉네임',
           email: 'copang@copang.com',
           phoneNumber: '01012345678',
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deletedAt: null,
         };
         loginToken.verifyByAccess.mockReturnValue(givenUserInfo);
@@ -663,6 +699,54 @@ describe('Buyer Service test  ', () => {
         await expect(async () => await sut.changePhoneNumber({ id, phoneNumber })).rejects.toThrow(
           new CoPangException(EXCEPTION_STATUS.USER_CHANGE_PHONE_NUMBER_SAME),
         );
+      });
+    });
+  });
+
+  describe('구매자 정보 가져오기 기능 테스트', function () {
+    describe('성공 케이스', () => {
+      it('구매자 토큰 값 id 를 통해 정보를 성공적으로 가져온 경우', async () => {
+        const id = 1;
+        const now = new Date();
+
+        const givenBuyer: Buyer = {
+          id: 1,
+          userId: 'copang',
+          password: testEncryptPassword,
+          name: '코팡맨',
+          nickName: '변경전코팡구매',
+          email: 'copang@copang.com',
+          phoneNumber: '01012345678',
+          createdAt: now,
+          updatedAt: now,
+          deletedAt: null,
+        };
+
+        buyerRepository.findOne.mockResolvedValueOnce(givenBuyer);
+
+        const result = await sut.getAccount(id);
+
+        expect(result).toEqual({
+          id: 1,
+          userId: 'copang',
+          name: '코팡맨',
+          nickName: '변경전코팡구매',
+          email: 'copang@copang.com',
+          phoneNumber: '01012345678',
+          createdAt: now,
+          updatedAt: now,
+          deletedAt: null,
+        });
+      });
+    });
+
+    describe('실패 케이스', () => {
+      it('해당 id를 통한 구매자정보가 DB에 존재하지 않을 경우', async () => {
+        const id = 1;
+
+        buyerRepository.findOne.mockResolvedValueOnce(null);
+
+        await expect(async () => await sut.getAccount(id)).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.USER_NOT_EXIST));
       });
     });
   });

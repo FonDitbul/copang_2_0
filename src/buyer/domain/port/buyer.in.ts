@@ -1,3 +1,5 @@
+import { Buyer } from '../buyer';
+
 export interface BuyerSignUpIn {
   userId: string;
   password: string;
@@ -31,3 +33,5 @@ export interface BuyerChangeEmailIn extends BuyerId {
 export interface BuyerChangePhoneNumberIn extends BuyerId {
   phoneNumber: string;
 }
+
+export type BuyerGetAccountIn = Omit<Buyer, 'password'>;

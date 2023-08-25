@@ -5,6 +5,7 @@ import {
   BuyerChangeNickNameIn,
   BuyerChangePasswordIn,
   BuyerChangePhoneNumberIn,
+  BuyerGetAccountIn,
   BuyerLoginIn,
   BuyerSignUpIn,
 } from '../domain/port/buyer.in';
@@ -152,5 +153,16 @@ export class BuyerService implements IBuyerService {
 
     const changeBuyer = await this.buyerRepository.changePhoneNumber({ id: buyerId, phoneNumber: changedPhoneNumber });
     return changeBuyer;
+  }
+
+  async getAccount(id: number): Promise<BuyerGetAccountIn> {
+    const buyer = await this.buyerRepository.findOne({ id });
+
+    if (!buyer) {
+      throw new CoPangException(EXCEPTION_STATUS.USER_NOT_EXIST);
+    }
+
+    delete buyer.password;
+    return buyer;
   }
 }

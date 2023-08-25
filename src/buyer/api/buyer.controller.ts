@@ -61,6 +61,14 @@ export class BuyerController {
     return response;
   }
 
+  @Get('/buyer')
+  @UseGuards(AuthAuthorizationGuard)
+  async account(@Buyer() buyer: UserInfo) {
+    const account = await this.buyerService.getAccount(buyer.id);
+
+    return account;
+  }
+
   @Get('/buyer/exist-user-id/:userId')
   async checkExistId(@Param('userId') userId: string) {
     const response = this.buyerService.checkExistUserId(userId);

@@ -3,6 +3,11 @@ import { FormEvent, useState } from "react";
 import SignUpInput from "@/components/Account/signUpInput";
 import { signUpBuyer } from "@/lib/Account.api";
 import { useRouter } from "next/navigation";
+import {
+  emailValidation,
+  passwordSameCheck,
+  phoneNumberValidation,
+} from "@/components/Account/signUpCalculate";
 
 export default function SignUp() {
   const [userId, setUserId] = useState("");
@@ -18,6 +23,18 @@ export default function SignUp() {
   const signUpClickEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      if (!passwordSameCheck(password, passwordCheck)) {
+        return alert("비밀번호가 다르게 입력되었습니다.");
+      }
+
+      if (!emailValidation(email)) {
+        return alert("이메일 형식이 올바르지 않습니다.");
+      }
+
+      if (!phoneNumberValidation(phoneNumber)) {
+        return alert("핸드폰 번호 형식이 올바르지 않습니다.");
+      }
+
       await signUpBuyer({
         userId,
         name,
@@ -30,7 +47,7 @@ export default function SignUp() {
       router.push("/");
     } catch (e) {
       console.log(e);
-      alert("회원가입을 실패했습니다. 다시 시도해주세요. ");
+      alert("회원가입을 실패했습니다. 다시 시도해주세요.");
     }
   };
 

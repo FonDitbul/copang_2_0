@@ -17,6 +17,7 @@ export interface IBuyerService {
   refreshLoginByToken: (refreshLoginTokenIn: string) => OneLoginToken;
   checkExistUserId: (userId: string) => Promise<boolean>;
   checkExistUserEmail: (email: string) => Promise<boolean>;
+  checkExistUserPhoneNumber: (phoneNumber: string) => Promise<boolean>;
   changePassword: (changePasswordIn: BuyerChangePasswordIn) => Promise<void>;
   changeNickName: (changeNickNameIn: BuyerChangeNickNameIn) => Promise<Buyer>;
   changeEmail: (changeEmailIn: BuyerChangeEmailIn) => Promise<Buyer>;

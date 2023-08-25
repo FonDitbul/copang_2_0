@@ -12,6 +12,7 @@ import { BuyerLoginRes, BuyerSignUpRes } from './buyer.res.dto';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { UserInfo } from '../../auth/domain/login.token';
 import { Buyer } from './buyer-info.decorator';
+import { phoneNumberFormattingPipe } from './buyer-phone-number.pipe';
 
 @Controller()
 export class BuyerController {
@@ -78,6 +79,12 @@ export class BuyerController {
   @Get('/buyer/exist-user-email/:email')
   async checkExistEmail(@Param('email') email: string) {
     const response = this.buyerService.checkExistUserEmail(email);
+    return response;
+  }
+
+  @Get('/buyer/exist-user-phone-number/:phoneNumber')
+  async checkExistPhoneNumber(@Param('phoneNumber', phoneNumberFormattingPipe) phoneNumber: string) {
+    const response = this.buyerService.checkExistUserPhoneNumber(phoneNumber);
     return response;
   }
 

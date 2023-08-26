@@ -1,33 +1,31 @@
-import './globals.css'
-import type { Metadata } from 'next'
+import "./globals.css";
+import type { Metadata } from "next";
 import Headers from "@/components/Common/Headers";
 import Footer from "@/components/Common/Footers";
 
 export const metadata: Metadata = {
-  title: 'copang!',
-  description: 'copang store page',
-}
+  title: "copang!",
+  description: "copang store page",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
         <main className="flex min-h-screen flex-col items-center justify-between p-24 justify-center">
           <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex">
-            <Headers/>
+            <Headers />
           </div>
+          <div>{children}</div>
           <div>
-            {children}
-          </div>
-          <div>
-            <Footer/>
+            <Footer />
           </div>
         </main>
       </body>
     </html>
-  )
+  );
 }

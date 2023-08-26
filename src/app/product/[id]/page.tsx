@@ -10,7 +10,6 @@ export default async function ProductDetail({
 }: {
   params: ProductDetailProps;
 }) {
-
   const productId = params.id;
   // TODO product id를 통한 product 조회
   return (
@@ -18,8 +17,9 @@ export default async function ProductDetail({
       <ProductCard
         key={productId}
         id={productId}
-        name={productId+''}
-        cost={productId}/>
+        name={productId + ""}
+        cost={productId}
+      />
     </div>
   );
 }

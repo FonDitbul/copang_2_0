@@ -1,4 +1,4 @@
 export interface Response<T> {
-  isSuccess: boolean
+  isSuccess: boolean;
   content: T;
 }

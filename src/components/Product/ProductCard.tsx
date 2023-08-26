@@ -56,4 +56,3 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
     </div>
   );
 }
-

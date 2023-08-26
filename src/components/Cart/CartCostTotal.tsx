@@ -1,5 +1,5 @@
 export default function CartCostTotal() {
-  // TODO 스크롤에 맞춰 내려가기 
+  // TODO 스크롤에 맞춰 내려가기
   return (
     <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
       <div className="mb-2 flex justify-between">
@@ -10,7 +10,7 @@ export default function CartCostTotal() {
         <p className="text-gray-700">Shipping</p>
         <p className="text-gray-700">$4.99</p>
       </div>
-      <hr className="my-4"/>
+      <hr className="my-4" />
       <div className="flex justify-between">
         <p className="text-lg font-bold">Total</p>
         <div className="">
@@ -22,5 +22,5 @@ export default function CartCostTotal() {
         계산하기
       </button>
     </div>
-  )
+  );
 }

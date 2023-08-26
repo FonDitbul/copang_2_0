@@ -14,7 +14,7 @@ export default function Headers() {
       <div className="z-10 max-w-5xl justify-between font-mono t lg:flex px-4">
         <Link href="/cart">
           <p className="left-0 top-0 flex w-full border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-            장바구니 보기 
+            장바구니 보기
           </p>
         </Link>
       </div>
@@ -26,7 +26,6 @@ export default function Headers() {
           </p>
         </Link>
       </div>
-      
 
       <div className="z-10 max-w-5xl justify-between font-mono text-sm lg:flex px-4">
         <Link href="/account">
@@ -35,6 +34,6 @@ export default function Headers() {
           </p>
         </Link>
       </div>
-    </header >
-  )
+    </header>
+  );
 }

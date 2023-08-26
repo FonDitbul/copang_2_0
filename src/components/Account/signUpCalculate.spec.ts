@@ -1,4 +1,8 @@
-import {emailValidation, passwordSameCheck, phoneNumberValidation} from "./signUpCalculate";
+import {
+  emailValidation,
+  passwordSameCheck,
+  phoneNumberValidation,
+} from "./signUpCalculate";
 
 describe("signUpCalculate 테스트", function () {
   describe("passwordSameCheck 비밀번호와 비밀번호 확인 value가 같은지 테스트", function () {
@@ -21,47 +25,47 @@ describe("signUpCalculate 테스트", function () {
     });
   });
 
-  describe('emailValidation email 형식 테스트', () => {
-    it('이메일 형식이 올바르게 입력되었을 경우', () => {
-      const givenEmail = 'test@google.com'
+  describe("emailValidation email 형식 테스트", () => {
+    it("이메일 형식이 올바르게 입력되었을 경우", () => {
+      const givenEmail = "test@google.com";
 
-      const result = emailValidation(givenEmail)
+      const result = emailValidation(givenEmail);
 
-      expect(result).toBeTruthy()
-    })
+      expect(result).toBeTruthy();
+    });
 
-    it('이메일 형식이 올바르게 입력되지 않았을 경우', () => {
-      const givenEmail = 'testgoogle.com'
+    it("이메일 형식이 올바르게 입력되지 않았을 경우", () => {
+      const givenEmail = "testgoogle.com";
 
-      const result = emailValidation(givenEmail)
+      const result = emailValidation(givenEmail);
 
-      expect(result).toBeFalsy()
-    })
-  })
+      expect(result).toBeFalsy();
+    });
+  });
 
-  describe('phoneNumberValidation 핸드폰 번호 형식 테스트', () => {
-    it('핸드폰 번호 가 올바르게 입력된 경우', () => {
-      const givenPhoneNumber = '01012345678'
+  describe("phoneNumberValidation 핸드폰 번호 형식 테스트", () => {
+    it("핸드폰 번호 가 올바르게 입력된 경우", () => {
+      const givenPhoneNumber = "01012345678";
 
-      const result = phoneNumberValidation(givenPhoneNumber)
+      const result = phoneNumberValidation(givenPhoneNumber);
 
-      expect(result).toBeTruthy()
-    })
+      expect(result).toBeTruthy();
+    });
 
-    it('핸드폰 번호 에 문자가 들어간 경우 ', () => {
-      const givenPhoneNumber = '0101234a'
+    it("핸드폰 번호 에 문자가 들어간 경우 ", () => {
+      const givenPhoneNumber = "0101234a";
 
-      const result = phoneNumberValidation(givenPhoneNumber)
+      const result = phoneNumberValidation(givenPhoneNumber);
 
-      expect(result).toBeFalsy()
-    })
+      expect(result).toBeFalsy();
+    });
 
-    it('핸드폰 번호 숫자가 짧은 경우', () => {
-      const givenPhoneNumber = '0101234'
+    it("핸드폰 번호 숫자가 짧은 경우", () => {
+      const givenPhoneNumber = "0101234";
 
-      const result = phoneNumberValidation(givenPhoneNumber)
+      const result = phoneNumberValidation(givenPhoneNumber);
 
-      expect(result).toBeFalsy()
-    })
-  })
+      expect(result).toBeFalsy();
+    });
+  });
 });

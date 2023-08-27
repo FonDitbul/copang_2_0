@@ -2,6 +2,7 @@
 import { Product } from "@/interface/Product";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/Common/Button";
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;
 
 export default function ProductCard({ id, name, cost }: IProductDetail) {
@@ -38,20 +39,12 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
         <p className="text-sm font-medium"> {costDisplayDot(cost)}원</p>
       </div>
       <div className="flex">
-        <button
-          id="addToCart"
-          onClick={addToCartButton}
-          className="px-2 mt-6 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
+        <Button id="addToCart" onClick={addToCartButton}>
           장바구니에 담기
-        </button>
-        <button
-          id="productBuy"
-          onClick={productBuyButton}
-          className="px-2 mt-6 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
+        </Button>
+        <Button id="productBuy" onClick={productBuyButton}>
           바로 구매하기
-        </button>
+        </Button>
       </div>
     </div>
   );

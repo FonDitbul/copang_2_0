@@ -76,6 +76,12 @@ export class BuyerController {
     return response;
   }
 
+  @Get('/buyer/exist-user-nick-name/:nickName')
+  async checkExistNickName(@Param('nickName') nickName: string) {
+    const response = this.buyerService.checkExistNickName(nickName);
+    return response;
+  }
+
   @Get('/buyer/exist-user-email/:email')
   async checkExistEmail(@Param('email') email: string) {
     const response = this.buyerService.checkExistUserEmail(email);

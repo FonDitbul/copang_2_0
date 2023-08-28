@@ -68,6 +68,14 @@ export class BuyerService implements IBuyerService {
     return false;
   }
 
+  async checkExistNickName(nickName: string) {
+    const existBuyer = await this.buyerRepository.findOne({ nickName });
+    if (existBuyer) {
+      return true;
+    }
+    return false;
+  }
+
   async checkExistUserEmail(email: string) {
     const existBuyer = await this.buyerRepository.findOne({ email: email });
     if (existBuyer) {

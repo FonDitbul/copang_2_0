@@ -25,7 +25,7 @@ export interface ISignUpReq {
   phoneNumber: string;
 }
 
-type SignUpBuyer = Partial<Buyer>;
+export type SignUpBuyer = Partial<Buyer>;
 
 export async function signUpBuyer(signUpReq: ISignUpReq): Promise<SignUpBuyer> {
   const response = await fetch(`http://${serverUrl}/buyer/sign-up`, {
@@ -62,6 +62,61 @@ export async function loginBuyer() {
   // if (response.status !== 200) {
   //   throw new Error("api Error");
   // }
+  const result = await response.json();
+
+  return result.content;
+}
+
+export async function isExistBuyerUserId(userId: string): Promise<boolean> {
+  const response = await fetch(
+    `http://${serverUrl}/buyer/exist-user-id/${userId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  if (response.status !== 200) {
+    throw new Error("api Error");
+  }
+  const result = await response.json();
+
+  return result.content;
+}
+
+export async function isExistBuyerNickName(nickName: string): Promise<boolean> {
+  const response = await fetch(
+    `http://${serverUrl}/buyer/exist-user-nick-name/${nickName}`,
+  );
+  if (response.status !== 200) {
+    throw new Error("api Error");
+  }
+  const result = await response.json();
+
+  return result.content;
+}
+
+export async function isExistBuyerEmail(email: string): Promise<boolean> {
+  const response = await fetch(
+    `http://${serverUrl}/buyer/exist-user-email/${email}`,
+  );
+  if (response.status !== 200) {
+    throw new Error("api Error");
+  }
+  const result = await response.json();
+
+  return result.content;
+}
+
+export async function isExistBuyerPhoneNumber(
+  phoneNumber: string,
+): Promise<boolean> {
+  const response = await fetch(
+    `http://${serverUrl}/buyer/exist-user-email/${phoneNumber}`,
+  );
+  if (response.status !== 200) {
+    throw new Error("api Error");
+  }
   const result = await response.json();
 
   return result.content;

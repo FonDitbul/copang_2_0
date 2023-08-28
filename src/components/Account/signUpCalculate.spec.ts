@@ -1,5 +1,6 @@
 import {
   emailValidation,
+  formattingPhoneNumber,
   passwordSameCheck,
   phoneNumberValidation,
 } from "./signUpCalculate";
@@ -66,6 +67,24 @@ describe("signUpCalculate 테스트", function () {
       const result = phoneNumberValidation(givenPhoneNumber);
 
       expect(result).toBeFalsy();
+    });
+  });
+
+  describe("formattingPhoneNumber 핸드폰 번호 포매팅 테스트", () => {
+    it("하이픈이 입력된 경우", () => {
+      const givenPhoneNumber = "010-1234-5678";
+
+      const result = formattingPhoneNumber(givenPhoneNumber);
+
+      expect(result).toBe("01012345678");
+    });
+
+    it("띄어쓰기로 입력된 경우 ", () => {
+      const givenPhoneNumber = "010 1234 5678";
+
+      const result = formattingPhoneNumber(givenPhoneNumber);
+
+      expect(result).toBe("01012345678");
     });
   });
 });

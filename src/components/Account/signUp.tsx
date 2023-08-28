@@ -5,9 +5,13 @@ import { signUpBuyer } from "@/lib/Account.api";
 import { useRouter } from "next/navigation";
 import {
   emailValidation,
+  formattingPhoneNumber,
   passwordSameCheck,
   phoneNumberValidation,
 } from "@/components/Account/signUpCalculate";
+import { SignUpDuplicateAction } from "@/components/Account/signUpDuplicateAction";
+
+export type AvailableState = "INIT" | "AVAILABLE" | "DUPLICATE";
 
 export default function SignUp() {
   const [userId, setUserId] = useState("");
@@ -18,11 +22,32 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const [isUserIdAvailable, setIsUserIdAvailable] = useState(
+    "INIT" as AvailableState,
+  );
+  const [isNickNameAvailable, setIsNickNameAvailable] = useState(
+    "INIT" as AvailableState,
+  );
+  const [isEmailAvailable, setIsEmailAvailable] = useState(
+    "INIT" as AvailableState,
+  );
+  const [isPhoneNumberAvailable, setIsPhoneNumberAvailable] = useState(
+    "INIT" as AvailableState,
+  );
+
   const router = useRouter();
 
   const signUpClickEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      if (
+        !isUserIdAvailable ||
+        !isNickNameAvailable ||
+        !isEmailAvailable ||
+        !isPhoneNumberAvailable
+      ) {
+        return alert("중복 확인 필요");
+      }
       if (!passwordSameCheck(password, passwordCheck)) {
         return alert("비밀번호가 다르게 입력되었습니다.");
       }
@@ -46,7 +71,6 @@ export default function SignUp() {
       alert("회원가입 성공");
       router.push("/");
     } catch (e) {
-      console.log(e);
       alert("회원가입을 실패했습니다. 다시 시도해주세요.");
     }
   };
@@ -57,32 +81,45 @@ export default function SignUp() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-6">
             <h1>copang 회원가입 </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={signUpClickEvent}
-            >
+            <form className="space-y-4 md:spac-y-6" onSubmit={signUpClickEvent}>
               <SignUpInput
                 id="id"
                 text="아이디"
                 value={userId}
-                setValue={setUserId}
-                isDuplicateButton={true}
+                onChange={(e) => {
+                  setIsUserIdAvailable("INIT");
+                  setUserId(e.target.value);
+                }}
+                duplicateButton={{
+                  title: "아이디",
+                  value: userId,
+                  onClick: async () => {
+                    await SignUpDuplicateAction(
+                      "USER_ID",
+                      userId,
+                      setIsUserIdAvailable,
+                    );
+                  },
+                  availableState: isUserIdAvailable,
+                }}
                 type="text"
               />
               <SignUpInput
                 id="password"
                 text="비밀번호"
                 value={password}
-                setValue={setPassword}
-                isDuplicateButton={false}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 type="password"
               />
               <SignUpInput
                 id="passwordCheck"
                 text="비밀번호 확인"
                 value={passwordCheck}
-                setValue={setPasswordCheck}
-                isDuplicateButton={false}
+                onChange={(e) => {
+                  setPasswordCheck(e.target.value);
+                }}
                 type="password"
               />
 
@@ -90,8 +127,9 @@ export default function SignUp() {
                 id="name"
                 text="이름"
                 value={name}
-                setValue={setName}
-                isDuplicateButton={false}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
                 type="text"
               />
 
@@ -99,8 +137,22 @@ export default function SignUp() {
                 id="nickName"
                 text="닉네임"
                 value={nickName}
-                setValue={setNickName}
-                isDuplicateButton={true}
+                onChange={(e) => {
+                  setIsNickNameAvailable("INIT");
+                  setNickName(e.target.value);
+                }}
+                duplicateButton={{
+                  title: "닉네임",
+                  value: nickName,
+                  onClick: async () => {
+                    await SignUpDuplicateAction(
+                      "NICK_NAME",
+                      nickName,
+                      setIsNickNameAvailable,
+                    );
+                  },
+                  availableState: isNickNameAvailable,
+                }}
                 type="text"
               />
 
@@ -108,8 +160,22 @@ export default function SignUp() {
                 id="email"
                 text="이메일"
                 value={email}
-                setValue={setEmail}
-                isDuplicateButton={true}
+                onChange={(e) => {
+                  setIsEmailAvailable("INIT");
+                  setEmail(e.target.value);
+                }}
+                duplicateButton={{
+                  title: "이메일",
+                  value: email,
+                  onClick: async () => {
+                    await SignUpDuplicateAction(
+                      "EMAIL",
+                      email,
+                      setIsEmailAvailable,
+                    );
+                  },
+                  availableState: isEmailAvailable,
+                }}
                 type="text"
               />
 
@@ -117,8 +183,22 @@ export default function SignUp() {
                 id="phoneNumber"
                 text="핸드폰 번호"
                 value={phoneNumber}
-                setValue={setPhoneNumber}
-                isDuplicateButton={true}
+                onChange={(e) => {
+                  setIsPhoneNumberAvailable("INIT");
+                  setPhoneNumber(formattingPhoneNumber(e.target.value));
+                }}
+                duplicateButton={{
+                  title: "핸드폰 번호",
+                  value: phoneNumber,
+                  onClick: async () => {
+                    await SignUpDuplicateAction(
+                      "PHONE_NUMBER",
+                      phoneNumber,
+                      setIsPhoneNumberAvailable,
+                    );
+                  },
+                  availableState: isPhoneNumberAvailable,
+                }}
                 type="text"
               />
 

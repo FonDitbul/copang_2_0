@@ -18,3 +18,7 @@ export function phoneNumberValidation(phoneNumber: string): boolean {
   const phoneNumberReg = /^01([0|1|6|7|8|9])?([0-9]{7,8})$/;
   return phoneNumberReg.test(phoneNumber);
 }
+
+export const formattingPhoneNumber = (phoneNumber: string) => {
+  return phoneNumber.trim().replace(/-/g, '').replace(/(\s*)/g, '');
+};

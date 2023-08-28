@@ -1,8 +1,27 @@
 "use client";
-
 import Button from "@/components/Common/Button";
+import { AvailableState } from "@/components/Account/signUp";
 
-export default function ValueDuplicateButton({ value }: { value: string }) {
-  // console.log(value);
-  return <Button> 중복 체크 </Button>;
+export interface DuplicateButtonProps {
+  title: string;
+  value: string;
+  onClick: () => Promise<void>;
+  availableState: AvailableState;
+}
+
+export default function ValueDuplicateButton({
+  title,
+  value,
+  onClick,
+  availableState,
+}: DuplicateButtonProps) {
+  return (
+    <>
+      <Button onClick={onClick}> 중복 확인 </Button>
+      {availableState === "INIT" && <span>{title}을(를) 입력해 주세요.</span>}
+      {availableState === "AVAILABLE" && (
+        <span>사용 가능한 {title} 입니다.</span>
+      )}
+    </>
+  );
 }

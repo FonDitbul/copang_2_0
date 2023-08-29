@@ -41,10 +41,10 @@ export default function SignUp() {
     e.preventDefault();
     try {
       if (
-        !isUserIdAvailable ||
-        !isNickNameAvailable ||
-        !isEmailAvailable ||
-        !isPhoneNumberAvailable
+        isUserIdAvailable !== "AVAILABLE" ||
+        isNickNameAvailable !== "AVAILABLE" ||
+        isEmailAvailable !== "AVAILABLE" ||
+        isPhoneNumberAvailable !== "AVAILABLE"
       ) {
         return alert("중복 확인 필요");
       }

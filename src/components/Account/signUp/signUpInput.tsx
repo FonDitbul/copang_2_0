@@ -2,8 +2,8 @@
 import { ChangeEventHandler, Dispatch, SetStateAction } from "react";
 import valueDuplicateButton, {
   DuplicateButtonProps,
-} from "@/components/Account/valueDuplicateButton";
-import ValueDuplicateButton from "@/components/Account/valueDuplicateButton";
+} from "@/components/Account/signUp/valueDuplicateButton";
+import ValueDuplicateButton from "@/components/Account/signUp/valueDuplicateButton";
 
 export interface ISignUpInput {
   id: string;

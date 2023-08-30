@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import SignUpInput from "@/components/Account/signUpInput";
+import SignUpInput from "@/components/Account/signUp/signUpInput";
 import { signUpBuyer } from "@/lib/Account.api";
 import { useRouter } from "next/navigation";
 import {
@@ -8,8 +8,8 @@ import {
   formattingPhoneNumber,
   passwordSameCheck,
   phoneNumberValidation,
-} from "@/components/Account/signUpCalculate";
-import { SignUpDuplicateAction } from "@/components/Account/signUpDuplicateAction";
+} from "@/components/Account/signUp/signUpCalculate";
+import { SignUpDuplicateAction } from "@/components/Account/signUp/signUpDuplicateAction";
 
 export type AvailableState = "INIT" | "AVAILABLE" | "DUPLICATE";
 

@@ -5,7 +5,7 @@ import {
   isExistBuyerPhoneNumber,
   isExistBuyerUserId,
 } from "@/lib/Account.api";
-import { AvailableState } from "@/components/Account/signUp";
+import { AvailableState } from "@/components/Account/signUp/signUp";
 
 type DuplicationType = "USER_ID" | "NICK_NAME" | "EMAIL" | "PHONE_NUMBER";
 export const SignUpDuplicateAction = async (

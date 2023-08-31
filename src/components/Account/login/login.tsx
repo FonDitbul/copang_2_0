@@ -1,6 +1,34 @@
-import Link from "next/link";
+"use client";
+import SignUpLink from "@/components/Account/signUp/signUpLink";
+import Button from "@/components/Common/atom/Button";
+import { ChangeEvent, useState } from "react";
+import { loginByServer } from "@/components/Account/login/loginAction";
+import Input from "@/components/Common/atom/Input";
+import { useRouter } from "next/navigation";
 
 export default function AccountLogin() {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+
+  const loginButtonClick = async () => {
+    if (!userId || !password) {
+      return alert("로그인 혹은 패스워드를 입력해주세요");
+    }
+    await loginByServer(userId, password);
+    alert("로그인 성공");
+    return router.push("/");
+  };
+
+  const setUserIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
+  };
+
+  const setPasswordOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 mx-auto md:h-screen">
@@ -15,12 +43,12 @@ export default function AccountLogin() {
                   {" "}
                   아이디{" "}
                 </label>
-                <input
-                  type="id"
+                <Input
                   name="id"
                   id="아이디 입력"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="아이디"
+                  onChange={setUserIdChange}
                 />
               </div>
               <div>
@@ -31,12 +59,13 @@ export default function AccountLogin() {
                   {" "}
                   비밀번호{" "}
                 </label>
-                <input
+                <Input
                   type="password"
                   name="password"
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={setPasswordOnChange}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -65,19 +94,14 @@ export default function AccountLogin() {
                   비밀번호를 잊어버리셨나요?
                 </a>
               </div>
-              <button
-                type="submit"
+              <Button
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                onClick={loginButtonClick}
               >
                 로그인
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                <Link href="/account/signUp">
-                  <p className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                    계정 생성하기
-                  </p>
-                </Link>
-              </p>
+              </Button>
+
+              <SignUpLink />
             </form>
           </div>
         </div>

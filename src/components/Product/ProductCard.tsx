@@ -2,7 +2,7 @@
 import { Product } from "@/interface/Product";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@/components/Common/Button";
+import Button from "@/components/Common/atom/Button";
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;
 
 export default function ProductCard({ id, name, cost }: IProductDetail) {

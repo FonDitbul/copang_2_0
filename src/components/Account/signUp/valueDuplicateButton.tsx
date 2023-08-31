@@ -1,6 +1,6 @@
 "use client";
-import Button from "@/components/Common/Button";
-import { AvailableState } from "@/components/Account/signUp";
+import Button from "@/components/Common/atom/Button";
+import { AvailableState } from "@/components/Account/signUp/signUp";
 
 export interface DuplicateButtonProps {
   title: string;

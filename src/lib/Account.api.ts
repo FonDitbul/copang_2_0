@@ -46,26 +46,7 @@ export async function signUpBuyer(signUpReq: ISignUpReq): Promise<SignUpBuyer> {
   return result.content;
 }
 
-export async function loginBuyer() {
-  const response = await fetch(`http://${serverUrl}/buyer/login`, {
-    method: "POST",
-    cache: "no-cache",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId: "copang",
-      password: "copang1234!",
-    }),
-  });
 
-  // if (response.status !== 200) {
-  //   throw new Error("api Error");
-  // }
-  const result = await response.json();
-
-  return result.content;
-}
 
 export async function isExistBuyerUserId(userId: string): Promise<boolean> {
   const response = await fetch(

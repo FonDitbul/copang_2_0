@@ -1,9 +1,11 @@
 "use client";
 import AccountLogin from "@/components/Account/login/login";
+import AccountSettingPage from "@/components/Account/detail/detail.page";
+import { getStorage } from "@/lib/clinet-storage";
 
 export default function Account() {
-  if (localStorage.getItem("accessToken")) {
-    return <div>로그인 정보 페이지</div>;
+  if (getStorage("accessToken")) {
+    return <AccountSettingPage />;
   }
 
   return (

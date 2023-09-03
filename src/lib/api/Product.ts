@@ -1,4 +1,4 @@
-import { serverUrl } from "@/lib/api";
+import { serverUrl } from "@/lib/api/api";
 import { Product } from "@/interface/Product";
 
 export interface getProductsByServer {

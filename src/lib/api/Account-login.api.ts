@@ -1,5 +1,5 @@
-import { serverUrl } from "@/lib/api";
-import { Response } from "@/lib/response";
+import { serverUrl } from "@/lib/api/api";
+import { Response } from "@/lib/api/interface/response";
 
 export interface BuyerLoginRequest {
   userId: string;

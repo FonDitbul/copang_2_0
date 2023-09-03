@@ -7,7 +7,8 @@ import { authApi, BuyerAccount } from "@/lib/api/Auth.api";
 import { getStorage } from "@/lib/clinet-storage";
 import { serverUrl } from "@/lib/api/api";
 import { Buyer } from "@/interface/Buyer";
-import {dateToString, stringToDate} from "@/util/time";
+import { dateToString, stringToDate } from "@/util/time";
+import Button from "@/components/Common/atom/Button";
 
 export default function AccountDetailPage() {
   const [account, setAccount] = useState({
@@ -52,22 +53,29 @@ export default function AccountDetailPage() {
         email,
         phoneNumber,
         createdAt: stringToDate(createdAt),
-        updatedAt: stringToDate(updatedAt)
+        updatedAt: stringToDate(updatedAt),
       });
     };
     getMyAccount();
   }, []);
 
+  // TODO Design 변경
   return (
     <div>
       <div>이름</div>
       <div>{account.name}</div>
       <div>닉네임</div>
       <div>{account.nickName}</div>
+      <Button> 닉네임 변경하기 </Button>
       <div>이메일</div>
       <div>{account.email}</div>
+      <Button> 이메일 변경하기 </Button>
       <div>핸드폰 번호</div>
       <div>{account.phoneNumber}</div>
+      <Button> 핸드폰 번호 변경하기 </Button>
+
+      <div>생성일</div>
+      <div>{dateToString(account.createdAt)}</div>
 
       <LogoutButton />
     </div>

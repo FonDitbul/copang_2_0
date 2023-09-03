@@ -1,4 +1,4 @@
-import { getProductsByServer } from "@/lib/Product";
+import { getProductsByServer } from "@/lib/api/Product";
 import ProductCard from "@/components/Product/ProductCard";
 import { useEffect, useState } from "react";
 

@@ -1,4 +1,4 @@
-import { BuyerLoginResponse, loginBuyer } from "@/lib/Account-login.api";
+import { BuyerLoginResponse, loginBuyer } from "@/lib/api/Account-login.api";
 import { setStorage } from "@/lib/clinet-storage";
 
 export const loginByServer = async (userId: string, password: string) => {

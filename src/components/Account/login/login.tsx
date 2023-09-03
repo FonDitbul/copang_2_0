@@ -17,6 +17,7 @@ export default function AccountLogin() {
       return alert("로그인 혹은 패스워드를 입력해주세요");
     }
     await loginByServer(userId, password);
+    setTimeout(() => console.log("test"), 100);
     alert("로그인 성공");
     return router.push("/");
   };

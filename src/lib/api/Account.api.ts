@@ -1,4 +1,4 @@
-import { serverUrl } from "@/lib/api";
+import { serverUrl } from "@/lib/api/api";
 import { Buyer } from "@/interface/Buyer";
 
 export interface ISignUpReq {

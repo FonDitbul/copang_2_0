@@ -1,4 +1,4 @@
-import { getProductsByServer } from "@/lib/Product";
+import { getProductsByServer } from "@/lib/api/Product";
 import { Product } from "@/interface/Product";
 
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;

@@ -4,7 +4,7 @@ import {
   isExistBuyerNickName,
   isExistBuyerPhoneNumber,
   isExistBuyerUserId,
-} from "@/lib/Account.api";
+} from "@/lib/api/Account.api";
 import { AvailableState } from "@/components/Account/signUp/signUp";
 
 type DuplicationType = "USER_ID" | "NICK_NAME" | "EMAIL" | "PHONE_NUMBER";

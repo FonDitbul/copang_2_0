@@ -1,25 +1,34 @@
 import { EXCEPTION_STATUS } from "@/lib/api/error-code";
 import { clearStorage, getStorage } from "@/lib/clinet-storage";
+import { Response } from "@/lib/api/interface/response";
+import { BuyerLoginResponse } from "@/lib/api/Account-login.api";
+import { Buyer } from "@/interface/Buyer";
 
-export async function authApi(
+export type BuyerAccount = Omit<
+  Buyer,
+  "password" | "createdAt" | "updatedAt"
+> & {
+  createdAt: string;
+  updatedAt: string;
+};
+
+export async function authApi<T>(
   accessToken: string,
   input: RequestInfo | URL,
   init?: RequestInit,
-): Promise<Response> {
+): Promise<Response<T>> {
   const response = await fetch(input, {
     ...init,
     headers: {
-      Authorization: accessToken,
+      Authorization: "Bearer " + accessToken,
     },
   });
 
-  const result = await response.json();
+  const result: Response<T> = await response.json();
   if (
     response.status === 500 &&
     result.errorCode === EXCEPTION_STATUS.LOGIN_TOKEN_EXPIRE.errorCode
   ) {
-    // 토큰이 만료되었을 경우
-    // refresh token 이 만료되지 않앗을 경우 사용
     const refreshToken = getStorage("refreshToken");
     const refreshTokenExpire = getStorage("refreshTokenExpireAt");
 
@@ -27,9 +36,10 @@ export async function authApi(
       throw new Error("refreshToken 이 존재하지 않습니다.");
     }
 
+    // 만료처리
     const now = new Date();
     const refreshTokenExpireDate = new Date(refreshTokenExpire);
-    if (refreshTokenExpireDate > now) {
+    if (refreshTokenExpireDate < now) {
       clearStorage();
       alert("로그인 해주세요");
       throw new Error("토큰 만료");

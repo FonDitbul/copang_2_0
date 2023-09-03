@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useState } from "react";
 import SignUpInput from "@/components/Account/signUp/signUpInput";
-import { signUpBuyer } from "@/lib/Account.api";
+import { signUpBuyer } from "@/lib/api/Account.api";
 import { useRouter } from "next/navigation";
 import {
   emailValidation,

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { serverUrl } from "../../context/api";
+import { client, Response, serverUrl } from "../../context/api";
 import axios from "axios";
 import { Product } from "../../interface/Product";
+import ProductCard from "../../components/Product/ProductCard.mole";
+import Button from "../../components/Common/atom/Button";
 
 export interface getProductsByServer {
   products: Product[];
@@ -9,10 +11,16 @@ export interface getProductsByServer {
 }
 
 export default function ProductHome() {
+  const [products, setProducts] = useState([] as Product[]);
+  const [isEndPage, setIsEndPage] = useState(true);
+
   useEffect(() => {
     const getProductServer = async () => {
-      const response = await axios.get(`http://${serverUrl}/product/sale`);
-      console.log(response);
+      const response = await client.get("/product/sale");
+      const result = response.data as Response<getProductsByServer>;
+
+      setProducts(result.content.products);
+      setIsEndPage(result.content.isEndPage);
     };
     getProductServer();
   }, []);
@@ -20,21 +28,15 @@ export default function ProductHome() {
   return (
     <div className="mt-6">
       <ul className="grid grid-cols-1 mx-auto gap-6 mt-6 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
-        {/*{product.products.map((product) => (*/}
-        {/*  <li key={product.id}>*/}
-        {/*    <ProductCard*/}
-        {/*      key={product.id}*/}
-        {/*      id={product.id}*/}
-        {/*      name={product.name}*/}
-        {/*      cost={product.cost}*/}
-        {/*    />*/}
-        {/*  </li>*/}
-        {/*))}*/}
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name}
+            <ProductCard key={product.id} id={product.id} name={product.name} cost={product.cost} />
+          </li>
+        ))}
       </ul>
 
-      <div>
-        <button>더보기</button>
-      </div>
+      <div>{!isEndPage && <Button onClick={() => console.log("더보기 클릭")}>더보기</Button>}</div>
     </div>
   );
 }

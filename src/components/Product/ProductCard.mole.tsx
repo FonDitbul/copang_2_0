@@ -20,7 +20,7 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
   return (
     <div className="mt-4 flex flex-col mx-auto gap-6 mt-6 gap-x-6 gap-y-10">
       <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-        <Link to="/product/[id]">
+        <Link to={`/product/${id}`}>
           <img
             src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
             alt="사진 준비 중 "
@@ -30,7 +30,7 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm">
-            <Link to="/product/[id]">{name}</Link>
+            <Link to={`/product/${id}`}>{name}</Link>
           </h3>
         </div>
         <p className="text-sm font-medium"> {costDisplayDot(cost)}원</p>

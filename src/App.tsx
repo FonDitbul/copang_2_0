@@ -1,8 +1,13 @@
-import React, { Component } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Common/Organ/Header";
 import Footer from "./components/Common/Organ/Footer";
 import ProductHome from "./pages/Product/ProductHome";
+import ProductDetail from "./pages/Product/ProductDetail";
+import CartPage from "./pages/Cart/Cart";
+import OrderPage from "./pages/Order/Order";
+import Account from "./pages/Account/Account";
+import AccountSignUp from "./pages/Account/SignUp/SignUp";
 
 function App() {
   return (
@@ -11,7 +16,13 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<ProductHome />}></Route>
-          {/*<Route path="/account" element={<Product />}></Route>*/}
+          <Route path="/cart" element={<CartPage />}></Route>
+          <Route path="/order" element={<OrderPage />}></Route>
+          <Route path="/account" element={<Account />}></Route>
+          <Route path="/account/sign-up" element={<AccountSignUp />}></Route>
+
+          <Route path="/product/:id" element={<ProductDetail />}></Route>
+
           {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
           {/*<Route path="*" element={<NotFound />}></Route>*/}
         </Routes>

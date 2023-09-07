@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { client, Response, serverUrl } from "../../context/api";
+import { Client, ResponseData, serverUrl } from "../../context/api";
 import axios from "axios";
 import { Product } from "../../interface/Product";
 import ProductCard from "../../components/Product/ProductCard.mole";
@@ -16,8 +16,8 @@ export default function ProductHome() {
 
   useEffect(() => {
     const getProductServer = async () => {
-      const response = await client.get("/product/sale");
-      const result = response.data as Response<getProductsByServer>;
+      const response = await Client.get("/product/sale");
+      const result = response.data as ResponseData<getProductsByServer>;
 
       setProducts(result.content.products);
       setIsEndPage(result.content.isEndPage);

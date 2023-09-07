@@ -1,10 +1,7 @@
-// import LogoutButton from "@/components/Account/detail/logout.button";
 // import { useEffect, useState } from "react";
-// import { getStorage } from "@/lib/clinet-storage";
-// import { serverUrl } from "../../../../my-app/src/context/api";
-// import { Buyer } from "@/interface/Buyer";
-// import { dateToString, stringToDate } from "@/util/time";
-// import Button from "@/components/Common/atom/Button";
+// import { dateToString, stringToDate } from "../../util/time";
+// import Button from "../../components/Common/atom/Button";
+// import LogoutButton from "../../components/Account/detail/logout.button";
 //
 // export default function AccountInfoPage() {
 //   const [account, setAccount] = useState({
@@ -25,21 +22,9 @@
 //       if (!accessToken) {
 //         return alert("재 로그인 바랍니다.");
 //       }
-//       const myAccount = await authApi<BuyerAccount>(
-//         accessToken,
-//         `http://${serverUrl}/buyer`,
-//       );
+//       const myAccount = await authApi<BuyerAccount>(accessToken, `http://${serverUrl}/buyer`);
 //
-//       const {
-//         id,
-//         userId,
-//         name,
-//         nickName,
-//         email,
-//         phoneNumber,
-//         createdAt,
-//         updatedAt,
-//       } = myAccount.content;
+//       const { id, userId, name, nickName, email, phoneNumber, createdAt, updatedAt } = myAccount.content;
 //
 //       setAccount({
 //         id,

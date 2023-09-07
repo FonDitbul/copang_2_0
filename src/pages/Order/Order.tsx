@@ -1,6 +1,6 @@
 import OrderCard from "../../components/Order/OrderCard.Mole";
 
-export default function Order() {
+export default function OrderPage() {
   return (
     <div>
       <h1>구매 내역 보기</h1>

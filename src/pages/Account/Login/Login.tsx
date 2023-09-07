@@ -2,28 +2,51 @@ import { ChangeEvent, useState } from "react";
 import Input from "../../../components/Common/atom/Input";
 import Button from "../../../components/Common/atom/Button";
 import SignUpLinkButton from "../../../components/Account/SignUpLink.Mole";
+import { useNavigate } from "react-router-dom";
+import { Client, ResponseData } from "../../../context/api";
 
-// const loginByServer = async (userId: string, password: string) => {
-//   const response = await loginBuyer({ userId, password });
-//
-//   setStorage("accessToken", response.accessToken.value);
-//   setStorage("accessTokenExpireAt", response.accessToken.expiredAt);
-//   setStorage("refreshToken", response.refreshToken.value);
-//   setStorage("refreshTokenExpireAt", response.refreshToken.expiredAt);
-// };
+export type Token = {
+  value: string;
+  expiredAt: Date;
+};
+
+export type TokenResponse = {
+  value: string;
+  expiredAt: string;
+};
+export type LoginResponse = {
+  accessToken: TokenResponse;
+  refreshToken: TokenResponse;
+};
+const loginByServer = async (userId: string, password: string) => {
+  const response = await Client.post("/buyer/login", {
+    userId,
+    password,
+  });
+  const responseData = response.data as ResponseData<LoginResponse>;
+  const result = responseData.content;
+
+  localStorage.setItem("accessToken", result.accessToken.value);
+  localStorage.setItem("accessTokenExpireAt", result.accessToken.expiredAt);
+  localStorage.setItem("refreshToken", result.refreshToken.value);
+  localStorage.setItem("refreshTokenExpireAt", result.refreshToken.expiredAt);
+};
 
 export default function AccountLoginPage() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const loginButtonClick = async () => {
     if (!userId || !password) {
       return alert("로그인 혹은 패스워드를 입력해주세요");
     }
-    // await loginByServer(userId, password);
-    setTimeout(() => console.log("test"), 100);
+
+    await loginByServer(userId, password);
     alert("로그인 성공");
-    // return router.push("/");
+    navigate("/");
+    return;
   };
 
   const setUserIdChange = (e: ChangeEvent<HTMLInputElement>) => {

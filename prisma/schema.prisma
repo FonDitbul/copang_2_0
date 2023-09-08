@@ -154,7 +154,7 @@ model Order {
   name String @db.VarChar(100)
 
   buyerId   Int    @map("buyer_id")
-  status    String @default("CREATED") @db.VarChar(100) // CREATED / BUYING / BUYED / // REFUNDED / CANCELED
+  status    String @default("CREATED") @db.VarChar(100) // CREATED / BUY_COMPLETE / REFUNDED / CANCELED
   totalCost Int    @map("total_cost")
 
   createdAt DateTime  @default(now()) @map("created_at")

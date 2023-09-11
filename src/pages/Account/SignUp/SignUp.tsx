@@ -10,12 +10,13 @@ import {
 import { Client, ResponseData } from "../../../context/api";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/Common/atom/Input";
+import { SignUpDuplicateAction } from "../../../components/Account/SignUpDuplicationAction";
 
 export type AvailableState = "INIT" | "AVAILABLE" | "DUPLICATE";
 
-type DuplicationType = "USER_ID" | "NICK_NAME" | "EMAIL" | "PHONE_NUMBER";
+export type DuplicationType = "USER_ID" | "NICK_NAME" | "EMAIL" | "PHONE_NUMBER";
 
-type InputOnChangeType = { target: { value: string } };
+export type InputOnChangeType = { target: { value: string } };
 
 export default function AccountSignUp() {
   const [userId, setUserId] = useState("");
@@ -32,47 +33,6 @@ export default function AccountSignUp() {
   const [isPhoneNumberAvailable, setIsPhoneNumberAvailable] = useState("INIT" as AvailableState);
 
   const navigate = useNavigate();
-
-  const SignUpDuplicateAction = async (
-    type: DuplicationType,
-    value: string,
-    setFunction: Dispatch<SetStateAction<AvailableState>>,
-  ) => {
-    let result: boolean = true;
-
-    if (!value) {
-      throw new Error("value 입력이 필요합니다.");
-    }
-
-    if (type === "USER_ID") {
-      const response = await Client.get(`/buyer/exist-user-id/${value}`);
-      const responseData = response.data as ResponseData<boolean>;
-      result = responseData.content;
-    }
-
-    if (type === "NICK_NAME") {
-      const response = await Client.get(`/buyer/exist-user-nick-name/${value}`);
-      const responseData = response.data as ResponseData<boolean>;
-      result = responseData.content;
-    }
-
-    if (type === "EMAIL") {
-      const response = await Client.get(`/buyer/exist-user-email/${value}`);
-      const responseData = response.data as ResponseData<boolean>;
-      result = responseData.content;
-    }
-
-    if (type === "PHONE_NUMBER") {
-      const response = await Client.get(`/buyer/exist-user-phone-number/${value}`);
-      const responseData = response.data as ResponseData<boolean>;
-      result = responseData.content;
-    }
-
-    if (result) {
-      setFunction("DUPLICATE");
-    }
-    setFunction("AVAILABLE");
-  };
 
   const signUpClickEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

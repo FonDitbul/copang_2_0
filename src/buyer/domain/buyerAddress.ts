@@ -7,3 +7,7 @@ export interface BuyerAddress {
   updatedAt: Date;
   deletedAt: Date | null;
 }
+
+export function isNotMatchBuyerId(buyerAddress: BuyerAddress, buyerId: number) {
+  return buyerAddress.buyerId !== buyerId;
+}

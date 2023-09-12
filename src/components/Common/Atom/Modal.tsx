@@ -10,7 +10,7 @@ interface PropsType {
 export const Modal = ({ onClose, children }: PropsType) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeModal = () => {
-    onClose();
+    onClose(false);
   };
 
   // 이벤트 핸들러 함수

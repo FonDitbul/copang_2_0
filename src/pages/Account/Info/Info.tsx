@@ -4,7 +4,9 @@ import { dateToString, stringToDate } from "../../../utils/time";
 import LogoutButton from "../../../components/Account/LogoutButton.Organ";
 import { Buyer } from "../../../interface/Buyer";
 import { Client, ResponseData } from "../../../context/api";
-import { AxiosRequestConfig } from "axios";
+import NickNameChangeModal from "../../../components/Account/Info/NickNameChangeModal.Organ";
+import EmailChangeModal from "../../../components/Account/Info/EmailChangeModal.Organ";
+import PhoneNumberChangeModal from "../../../components/Account/Info/PhoneNumberChangeModal.Organ";
 
 export type BuyerAccountResponse = Omit<Buyer, "password" | "createdAt" | "updatedAt" | "deletedAt"> & {
   createdAt: string;
@@ -54,25 +56,35 @@ export default function AccountInfoPage() {
     getMyAccount();
   }, []);
 
-  // TODO Design 변경
+  // change Modal
+  const [isNickNameChangeModal, setIsNickNameChangeModal] = useState(false);
+  const [isEmailChangeModal, setIsEmailChangeModal] = useState(false);
+  const [isPhoneNumberChangeModal, setIsPhoneNumberChangeModal] = useState(false);
+
   return (
     <div>
       <div>이름</div>
       <div>{account.name}</div>
+
       <div>닉네임</div>
       <div>{account.nickName}</div>
-      <Button> 닉네임 변경하기 </Button>
+      <Button onClick={(e) => setIsNickNameChangeModal(true)}> 닉네임 변경하기 </Button>
+
       <div>이메일</div>
       <div>{account.email}</div>
-      <Button> 이메일 변경하기 </Button>
+      <Button onClick={(e) => setIsEmailChangeModal(true)}> 이메일 변경하기 </Button>
+
       <div>핸드폰 번호</div>
       <div>{account.phoneNumber}</div>
-      <Button> 핸드폰 번호 변경하기 </Button>
+      <Button onClick={(e) => setIsPhoneNumberChangeModal(true)}> 핸드폰 번호 변경하기 </Button>
 
       <div>생성일</div>
       <div>{dateToString(account.createdAt)}</div>
 
       <LogoutButton />
+      {isNickNameChangeModal && <NickNameChangeModal onClose={setIsNickNameChangeModal} />}
+      {isEmailChangeModal && <EmailChangeModal onClose={setIsEmailChangeModal} />}
+      {isPhoneNumberChangeModal && <PhoneNumberChangeModal onClose={setIsPhoneNumberChangeModal} />}
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { Buyer } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountAddressRes } from './buyerAccount.res.dto';
-import { BuyerCreateAddressReq } from './buyerAccount.req.dto';
+import { BuyerCreateAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
 
 @Controller()
 export class BuyerAccountController {
@@ -27,7 +27,16 @@ export class BuyerAccountController {
     await this.buyerAccountService.createAddress({ buyerId, address });
     return;
   }
-  // 대표 주소 설정하기
-  // 주소 수정하기
+
+  @Patch('/buyer/address/representative')
+  @UseGuards(AuthAuthorizationGuard)
+  async updateRepresentativeAddress(@Buyer() buyer: UserInfo, @Body() representativeAddressReq: BuyerUpdateRepresentativeAddressReq): Promise<void> {
+    const buyerId = buyer.id;
+    const addressId = representativeAddressReq.id;
+
+    await this.buyerAccountService.updateRepresentativeAddress({ buyerId, id: addressId });
+    return;
+  }
+
   // 주소 삭제하기
 }

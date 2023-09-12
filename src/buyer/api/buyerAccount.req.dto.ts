@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNotEmptyObject, IsNumber, IsNumberString, IsOptional, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsNotEmptyObject, IsNumberString, IsOptional, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class CreateAddressReq {
@@ -24,4 +24,10 @@ export class BuyerCreateAddressReq {
   @ValidateNested()
   @Type(() => CreateAddressReq)
   address: CreateAddressReq;
+}
+
+export class BuyerUpdateRepresentativeAddressReq {
+  @IsNotEmpty()
+  @Min(1)
+  id: number;
 }

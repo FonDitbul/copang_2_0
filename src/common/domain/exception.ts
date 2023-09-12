@@ -13,9 +13,13 @@ export const EXCEPTION_STATUS = {
   USER_CHANGE_EMAIL_SAME: { errorCode: 10107, message: '이메일이 동일한 유저가 존재합니다.' },
   USER_CHANGE_PHONE_NUMBER_SAME: { errorCode: 10107, message: '휴대폰 번호가 동일한 유저가 존재합니다.' },
 
-  PAGING_NUM_ERROR: { errorCode: 10201, message: '페이징 넘버 에러' },
-  PAGING_SORT_BY_OPTION_ERROR: { errorCode: 10202, message: '존재하지 않는 정렬 옵션' },
-  PAGING_ORDER_OPTION_ERROR: { errorCode: 10203, message: 'asc or desc 가 아닙니다' },
+  // 유저 정보 관련
+  USER_ID_NOT_MATCH: { errorCode: 10201, message: '유저ID가 일치하지 않는 정보입니다.' },
+  USER_ADDRESS_NOT_EXIST: { errorCode: 10202, message: '존재하지 않는 USER_ADDRESS 입니다.' },
+
+  PAGING_NUM_ERROR: { errorCode: 10301, message: '페이징 넘버 에러' },
+  PAGING_SORT_BY_OPTION_ERROR: { errorCode: 10302, message: '존재하지 않는 정렬 옵션' },
+  PAGING_ORDER_OPTION_ERROR: { errorCode: 10303, message: 'asc or desc 가 아닙니다' },
 
   // 물품 관련 에러 20001 ~
   PRODUCT_NOT_EXIST: { errorCode: 20001, message: '물품이 존재하지 않거나 삭제되었습니다.' },

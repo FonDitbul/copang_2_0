@@ -3,17 +3,15 @@ import Button from "./Button";
 import CloseButton from "./CloseButton";
 
 interface PropsType {
-  title: string;
-  content: string;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: Function
+  children: React.ReactNode;
 }
 
-export const Modal = ({ title, content, setModalOpen }: PropsType) => {
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
+export const Modal = ({ onClose, children }: PropsType) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const closeModal = () => {
+    onClose();
+  };
 
   // 이벤트 핸들러 함수
   const modalOutEvent = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -21,6 +19,7 @@ export const Modal = ({ title, content, setModalOpen }: PropsType) => {
       closeModal();
     }
   };
+
   return (
     <div
       ref={modalRef}
@@ -31,16 +30,15 @@ export const Modal = ({ title, content, setModalOpen }: PropsType) => {
         {/*<!-- Modal content -->*/}
         <div className="relative bg-white rounded-lg dark:bg-gray-700">
           {/*<!-- Modal header -->*/}
-          <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+          <div className="flex items-start justify-between border-b rounded-t dark:border-gray-600">
             <CloseButton onClick={closeModal}></CloseButton>
           </div>
-          {/*<!-- Modal body -->*/}
+          {/*<!-- Modal body content -->*/}
           <div className="p-6 space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">{content}</p>
+            {children}
           </div>
           {/*<!-- Modal footer -->*/}
-          <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <Button
               data-modal-hide="defaultModal"
               type="button"

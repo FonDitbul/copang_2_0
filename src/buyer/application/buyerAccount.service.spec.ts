@@ -3,7 +3,7 @@ import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountService } from './buyerAccount.service';
 import { BuyerCreateAddressOut } from '../domain/port/buyerAddress.out';
-import { BuyerCreateAddressIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
+import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
 import { BuyerAddress } from '../domain/buyerAddress';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 
@@ -34,12 +34,12 @@ describe('Buyer Account Service Test', () => {
         addressLocality: '성남시 분당구',
         streetAddress: '정자일로 95',
       };
-      const createAddressIn: BuyerCreateAddressIn = {
+      const givenCreateAddressIn: BuyerCreateAddressIn = {
         buyerId: 1,
         address: givenAddress,
       };
 
-      const result = await sut.createAddress(createAddressIn);
+      const result = await sut.createAddress(givenCreateAddressIn);
 
       expect(buyerAddressRepository.createAddress).toHaveBeenCalledWith({
         buyerId: 1,
@@ -61,7 +61,7 @@ describe('Buyer Account Service Test', () => {
       };
     }
     it('buyerId와 buyerAddress id를 통해 대표 주소 설정에 성공한 경우 ', async () => {
-      const updateIn: BuyerUpdateRepresentativeIn = {
+      const givenUpdateIn: BuyerUpdateRepresentativeIn = {
         buyerId: 1,
         id: 1,
       };
@@ -71,14 +71,14 @@ describe('Buyer Account Service Test', () => {
         id: 1,
       });
 
-      const result = await sut.updateRepresentativeAddress(updateIn);
+      const result = await sut.updateRepresentativeAddress(givenUpdateIn);
 
       expect(buyerAddressRepository.updatesIsNotRepresentativeAddressByBuyerId).toHaveBeenCalledWith(1);
       expect(buyerAddressRepository.updateIsRepresentativeAddressById).toHaveBeenCalledWith(1);
     });
 
     it('buyerId와 buyerAddress id가 일치하지 않아 에러가 발생한 경우', async () => {
-      const updateIn: BuyerUpdateRepresentativeIn = {
+      const givenUpdateIn: BuyerUpdateRepresentativeIn = {
         buyerId: 1,
         id: 1,
       };
@@ -89,11 +89,58 @@ describe('Buyer Account Service Test', () => {
       });
 
       await expect(async () => {
-        await sut.updateRepresentativeAddress(updateIn);
+        await sut.updateRepresentativeAddress(givenUpdateIn);
       }).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH));
 
       expect(buyerAddressRepository.updatesIsNotRepresentativeAddressByBuyerId).not.toHaveBeenCalled();
       expect(buyerAddressRepository.updateIsRepresentativeAddressById).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('구매자의 주소 삭제 테스트', () => {
+    function FakeBuyerAddress(): BuyerAddress {
+      return {
+        id: 1,
+        buyerId: 1,
+        address: '{"postalCode":"13561","addressRegion":"경기","addressLocality":"성남시 분당구","streetAddress":"정자일로 95","etc":"930호"}',
+        isRepresentative: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: undefined,
+      };
+    }
+    it('buyerId와 buyerAddress id를 통해 삭제에 성공한 경우 ', async () => {
+      const givenDeleteIn: BuyerDeleteIn = {
+        buyerId: 1,
+        id: 1,
+      };
+      buyerAddressRepository.getOneById.mockResolvedValue({
+        ...FakeBuyerAddress(),
+        buyerId: 1,
+        id: 1,
+      });
+
+      const result = await sut.deleteAddress(givenDeleteIn);
+
+      expect(buyerAddressRepository.deleteAddressById).toHaveBeenCalledWith(1);
+    });
+
+    it('buyerId와 buyerAddress id가 일치하지 않아 에러가 발생한 경우', async () => {
+      const givenDeleteIn: BuyerDeleteIn = {
+        buyerId: 1,
+        id: 1,
+      };
+      buyerAddressRepository.getOneById.mockResolvedValue({
+        ...FakeBuyerAddress(),
+        buyerId: 2,
+        id: 1,
+      });
+
+      await expect(async () => {
+        await sut.updateRepresentativeAddress(givenDeleteIn);
+      }).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH));
+
+      expect(buyerAddressRepository.deleteAddressById).not.toHaveBeenCalled();
     });
   });
 });

@@ -31,3 +31,9 @@ export class BuyerUpdateRepresentativeAddressReq {
   @Min(1)
   id: number;
 }
+
+export class BuyerDeleteAddressReq {
+  @IsNotEmpty()
+  @Min(1)
+  id: number;
+}

@@ -2,9 +2,10 @@ import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { BuyerAddress, isNotMatchBuyerId } from '../domain/buyerAddress';
-import { BuyerCreateAddressIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
+import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
 import { BuyerCreateAddressOut } from '../domain/port/buyerAddress.out';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
+import { id } from 'date-fns/locale';
 
 @Injectable()
 export class BuyerAccountService implements IBuyerAccountService {
@@ -36,5 +37,16 @@ export class BuyerAccountService implements IBuyerAccountService {
 
     await this.buyerAddressRepository.updatesIsNotRepresentativeAddressByBuyerId(buyerId);
     await this.buyerAddressRepository.updateIsRepresentativeAddressById(id);
+  }
+
+  async deleteAddress(deleteAddressIn: BuyerDeleteIn): Promise<void> {
+    const { buyerId, id } = deleteAddressIn;
+    const buyerAddress = await this.buyerAddressRepository.getOneById(id);
+
+    if (isNotMatchBuyerId(buyerAddress, buyerId)) {
+      throw new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH);
+    }
+
+    await this.buyerAddressRepository.deleteAddressById(id);
   }
 }

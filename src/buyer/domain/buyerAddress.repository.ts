@@ -7,4 +7,5 @@ export interface IBuyerAddressRepository {
   createAddress(createAddressOut: BuyerCreateAddressOut): Promise<void>;
   updateIsRepresentativeAddressById(id: number): Promise<void>;
   updatesIsNotRepresentativeAddressByBuyerId(buyerId: number): Promise<void>;
+  deleteAddressById(id: number): Promise<void>;
 }

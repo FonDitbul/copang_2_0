@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Inject, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { Buyer } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountAddressRes } from './buyerAccount.res.dto';
-import { BuyerCreateAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
+import { BuyerCreateAddressReq, BuyerDeleteAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
 
 @Controller()
 export class BuyerAccountController {
@@ -39,4 +39,13 @@ export class BuyerAccountController {
   }
 
   // 주소 삭제하기
+  @Delete('/buyer/address')
+  @UseGuards(AuthAuthorizationGuard)
+  async deleteAddress(@Buyer() buyer: UserInfo, @Body() deleteAddressReq: BuyerDeleteAddressReq): Promise<void> {
+    const buyerId = buyer.id;
+    const addressId = deleteAddressReq.id;
+
+    await this.buyerAccountService.deleteAddress({ buyerId, id: addressId });
+    return;
+  }
 }

@@ -59,6 +59,18 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
       },
       where: {
         buyerId,
+        deletedAt: null,
+      },
+    });
+  }
+
+  async deleteAddressById(id: number): Promise<void> {
+    await this.prisma.buyerAddress.update({
+      data: {
+        deletedAt: new Date(),
+      },
+      where: {
+        id,
       },
     });
   }

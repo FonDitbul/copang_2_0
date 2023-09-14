@@ -4,7 +4,13 @@ import { Buyer } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountAddressRes, BuyerAccountCardRes } from './buyerAccount.res.dto';
-import { BuyerCreateAddressReq, BuyerCreateCardReq, BuyerDeleteAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
+import {
+  BuyerCreateAddressReq,
+  BuyerCreateCardReq,
+  BuyerDeleteAddressReq,
+  BuyerUpdateRepresentativeAddressReq,
+  BuyerUpdateRepresentativeCardReq,
+} from './buyerAccount.req.dto';
 
 @Controller()
 export class BuyerAccountController {
@@ -63,6 +69,13 @@ export class BuyerAccountController {
     const card = createCardReq.card;
     await this.buyerAccountService.createCard({ buyerId, card });
   }
-  // buyer card 대표 설정하기
+
+  @Patch('/buyer/card/representative')
+  @UseGuards(AuthAuthorizationGuard)
+  async updateRepresentativeCard(@Buyer() buyer: UserInfo, @Body() representativeCardReq: BuyerUpdateRepresentativeCardReq): Promise<void> {
+    const buyerId = buyer.id;
+    const id = representativeCardReq.id;
+    await this.buyerAccountService.updateRepresentativeCard({ buyerId, id });
+  }
   // buyer card 삭제하기
 }

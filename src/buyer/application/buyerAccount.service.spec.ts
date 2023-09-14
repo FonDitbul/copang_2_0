@@ -2,7 +2,7 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountService } from './buyerAccount.service';
-import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAccount.in';
+import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeAddressIn } from '../domain/port/buyerAccount.in';
 import { BuyerAddress } from '../domain/buyerAddress';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { BuyerCard } from '../domain/buyerCard';
@@ -65,7 +65,7 @@ describe('Buyer Account Service Test', () => {
       };
     }
     it('buyerId와 buyerAddress id를 통해 대표 주소 설정에 성공한 경우 ', async () => {
-      const givenUpdateIn: BuyerUpdateRepresentativeIn = {
+      const givenUpdateIn: BuyerUpdateRepresentativeAddressIn = {
         buyerId: 1,
         id: 1,
       };
@@ -82,7 +82,7 @@ describe('Buyer Account Service Test', () => {
     });
 
     it('buyerId와 buyerAddress id가 일치하지 않아 에러가 발생한 경우', async () => {
-      const givenUpdateIn: BuyerUpdateRepresentativeIn = {
+      const givenUpdateIn: BuyerUpdateRepresentativeAddressIn = {
         buyerId: 1,
         id: 1,
       };
@@ -214,6 +214,35 @@ describe('Buyer Account Service Test', () => {
         cardType: '체크카드',
         validityPeriod: '2025/05',
       });
+    });
+  });
+
+  describe('구매자의 대표 카드 설정 테스트', () => {
+    it('buyerId와 id 를 입력하여 성공적으로 업데이트한 경우  ', async () => {
+      const givenId = 1;
+      const givenBuyerId = 1;
+      const givenBuyerCard: BuyerCard = { ...FakeBuyerCard(), id: givenId, buyerId: givenBuyerId };
+
+      buyerCardRepository.getOneById.mockResolvedValue(givenBuyerCard);
+      const result = await sut.updateRepresentativeCard({ buyerId: givenBuyerId, id: givenId });
+
+      expect(buyerCardRepository.updatesIsNotRepresentativeByBuyerId).toHaveBeenCalledWith(1);
+      expect(buyerCardRepository.updateIsRepresentativeById).toHaveBeenCalledWith(1);
+    });
+
+    it('입력받은 buyerId 와 해당 buyerCard의 buyerId가 다를 경우 에러 반환', async () => {
+      const givenId = 1;
+      const givenBuyerId = 1;
+      const givenBuyerCard: BuyerCard = { ...FakeBuyerCard(), id: givenId, buyerId: 2 };
+
+      buyerCardRepository.getOneById.mockResolvedValue(givenBuyerCard);
+
+      await expect(async () => {
+        await sut.updateRepresentativeCard({ buyerId: givenBuyerId, id: givenId });
+      }).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH));
+
+      expect(buyerCardRepository.updatesIsNotRepresentativeByBuyerId).not.toHaveBeenCalled();
+      expect(buyerCardRepository.updateIsRepresentativeById).not.toHaveBeenCalled();
     });
   });
 });

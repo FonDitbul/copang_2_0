@@ -1,3 +1,5 @@
+import { isNotContainKeyInObject } from '../../util/object.util';
+
 export class Buyer {
   constructor(
     public id: number,
@@ -15,4 +17,11 @@ export class Buyer {
 
 export const formattingPhoneNumber = (phoneNumber: string) => {
   return phoneNumber.trim().replace(/-/g, '').replace(/(\s*)/g, '');
+};
+
+export const isNotMatchBuyerId = <T extends { buyerId: number }>(buyerAccount: T, buyerId: number) => {
+  if (isNotContainKeyInObject(buyerAccount, 'buyerId')) {
+    throw new Error('buyerId가 존재하지 않습니다.');
+  }
+  return buyerAccount.buyerId !== buyerId;
 };

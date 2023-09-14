@@ -6,7 +6,7 @@ export interface BuyerCreateAddressIn {
   address: Address;
 }
 
-export interface BuyerUpdateRepresentativeIn {
+export interface BuyerUpdateRepresentativeAddressIn {
   buyerId: number;
   id: number;
 }
@@ -19,4 +19,9 @@ export interface BuyerDeleteIn {
 export interface BuyerCreateCardIn {
   buyerId: number;
   card: Card;
+}
+
+export interface BuyerUpdateRepresentativeCardIn {
+  buyerId: number;
+  id: number;
 }

@@ -63,3 +63,9 @@ export class BuyerCreateCardReq {
   @Type(() => CreateCardReq)
   card: CreateCardReq;
 }
+
+export class BuyerUpdateRepresentativeCardReq {
+  @IsNotEmpty()
+  @Min(1)
+  id: number;
+}

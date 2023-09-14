@@ -1,11 +1,16 @@
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
-import { BuyerAddress, isNotMatchBuyerId } from '../domain/buyerAddress';
-import { BuyerCreateAddressIn, BuyerCreateCardIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAccount.in';
+import { isNotMatchBuyerId } from '../domain/buyer';
+import {
+  BuyerCreateAddressIn,
+  BuyerCreateCardIn,
+  BuyerDeleteIn,
+  BuyerUpdateRepresentativeAddressIn,
+  BuyerUpdateRepresentativeCardIn,
+} from '../domain/port/buyerAccount.in';
 import { BuyerCreateAddressOut, BuyerCreateCardOut } from '../domain/port/buyerAccount.out';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
-import { id } from 'date-fns/locale';
 import { BuyerCard } from '../domain/buyerCard';
 import { IBuyerCardRepository } from '../domain/buyerCard.repository';
 
@@ -32,7 +37,7 @@ export class BuyerAccountService implements IBuyerAccountService {
     await this.buyerAddressRepository.createAddress(createAddressOut);
   }
 
-  async updateRepresentativeAddress(updateAddressIn: BuyerUpdateRepresentativeIn): Promise<void> {
+  async updateRepresentativeAddress(updateAddressIn: BuyerUpdateRepresentativeAddressIn): Promise<void> {
     const { buyerId, id } = updateAddressIn;
     const buyerAddress = await this.buyerAddressRepository.getOneById(id);
 
@@ -76,5 +81,17 @@ export class BuyerAccountService implements IBuyerAccountService {
     };
 
     await this.buyerCardRepository.create(createCardOut);
+  }
+
+  async updateRepresentativeCard(updateCardIn: BuyerUpdateRepresentativeCardIn): Promise<void> {
+    const { buyerId, id } = updateCardIn;
+    const buyerCard = await this.buyerCardRepository.getOneById(id);
+
+    if (isNotMatchBuyerId(buyerCard, buyerId)) {
+      throw new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH);
+    }
+
+    await this.buyerCardRepository.updatesIsNotRepresentativeByBuyerId(buyerId);
+    await this.buyerCardRepository.updateIsRepresentativeById(id);
   }
 }

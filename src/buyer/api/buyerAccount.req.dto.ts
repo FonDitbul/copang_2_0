@@ -69,3 +69,9 @@ export class BuyerUpdateRepresentativeCardReq {
   @Min(1)
   id: number;
 }
+
+export class BuyerDeleteCardReq {
+  @IsNotEmpty()
+  @Min(1)
+  id: number;
+}

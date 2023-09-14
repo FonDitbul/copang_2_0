@@ -2,12 +2,12 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountService } from './buyerAccount.service';
-import { BuyerCreateAddressOut } from '../domain/port/buyerAddress.out';
-import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
+import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAccount.in';
 import { BuyerAddress } from '../domain/buyerAddress';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { BuyerCard } from '../domain/buyerCard';
 import { IBuyerCardRepository } from '../domain/buyerCard.repository';
+import { Card } from '../domain/card';
 
 describe('Buyer Account Service Test', () => {
   const buyerAddressRepository: MockProxy<IBuyerAddressRepository> = mock<IBuyerAddressRepository>();
@@ -162,6 +162,15 @@ describe('Buyer Account Service Test', () => {
       deletedAt: undefined,
     };
   }
+
+  function FakeCard(): Card {
+    return {
+      bankName: '코팡 은행',
+      cardNumber: '0000-0000-0000-0000',
+      cardType: '체크카드',
+      validityPeriod: '2025/05',
+    };
+  }
   describe('구매자의 카드 불러오기 테스트', () => {
     it('buyerId를 통해 구매자 카드 리스트를 성공적으로 번환한 경우 ', async () => {
       const givenBuyerId = 1;
@@ -182,6 +191,28 @@ describe('Buyer Account Service Test', () => {
         createdAt: new Date(1694674805720),
         updatedAt: new Date(1694674805720),
         deletedAt: undefined,
+      });
+    });
+  });
+
+  describe('구매자의 카드 저장하기 테스트', () => {
+    it('buyerId와 card 정보를 통해 성공적으로 저장한 경우  ', async () => {
+      const givenBuyerId = 1;
+      const givenCard: Card = {
+        bankName: '코팡 은행',
+        cardNumber: '0000-0000-0000-0000',
+        cardType: '체크카드',
+        validityPeriod: '2025/05',
+      };
+
+      const result = await sut.createCard({ buyerId: givenBuyerId, card: givenCard });
+
+      expect(buyerCardRepository.create).toHaveBeenCalledWith({
+        buyerId: 1,
+        bankName: '코팡 은행',
+        cardNumber: '0000-0000-0000-0000',
+        cardType: '체크카드',
+        validityPeriod: '2025/05',
       });
     });
   });

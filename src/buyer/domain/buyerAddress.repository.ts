@@ -1,5 +1,5 @@
 import { BuyerAddress } from './buyerAddress';
-import { BuyerCreateAddressOut } from './port/buyerAddress.out';
+import { BuyerCreateAddressOut } from './port/buyerAccount.out';
 
 export interface IBuyerAddressRepository {
   getOneById(id: number): Promise<BuyerAddress>;

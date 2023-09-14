@@ -16,6 +16,7 @@ export const EXCEPTION_STATUS = {
   // 유저 정보 관련
   USER_ID_NOT_MATCH: { errorCode: 10201, message: '유저ID가 일치하지 않는 정보입니다.' },
   USER_ADDRESS_NOT_EXIST: { errorCode: 10202, message: '존재하지 않는 USER_ADDRESS 입니다.' },
+  USER_CARD_NOT_EXIST: { errorCode: 10203, message: '존재하지 않는 유저 카드 입니다.' },
 
   PAGING_NUM_ERROR: { errorCode: 10301, message: '페이징 넘버 에러' },
   PAGING_SORT_BY_OPTION_ERROR: { errorCode: 10302, message: '존재하지 않는 정렬 옵션' },

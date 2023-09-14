@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNotEmptyObject, IsNumberString, IsOptional, Min, ValidateNested } from 'class-validator';
+import { IsIn, IsNotEmpty, IsNotEmptyObject, IsNumberString, IsOptional, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class CreateAddressReq {
@@ -36,4 +36,30 @@ export class BuyerDeleteAddressReq {
   @IsNotEmpty()
   @Min(1)
   id: number;
+}
+
+class CreateCardReq {
+  @IsNotEmpty()
+  @MaxLength(100)
+  bankName: string;
+
+  @IsNotEmpty()
+  @MaxLength(100)
+  cardNumber: string;
+
+  @IsNotEmpty()
+  @MaxLength(100)
+  cardType: string;
+
+  @IsNotEmpty()
+  @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
+  validityPeriod: string;
+}
+
+export class BuyerCreateCardReq {
+  @IsNotEmpty()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => CreateCardReq)
+  card: CreateCardReq;
 }

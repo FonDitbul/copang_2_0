@@ -2,8 +2,8 @@ import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { BuyerAddress, isNotMatchBuyerId } from '../domain/buyerAddress';
-import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAddress.in';
-import { BuyerCreateAddressOut } from '../domain/port/buyerAddress.out';
+import { BuyerCreateAddressIn, BuyerCreateCardIn, BuyerDeleteIn, BuyerUpdateRepresentativeIn } from '../domain/port/buyerAccount.in';
+import { BuyerCreateAddressOut, BuyerCreateCardOut } from '../domain/port/buyerAccount.out';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { id } from 'date-fns/locale';
 import { BuyerCard } from '../domain/buyerCard';
@@ -59,5 +59,22 @@ export class BuyerAccountService implements IBuyerAccountService {
     const addressArray = await this.buyerCardRepository.getAllByBuyerId(buyerId);
 
     return addressArray;
+  }
+
+  async createCard(createCardIn: BuyerCreateCardIn): Promise<void> {
+    const {
+      buyerId,
+      card: { bankName, cardType, cardNumber, validityPeriod },
+    } = createCardIn;
+
+    const createCardOut: BuyerCreateCardOut = {
+      buyerId,
+      bankName,
+      cardType,
+      cardNumber,
+      validityPeriod,
+    };
+
+    await this.buyerCardRepository.create(createCardOut);
   }
 }

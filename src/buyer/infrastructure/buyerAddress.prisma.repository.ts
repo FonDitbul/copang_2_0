@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { BuyerAddress } from '../domain/buyerAddress';
-import { BuyerCreateAddressOut } from '../domain/port/buyerAddress.out';
+import { BuyerCreateAddressOut } from '../domain/port/buyerAccount.out';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 
 @Injectable()

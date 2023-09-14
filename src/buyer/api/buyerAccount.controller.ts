@@ -4,7 +4,7 @@ import { Buyer } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountAddressRes, BuyerAccountCardRes } from './buyerAccount.res.dto';
-import { BuyerCreateAddressReq, BuyerDeleteAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
+import { BuyerCreateAddressReq, BuyerCreateCardReq, BuyerDeleteAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
 
 @Controller()
 export class BuyerAccountController {
@@ -55,7 +55,14 @@ export class BuyerAccountController {
 
     return { buyerCards };
   }
-  // buyer card 생성하기
+
+  @Post('/buyer/card/add')
+  @UseGuards(AuthAuthorizationGuard)
+  async createCard(@Buyer() buyer: UserInfo, @Body() createCardReq: BuyerCreateCardReq): Promise<void> {
+    const buyerId = buyer.id;
+    const card = createCardReq.card;
+    await this.buyerAccountService.createCard({ buyerId, card });
+  }
   // buyer card 대표 설정하기
   // buyer card 삭제하기
 }

@@ -74,7 +74,7 @@ model BuyerCard {
   bankName       String @map("bank_name") @db.VarChar(100)
   cardType       String @map("card_type") @db.VarChar(100) // 신용, 체크카드
   cardNumber     String @map("card_number") @db.VarChar(100)
-  validityPeriod String @map("validity_period") @db.VarChar(5) // 유효 기간 mm/yy
+  validityPeriod String @map("validity_period") @db.VarChar(10) // 유효 기간 mm/yy
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
@@ -203,7 +203,7 @@ model OrderPayment {
   bankName       String @map("bank_name") @db.VarChar(100)
   cardType       String @map("card_type") @db.VarChar(100) // 신용, 체크카드
   cardNumber     String @map("card_number") @db.VarChar(100)
-  validityPeriod String @map("validity_period") @db.VarChar(5) // 유효 기간 mm/yy
+  validityPeriod String @map("validity_period") @db.VarChar(10) // 유효 기간 mm/yy
 
   paymentKey  String @map("payment_key") @db.VarChar(100) // 결제의 키 값 랜덤 uuid
   type        String @db.VarChar(100) // 결제 타입 정보 "CARD"

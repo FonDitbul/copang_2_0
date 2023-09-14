@@ -7,4 +7,5 @@ export interface IBuyerCardRepository {
   create(createCardOut: BuyerCreateCardOut): Promise<void>;
   updateIsRepresentativeById(id: number): Promise<void>;
   updatesIsNotRepresentativeByBuyerId(buyerId: number): Promise<void>;
+  deleteById(id: number): Promise<void>;
 }

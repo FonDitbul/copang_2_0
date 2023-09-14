@@ -4,7 +4,6 @@ import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { BuyerCard } from '../domain/buyerCard';
 import { BuyerCreateCardOut } from '../domain/port/buyerAccount.out';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
-import { id } from 'date-fns/locale';
 
 @Injectable()
 export class BuyerCardPrismaRepository implements IBuyerCardRepository {
@@ -69,5 +68,16 @@ export class BuyerCardPrismaRepository implements IBuyerCardRepository {
       },
     });
     return Promise.resolve(undefined);
+  }
+
+  async deleteById(id: number): Promise<void> {
+    await this.prisma.buyerCard.update({
+      data: {
+        deletedAt: new Date(),
+      },
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -8,6 +8,7 @@ import {
   BuyerCreateAddressReq,
   BuyerCreateCardReq,
   BuyerDeleteAddressReq,
+  BuyerDeleteCardReq,
   BuyerUpdateRepresentativeAddressReq,
   BuyerUpdateRepresentativeCardReq,
 } from './buyerAccount.req.dto';
@@ -77,5 +78,14 @@ export class BuyerAccountController {
     const id = representativeCardReq.id;
     await this.buyerAccountService.updateRepresentativeCard({ buyerId, id });
   }
-  // buyer card 삭제하기
+
+  @Delete('/buyer/card')
+  @UseGuards(AuthAuthorizationGuard)
+  async deleteCard(@Buyer() buyer: UserInfo, @Body() deleteCardReq: BuyerDeleteCardReq): Promise<void> {
+    const buyerId = buyer.id;
+    const addressId = deleteCardReq.id;
+
+    await this.buyerAccountService.deleteCard({ buyerId, id: addressId });
+    return;
+  }
 }

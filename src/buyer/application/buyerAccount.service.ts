@@ -5,7 +5,8 @@ import { isNotMatchBuyerId } from '../domain/buyer';
 import {
   BuyerCreateAddressIn,
   BuyerCreateCardIn,
-  BuyerDeleteIn,
+  BuyerDeleteAddressIn,
+  BuyerDeleteCardIn,
   BuyerUpdateRepresentativeAddressIn,
   BuyerUpdateRepresentativeCardIn,
 } from '../domain/port/buyerAccount.in';
@@ -13,6 +14,7 @@ import { BuyerCreateAddressOut, BuyerCreateCardOut } from '../domain/port/buyerA
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { BuyerCard } from '../domain/buyerCard';
 import { IBuyerCardRepository } from '../domain/buyerCard.repository';
+import { id } from 'date-fns/locale';
 
 @Injectable()
 export class BuyerAccountService implements IBuyerAccountService {
@@ -49,7 +51,7 @@ export class BuyerAccountService implements IBuyerAccountService {
     await this.buyerAddressRepository.updateIsRepresentativeAddressById(id);
   }
 
-  async deleteAddress(deleteAddressIn: BuyerDeleteIn): Promise<void> {
+  async deleteAddress(deleteAddressIn: BuyerDeleteAddressIn): Promise<void> {
     const { buyerId, id } = deleteAddressIn;
     const buyerAddress = await this.buyerAddressRepository.getOneById(id);
 
@@ -93,5 +95,16 @@ export class BuyerAccountService implements IBuyerAccountService {
 
     await this.buyerCardRepository.updatesIsNotRepresentativeByBuyerId(buyerId);
     await this.buyerCardRepository.updateIsRepresentativeById(id);
+  }
+
+  async deleteCard(deleteCardIn: BuyerDeleteCardIn): Promise<void> {
+    const { buyerId, id } = deleteCardIn;
+    const buyerCard = await this.buyerCardRepository.getOneById(id);
+
+    if (isNotMatchBuyerId(buyerCard, buyerId)) {
+      throw new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH);
+    }
+
+    await this.buyerCardRepository.deleteById(id);
   }
 }

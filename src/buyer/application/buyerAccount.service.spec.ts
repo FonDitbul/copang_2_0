@@ -2,7 +2,7 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 import { IBuyerAddressRepository } from '../domain/buyerAddress.repository';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountService } from './buyerAccount.service';
-import { BuyerCreateAddressIn, BuyerDeleteIn, BuyerUpdateRepresentativeAddressIn } from '../domain/port/buyerAccount.in';
+import { BuyerCreateAddressIn, BuyerDeleteAddressIn, BuyerDeleteCardIn, BuyerUpdateRepresentativeAddressIn } from '../domain/port/buyerAccount.in';
 import { BuyerAddress } from '../domain/buyerAddress';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { BuyerCard } from '../domain/buyerCard';
@@ -114,7 +114,7 @@ describe('Buyer Account Service Test', () => {
       };
     }
     it('buyerId와 buyerAddress id를 통해 삭제에 성공한 경우 ', async () => {
-      const givenDeleteIn: BuyerDeleteIn = {
+      const givenDeleteIn: BuyerDeleteAddressIn = {
         buyerId: 1,
         id: 1,
       };
@@ -130,7 +130,7 @@ describe('Buyer Account Service Test', () => {
     });
 
     it('buyerId와 buyerAddress id가 일치하지 않아 에러가 발생한 경우', async () => {
-      const givenDeleteIn: BuyerDeleteIn = {
+      const givenDeleteIn: BuyerDeleteAddressIn = {
         buyerId: 1,
         id: 1,
       };
@@ -243,6 +243,40 @@ describe('Buyer Account Service Test', () => {
 
       expect(buyerCardRepository.updatesIsNotRepresentativeByBuyerId).not.toHaveBeenCalled();
       expect(buyerCardRepository.updateIsRepresentativeById).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('구매자의 카드 삭제 테스트', () => {
+    it('buyerId와 buyerCard id를 통해 삭제에 성공한 경우', async () => {
+      const givenDeleteIn: BuyerDeleteCardIn = {
+        buyerId: 1,
+        id: 1,
+      };
+      buyerCardRepository.getOneById.mockResolvedValue({
+        ...FakeBuyerCard(),
+        buyerId: 1,
+        id: 1,
+      });
+      const result = await sut.deleteCard(givenDeleteIn);
+
+      expect(buyerCardRepository.deleteById).toHaveBeenCalledWith(1);
+    });
+
+    it('buyerId와 buyerCard id를 가 달라 에러를 반환한 경우', async () => {
+      const givenDeleteIn: BuyerDeleteCardIn = {
+        buyerId: 2,
+        id: 1,
+      };
+      buyerCardRepository.getOneById.mockResolvedValue({
+        ...FakeBuyerCard(),
+        buyerId: 1,
+        id: 1,
+      });
+      await expect(async () => {
+        await sut.deleteCard(givenDeleteIn);
+      }).rejects.toThrowError(new CoPangException(EXCEPTION_STATUS.USER_ID_NOT_MATCH));
+
+      expect(buyerCardRepository.deleteById).not.toHaveBeenCalled();
     });
   });
 });

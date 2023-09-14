@@ -1,7 +1,7 @@
 import { ArrayNotEmpty, IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class Card {
+export class Card {
   @IsNotEmpty()
   @IsIn(['CARD'])
   method: string;
@@ -23,7 +23,7 @@ class Card {
   cardType: string;
 
   @IsNotEmpty()
-  @Matches(RegExp('^((\\d{2})\\/(0[1-9])|(1[0-2]))$'))
+  @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
   validityPeriod: string;
 }
 

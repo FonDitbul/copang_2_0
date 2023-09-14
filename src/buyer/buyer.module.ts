@@ -7,6 +7,8 @@ import { RepositoryModule } from '../database/repository.module';
 import { BuyerAccountController } from './api/buyerAccount.controller';
 import { BuyerAddressPrismaRepository } from './infrastructure/buyerAddress.prisma.repository';
 import { BuyerAccountService } from './application/buyerAccount.service';
+import { IBuyerCardRepository } from './domain/buyerCard.repository';
+import { BuyerCardPrismaRepository } from './infrastructure/buyerCard.prisma.repository';
 
 @Module({
   imports: [AuthModule, RepositoryModule],
@@ -31,6 +33,10 @@ import { BuyerAccountService } from './application/buyerAccount.service';
     {
       provide: 'IBuyerAddressRepository',
       useClass: BuyerAddressPrismaRepository,
+    },
+    {
+      provide: 'IBuyerCardRepository',
+      useClass: BuyerCardPrismaRepository,
     },
   ],
 })

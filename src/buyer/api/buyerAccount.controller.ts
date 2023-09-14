@@ -3,7 +3,7 @@ import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard'
 import { Buyer } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
-import { BuyerAccountAddressRes } from './buyerAccount.res.dto';
+import { BuyerAccountAddressRes, BuyerAccountCardRes } from './buyerAccount.res.dto';
 import { BuyerCreateAddressReq, BuyerDeleteAddressReq, BuyerUpdateRepresentativeAddressReq } from './buyerAccount.req.dto';
 
 @Controller()
@@ -38,7 +38,6 @@ export class BuyerAccountController {
     return;
   }
 
-  // 주소 삭제하기
   @Delete('/buyer/address')
   @UseGuards(AuthAuthorizationGuard)
   async deleteAddress(@Buyer() buyer: UserInfo, @Body() deleteAddressReq: BuyerDeleteAddressReq): Promise<void> {
@@ -48,4 +47,15 @@ export class BuyerAccountController {
     await this.buyerAccountService.deleteAddress({ buyerId, id: addressId });
     return;
   }
+
+  @Get('/buyer/card')
+  @UseGuards(AuthAuthorizationGuard)
+  async getCards(@Buyer() buyer: UserInfo): Promise<BuyerAccountCardRes> {
+    const buyerCards = await this.buyerAccountService.getCardArray(buyer.id);
+
+    return { buyerCards };
+  }
+  // buyer card 생성하기
+  // buyer card 대표 설정하기
+  // buyer card 삭제하기
 }

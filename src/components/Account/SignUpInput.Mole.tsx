@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler } from "react";
 import DuplicateButton, { DuplicateButtonProps } from "./DuplicateButton.Mole";
-import Input from "../Common/atom/Input";
+import Input from "../Common/Atom/Input";
 
 export interface ISignUpInput {
   id: string;

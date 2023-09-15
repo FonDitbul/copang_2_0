@@ -1,9 +1,9 @@
-import { Modal } from "../../Common/atom/Modal";
+import { Modal } from "../../Common/Atom/Modal";
 import React, { useState } from "react";
 import { SignUpDuplicateAction } from "../SignUpDuplicationAction";
 import SignUpInput from "../SignUpInput.Mole";
 import { AvailableState, InputOnChangeType } from "../../../pages/Account/SignUp/SignUp";
-import Button from "../../Common/atom/Button";
+import Button from "../../Common/Atom/Button";
 import { Client } from "../../../context/api";
 import { emailValidation } from "../SignUp.Logic";
 

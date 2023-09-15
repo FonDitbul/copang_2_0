@@ -3,7 +3,7 @@ import { Client, ResponseData, serverUrl } from "../../context/api";
 import axios from "axios";
 import { Product } from "../../interface/Product";
 import ProductCard from "../../components/Product/ProductCard.mole";
-import Button from "../../components/Common/atom/Button";
+import Button from "../../components/Common/Atom/Button";
 
 export interface getProductsByServer {
   products: Product[];

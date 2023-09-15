@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Button from "../../../components/Common/atom/Button";
+import Button from "../../../components/Common/Atom/Button";
 import { dateToString, stringToDate } from "../../../utils/time";
 import LogoutButton from "../../../components/Account/LogoutButton.Organ";
 import { Buyer } from "../../../interface/Buyer";

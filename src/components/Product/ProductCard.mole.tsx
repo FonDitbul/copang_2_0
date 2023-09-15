@@ -1,5 +1,5 @@
 import { Product } from "../../interface/Product";
-import Button from "../../components/Common/atom/Button";
+import Button from "../../components/Common/Atom/Button";
 import { Link } from "react-router-dom";
 
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;

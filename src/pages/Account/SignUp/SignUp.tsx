@@ -9,7 +9,7 @@ import {
 } from "../../../components/Account/SignUp.Logic";
 import { Client, ResponseData } from "../../../context/api";
 import { useNavigate } from "react-router-dom";
-import Input from "../../../components/Common/atom/Input";
+import Input from "../../../components/Common/Atom/Input";
 import { SignUpDuplicateAction } from "../../../components/Account/SignUpDuplicationAction";
 
 export type AvailableState = "INIT" | "AVAILABLE" | "DUPLICATE";

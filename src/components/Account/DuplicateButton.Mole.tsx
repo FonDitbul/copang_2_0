@@ -1,4 +1,4 @@
-import Button from "../../components/Common/atom/Button";
+import Button from "../../components/Common/Atom/Button";
 import { AvailableState } from "../../pages/Account/SignUp/SignUp";
 
 export interface DuplicateButtonProps {

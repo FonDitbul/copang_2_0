@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
-import Input from "../../../components/Common/atom/Input";
-import Button from "../../../components/Common/atom/Button";
+import Input from "../../../components/Common/Atom/Input";
+import Button from "../../../components/Common/Atom/Button";
 import SignUpLinkButton from "../../../components/Account/SignUpLink.Mole";
 import { useNavigate } from "react-router-dom";
 import { Client, ResponseData } from "../../../context/api";

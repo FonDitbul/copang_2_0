@@ -5,11 +5,6 @@ import SignUpLinkButton from "../../../components/Account/SignUpLink.Mole";
 import { useNavigate } from "react-router-dom";
 import { Client, ResponseData } from "../../../context/api";
 
-export type Token = {
-  value: string;
-  expiredAt: Date;
-};
-
 export type TokenResponse = {
   value: string;
   expiredAt: string;
@@ -24,12 +19,13 @@ const loginByServer = async (userId: string, password: string) => {
     password,
   });
   const responseData = response.data as ResponseData<LoginResponse>;
+
   const result = responseData.content;
 
   localStorage.setItem("accessToken", result.accessToken.value);
-  localStorage.setItem("accessTokenExpireAt", result.accessToken.expiredAt);
+  localStorage.setItem("accessTokenExpireAt", result.accessToken.expiredAt); // UTC로 저장
   localStorage.setItem("refreshToken", result.refreshToken.value);
-  localStorage.setItem("refreshTokenExpireAt", result.refreshToken.expiredAt);
+  localStorage.setItem("refreshTokenExpireAt", result.refreshToken.expiredAt); // UTC로 저장
 };
 
 export default function AccountLoginPage() {

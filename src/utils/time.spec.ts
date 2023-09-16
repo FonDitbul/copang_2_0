@@ -7,7 +7,7 @@ describe("time util test", () => {
 
       const result = setDateWithTimeZone(givenDate);
 
-      expect(result).toMatchSnapshot(new Date("2023-09-01T18:00:00.000Z"));
+      expect(result).toEqual(new Date("2023-09-01T18:00:00.000Z"));
     });
   });
 

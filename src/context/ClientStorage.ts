@@ -17,13 +17,14 @@ export class ClientStorage {
     return value;
   }
   static setToken(key: TokenKey, value: string) {
-    localStorage.set(key, value);
+    localStorage.setItem(key, value);
   }
   static setTokenAfterLogin(loginToken: LoginToken) {
     this.setToken("accessToken", loginToken.accessToken.value);
     this.setToken("accessTokenExpireAt", loginToken.accessToken.expiredAt); // UTC로 저장
     this.setToken("refreshToken", loginToken.refreshToken.value);
     this.setToken("refreshTokenExpireAt", loginToken.refreshToken.expiredAt); // UTC로 저장
+    console.log(loginToken);
   }
   static clear() {
     localStorage.clear();

@@ -23,11 +23,10 @@ export default function ProductHome() {
       setIsEndPage(result.content.isEndPage);
     };
     getProductServer();
-  }, [products]);
+  }, [page]);
 
   const moreButtonClickEvent = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     setPage(page + 1);
 
     const response = await Client.get(`/product/sale?page=${page}`);
@@ -50,7 +49,7 @@ export default function ProductHome() {
 
       <div>
         <Button onClick={moreButtonClickEvent} disabled={isEndPage}>
-          더보기
+          다음으로
         </Button>
       </div>
     </div>

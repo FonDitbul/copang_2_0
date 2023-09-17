@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Client, ResponseData, serverUrl } from "../../context/api";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Client, ResponseData } from "../../context/api";
 import { Product } from "../../interface/Product";
 import ProductCard from "../../components/Product/ProductCard.mole";
 import Button from "../../components/Common/Atom/Button";
@@ -13,17 +12,30 @@ export interface getProductsByServer {
 export default function ProductHome() {
   const [products, setProducts] = useState([] as Product[]);
   const [isEndPage, setIsEndPage] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const getProductServer = async () => {
-      const response = await Client.get("/product/sale");
+      const response = await Client.get(`/product/sale?page=${page}`);
       const result = response.data as ResponseData<getProductsByServer>;
 
       setProducts(result.content.products);
       setIsEndPage(result.content.isEndPage);
     };
     getProductServer();
-  }, []);
+  }, [products]);
+
+  const moreButtonClickEvent = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    setPage(page + 1);
+
+    const response = await Client.get(`/product/sale?page=${page}`);
+    const result = response.data as ResponseData<getProductsByServer>;
+
+    setProducts(result.content.products);
+    setIsEndPage(result.content.isEndPage);
+  };
 
   return (
     <div className="mt-6">
@@ -36,7 +48,11 @@ export default function ProductHome() {
         ))}
       </ul>
 
-      <div>{!isEndPage && <Button onClick={() => console.log("더보기 클릭")}>더보기</Button>}</div>
+      <div>
+        <Button onClick={moreButtonClickEvent} disabled={isEndPage}>
+          더보기
+        </Button>
+      </div>
     </div>
   );
 }

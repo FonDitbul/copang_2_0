@@ -1,3 +1,5 @@
+import { Seller } from "./Seller";
+
 export interface Product {
   id: number;
   name: string;
@@ -10,4 +12,6 @@ export interface Product {
   sellerId: number;
   createdAt: Date;
   updatedAt: Date;
+
+  Seller?: Partial<Seller>;
 }

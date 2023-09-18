@@ -1,16 +1,13 @@
 import { Product } from "../../interface/Product";
 import Button from "../../components/Common/Atom/Button";
 import { Link } from "react-router-dom";
+import {costDisplayDot} from "../Common/Logic/Cost.Logic";
 
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;
 
 export default function ProductCard({ id, name, cost }: IProductDetail) {
   function productBuyButton() {
     console.log("상품 구매하기 ");
-  }
-
-  function costDisplayDot(cost: number): string {
-    return cost.toLocaleString("ko-KR");
   }
 
   function addToCartButton() {

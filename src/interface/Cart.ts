@@ -1,3 +1,5 @@
+import {Product} from "./Product";
+
 export interface Cart {
   id: number;
   productQuantity: number;
@@ -6,4 +8,6 @@ export interface Cart {
   productId: number;
   createdAt: Date;
   updatedAt: Date;
+
+  Product?: Product
 }

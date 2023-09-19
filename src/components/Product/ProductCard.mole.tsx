@@ -1,7 +1,8 @@
 import { Product } from "../../interface/Product";
 import Button from "../../components/Common/Atom/Button";
 import { Link } from "react-router-dom";
-import {costDisplayDot} from "../Common/Logic/Cost.Logic";
+import { costDisplayDot } from "../Common/Logic/Cost.Logic";
+import { CartAddButton } from "../Cart/CartAddButton.Mole";
 
 type IProductDetail = Pick<Product, "id" | "name" | "cost">;
 
@@ -33,9 +34,7 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
         <p className="text-sm font-medium"> {costDisplayDot(cost)}원</p>
       </div>
       <div className="flex">
-        <Button id="addToCart" onClick={addToCartButton}>
-          장바구니에 담기
-        </Button>
+        <CartAddButton productId={id} />
         <Button id="productBuy" onClick={productBuyButton}>
           바로 구매하기
         </Button>

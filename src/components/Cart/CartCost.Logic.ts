@@ -14,5 +14,9 @@ export const cartWithProduct = (cart: Cart): CartWithProduct => {
 
 export const calculateCartCost = (cart: Cart) => {
   const copyCart = cartWithProduct(cart);
-  return copyCart.Product.cost * copyCart.productQuantity;
+  return calculateCost(copyCart.Product.cost, copyCart.productQuantity);
+};
+
+export const calculateCost = (cost: number, productQuantity: number) => {
+  return cost * productQuantity;
 };

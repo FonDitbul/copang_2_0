@@ -1,4 +1,4 @@
-export interface Card {
+export interface BuyerCard {
   id: number;
   buyerId: number;
   isRepresentative: boolean;

@@ -8,6 +8,8 @@ import CartPage from "./pages/Cart/Cart";
 import OrderPage from "./pages/Order/Order";
 import Account from "./pages/Account/Account";
 import AccountSignUp from "./pages/Account/SignUp/SignUp";
+import AccountCreditCardPage from "./pages/Account/CreditCard/CreditCard";
+import AccountCreditCardAddPage from "./pages/Account/CreditCard/CreditCardAdd.page";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/order" element={<OrderPage />}></Route>
           <Route path="/account" element={<Account />}></Route>
           <Route path="/account/sign-up" element={<AccountSignUp />}></Route>
+          <Route path="/account/credit-card" element={<AccountCreditCardPage />}></Route>
+          <Route path="/account/credit-card/add" element={<AccountCreditCardAddPage />}></Route>
 
           <Route path="/product/:id" element={<ProductDetail />}></Route>
 

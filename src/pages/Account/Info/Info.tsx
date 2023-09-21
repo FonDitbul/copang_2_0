@@ -7,6 +7,8 @@ import { Client, ResponseData } from "../../../context/api";
 import NickNameChangeModal from "../../../components/Account/Info/NickNameChangeModal.Organ";
 import EmailChangeModal from "../../../components/Account/Info/EmailChangeModal.Organ";
 import PhoneNumberChangeModal from "../../../components/Account/Info/PhoneNumberChangeModal.Organ";
+import { CreditCardEditButtonMole } from "../../../components/Account/CreditCard/CreditCardEditButton.Mole";
+import { ClientStorage } from "../../../context/ClientStorage";
 
 export type BuyerAccountResponse = Omit<Buyer, "password" | "createdAt" | "updatedAt" | "deletedAt"> & {
   createdAt: string;
@@ -27,10 +29,7 @@ export default function AccountInfoPage() {
 
   useEffect(() => {
     const getMyAccount = async () => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) {
-        return alert("재 로그인 바랍니다.");
-      }
+      const accessToken = ClientStorage.getTokenByKey("accessToken");
 
       Client.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -85,6 +84,8 @@ export default function AccountInfoPage() {
       {isNickNameChangeModal && <NickNameChangeModal onClose={setIsNickNameChangeModal} />}
       {isEmailChangeModal && <EmailChangeModal onClose={setIsEmailChangeModal} />}
       {isPhoneNumberChangeModal && <PhoneNumberChangeModal onClose={setIsPhoneNumberChangeModal} />}
+
+      <CreditCardEditButtonMole />
     </div>
   );
 }

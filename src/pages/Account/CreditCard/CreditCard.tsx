@@ -31,6 +31,7 @@ export default function AccountCreditCardPage() {
     );
   }
 
+  // TODO 가로 스크롤로 볼 수 있게 변경
   return (
     <div>
       {cardArray.map((card) => {

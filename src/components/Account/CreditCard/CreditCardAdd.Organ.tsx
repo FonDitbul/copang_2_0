@@ -2,6 +2,7 @@ import Input from "../../Common/Atom/Input";
 import React, { useState } from "react";
 import Button from "../../Common/Atom/Button";
 import { Client } from "../../../context/api";
+import {useNavigate} from "react-router-dom";
 
 export default function CreditCardAddOrgan() {
   const [bankName, setBankName] = useState("");
@@ -9,6 +10,7 @@ export default function CreditCardAddOrgan() {
   const [cardType, setCardType] = useState("");
   const [validityPeriod, setValidityPeriod] = useState("");
 
+  const navigate = useNavigate()
   const changeButtonClickEvent = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
@@ -20,6 +22,9 @@ export default function CreditCardAddOrgan() {
           validityPeriod,
         },
       });
+      alert('카드 추가가 완료되었습니다.')
+      navigate('/account/credit-card')
+      return;
     } catch (e) {
       alert("다시 입력해 주세요");
       return;

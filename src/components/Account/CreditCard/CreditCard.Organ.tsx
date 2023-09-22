@@ -1,8 +1,14 @@
 import { BuyerCard } from "../../../interface/BuyerCard";
+import StarAtom from "../../Common/Atom/Star";
+import CreditCardRepresentativeStar from "./CreditCardRepresentativeButton.Mole";
 
 type CreditCardProps = BuyerCard;
 
 export function CreditCard(card: CreditCardProps) {
+  let star = <StarAtom isFull={card.isRepresentative} />;
+  if (!card.isRepresentative) {
+    star = <CreditCardRepresentativeStar id={card.id} />;
+  }
   // TODO 하나의 CreditCard
   // 대표로 설정하기, 삭제하기
   return (
@@ -30,11 +36,12 @@ export function CreditCard(card: CreditCardProps) {
                     <p className="font-medium tracking-wider text-sm">{card.validityPeriod}</p>
                   </div>
                 </div>
+                {star}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

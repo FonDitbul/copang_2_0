@@ -10,6 +10,7 @@ import Account from "./pages/Account/Account";
 import AccountSignUp from "./pages/Account/SignUp/SignUp";
 import AccountCreditCardPage from "./pages/Account/CreditCard/CreditCard";
 import AccountCreditCardAddPage from "./pages/Account/CreditCard/CreditCardAdd.page";
+import {AccountAddressPage} from "./pages/Account/Address/Address.page";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/account/sign-up" element={<AccountSignUp />}></Route>
           <Route path="/account/credit-card" element={<AccountCreditCardPage />}></Route>
           <Route path="/account/credit-card/add" element={<AccountCreditCardAddPage />}></Route>
+          <Route path="/account/address" element={<AccountAddressPage />}></Route>
 
           <Route path="/product/:id" element={<ProductDetail />}></Route>
 

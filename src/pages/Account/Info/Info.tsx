@@ -9,6 +9,7 @@ import EmailChangeModal from "../../../components/Account/Info/EmailChangeModal.
 import PhoneNumberChangeModal from "../../../components/Account/Info/PhoneNumberChangeModal.Organ";
 import { CreditCardEditButtonMole } from "../../../components/Account/CreditCard/CreditCardEditButton.Mole";
 import { ClientStorage } from "../../../context/ClientStorage";
+import { AddressEditButtonMole } from "../../../components/Account/Address/AddressEditButton.Mole";
 
 export type BuyerAccountResponse = Omit<Buyer, "password" | "createdAt" | "updatedAt" | "deletedAt"> & {
   createdAt: string;
@@ -86,6 +87,7 @@ export default function AccountInfoPage() {
       {isPhoneNumberChangeModal && <PhoneNumberChangeModal onClose={setIsPhoneNumberChangeModal} />}
 
       <CreditCardEditButtonMole />
+      <AddressEditButtonMole />
     </div>
   );
 }

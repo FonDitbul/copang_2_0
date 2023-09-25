@@ -2,6 +2,7 @@ import { Cart } from "../../interface/Cart";
 import { useEffect, useState } from "react";
 import { costDisplayDot } from "../Common/Logic/Cost.Logic";
 import { calculateCartCost } from "./CartCost.Logic";
+import CartBuyProcessButtonMole from "./CartBuyProcessButton.Mole";
 
 interface cartCostProps {
   carts: Cart[];
@@ -42,9 +43,7 @@ export default function CartCostTotal(cartCost: cartCostProps) {
           <p className="mb-1 text-gray-700 font-bold">{costDisplayDot(totalProductCost)}</p>
         </div>
       </div>
-      <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-        결제하기
-      </button>
+      <CartBuyProcessButtonMole />
     </div>
   );
 }

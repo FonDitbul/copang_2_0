@@ -5,7 +5,7 @@ import { CreditCard } from "../../../components/Account/CreditCard/CreditCard.Or
 import Button from "../../../components/Common/Atom/Button";
 import CreditCardAddButton from "../../../components/Account/CreditCard/CreditCardAddButon.Mole";
 
-type CreditCardResponse = {
+export type CreditCardResponse = {
   buyerCards: BuyerCard[];
 };
 
@@ -26,7 +26,7 @@ export default function AccountCreditCardPage() {
       <div>
         {" "}
         현재 결제 카드가 존재하지 않습니다.
-        <CreditCardAddButton/>
+        <CreditCardAddButton />
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function AccountCreditCardPage() {
       {cardArray.map((card) => {
         return <CreditCard key={card.id} {...card} />;
       })}
-      <CreditCardAddButton/>
+      <CreditCardAddButton />
     </div>
   );
 }

@@ -5,18 +5,18 @@ import { Client, ResponseData } from "../../../context/api";
 import { AddressAddModalOrgan } from "../../../components/Account/Address/AddressAddModal.Organ";
 import Button from "../../../components/Common/Atom/Button";
 
-type AddressResponse = {
+export type AddressResponse = {
   buyerAddresses: BuyerAddress[];
 };
 
-export function AccountAddressPage() {
+export default function AccountAddressPage() {
   const [addressArray, setAddressArray] = useState([] as BuyerAddress[]);
   useEffect(() => {
     const getAddress = async () => {
       const response = await Client.get("/buyer/address");
       const responseData = response.data as ResponseData<AddressResponse>;
-      const buyerCards = responseData.content.buyerAddresses;
-      setAddressArray(buyerCards);
+      const buyerAddresses = responseData.content.buyerAddresses;
+      setAddressArray(buyerAddresses);
     };
     getAddress();
   }, []);

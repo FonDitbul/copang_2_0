@@ -34,9 +34,9 @@ describe('Buyer Account Service Test', () => {
       const givenBuyerId = 1;
       const givenAddress = {
         postalCode: '13561',
-        addressRegion: '경기',
-        addressLocality: '성남시 분당구',
-        streetAddress: '정자일로 95',
+        address: '서울특별시 남부순환로',
+        roadAddress: '서울특별시 남부순환로',
+        jibunAddress: '서울특별시 543-23',
       };
       const givenCreateAddressIn: BuyerCreateAddressIn = {
         buyerId: 1,
@@ -47,7 +47,7 @@ describe('Buyer Account Service Test', () => {
 
       expect(buyerAddressRepository.createAddress).toHaveBeenCalledWith({
         buyerId: 1,
-        address: '{"postalCode":"13561","addressRegion":"경기","addressLocality":"성남시 분당구","streetAddress":"정자일로 95"}',
+        address: '{"postalCode":"13561","address":"서울특별시 남부순환로","roadAddress":"서울특별시 남부순환로","jibunAddress":"서울특별시 543-23"}',
       });
     });
   });
@@ -57,7 +57,7 @@ describe('Buyer Account Service Test', () => {
       return {
         id: 1,
         buyerId: 1,
-        address: '{"postalCode":"13561","addressRegion":"경기","addressLocality":"성남시 분당구","streetAddress":"정자일로 95","etc":"930호"}',
+        address: '{"postalCode":"13561","address":"서울특별시 남부순환로","roadAddress":"서울특별시 남부순환로","jibunAddress":"서울특별시 543-23"}',
         isRepresentative: false,
         createdAt: new Date(),
         updatedAt: new Date(),

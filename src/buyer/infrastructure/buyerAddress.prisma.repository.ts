@@ -25,6 +25,7 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
     return this.prisma.buyerAddress.findMany({
       where: {
         buyerId,
+        deletedAt: null,
       },
     });
   }

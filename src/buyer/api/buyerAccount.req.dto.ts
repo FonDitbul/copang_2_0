@@ -12,6 +12,9 @@ class CreateAddressReq {
   @IsNotEmpty()
   roadAddress: string; // 도로명 주소
 
+  @IsNotEmpty()
+  jibunAddress: string; // 구 주소 추가
+
   @IsOptional()
   etc?: string; // 기타 주소
 }

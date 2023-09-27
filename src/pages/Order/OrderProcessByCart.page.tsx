@@ -73,17 +73,17 @@ export default function OrderProcessByCartPage() {
   }
 
   return (
-    <div className="h-screen bg-dark-100 pt-20">
+    <div className="h-screen bg-dark-100 pt-20 content-center">
       <h1 className="mb-10 text-center text-2xl font-bold"> 결제하기 페이지 </h1>
-      <OrderBuyerMole name={buyer.name} email={buyer.email} phoneNumber={buyer.phoneNumber} />
-      <OrderShippingAddressMole addresses={addressArray}/>
+      <OrderBuyerMole buyer={buyer} setFunction={setBuyer} />
+      <OrderShippingAddressMole addresses={addressArray} />
       <OrderProductMole carts={carts} />
 
       <OrderBuyerCardMole creditCards={cardArray} />
 
-      <OrderBuyCostTotalOrgan carts={carts}/>
+      <OrderBuyCostTotalOrgan carts={carts} />
 
-      <OrderBuyButtonMole/>
+      <OrderBuyButtonMole />
     </div>
   );
 }

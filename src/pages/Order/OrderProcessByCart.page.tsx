@@ -79,11 +79,11 @@ export default function OrderProcessByCartPage() {
       <OrderShippingAddressMole addresses={addressArray} />
       <OrderProductMole carts={carts} />
 
-      <OrderBuyerCardMole creditCards={cardArray} />
+      {/*<OrderBuyerCardMole creditCards={cardArray} />*/}
 
-      <OrderBuyCostTotalOrgan carts={carts} />
-
-      <OrderBuyButtonMole />
+      {/*<OrderBuyCostTotalOrgan carts={carts} />*/}
+      {/**/}
+      {/*<OrderBuyButtonMole />*/}
     </div>
   );
 }

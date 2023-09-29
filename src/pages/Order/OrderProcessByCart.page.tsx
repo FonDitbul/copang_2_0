@@ -9,7 +9,7 @@ import { AddressResponse } from "../Account/Address/Address.page";
 import { Buyer } from "../../interface/Buyer";
 import { BuyerAccountResponse } from "../Account/Info/Info";
 import OrderBuyerCardMole from "../../components/Order/OrderProcess/OrderBuyerCard.Mole";
-import OrderProductMole from "../../components/Order/OrderProcess/OrderProduct.Mole";
+import OrderProductOrgan from "../../components/Order/OrderProcess/OrderProduct.Organ";
 import OrderShippingAddressMole from "../../components/Order/OrderProcess/OrderShippingAddress.Mole";
 import OrderBuyerMole from "../../components/Order/OrderProcess/OrderBuyer.Mole";
 import OrderBuyButtonMole from "../../components/Order/OrderProcess/OrderBuyButton.Mole";
@@ -75,11 +75,12 @@ export default function OrderProcessByCartPage() {
   return (
     <div className="h-screen bg-dark-100 pt-20 content-center">
       <h1 className="mb-10 text-center text-2xl font-bold"> 결제하기 페이지 </h1>
+      <OrderProductOrgan carts={carts} />
       <OrderBuyerMole buyer={buyer} setFunction={setBuyer} />
       <OrderShippingAddressMole addresses={addressArray} />
-      <OrderProductMole carts={carts} />
 
-      {/*<OrderBuyerCardMole creditCards={cardArray} />*/}
+
+      <OrderBuyerCardMole creditCards={cardArray} />
 
       {/*<OrderBuyCostTotalOrgan carts={carts} />*/}
       {/**/}

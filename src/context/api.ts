@@ -1,8 +1,7 @@
 import axios, { Axios } from "axios";
-import { LoginResponse } from "../pages/Account/Login/Login";
 import { ClientStorage } from "./ClientStorage";
 import { isBiggerLeftDate } from "../utils/date";
-import {AuthRefreshTokenStrategy} from "./AuthTokenStrategy";
+import { AuthRefreshTokenStrategy } from "./AuthTokenStrategy";
 
 export const serverUrl = "192.168.0.16:5000";
 
@@ -43,7 +42,7 @@ Client.interceptors.response.use(
     return response;
   },
   async function (error) {
-    if (error.response.data && error.response.data.errorCode === 10002) {
+    if (error.response.data && (error.response.data.errorCode === 10002 || error.response.data.errorCode === 10001)) {
       try {
         const originalRequest = error.config;
 
@@ -56,6 +55,7 @@ Client.interceptors.response.use(
         ClientStorage.clear();
         console.log(e);
       }
+      ClientStorage.clear();
       return Promise.reject(error);
     }
     return Promise.reject(error);

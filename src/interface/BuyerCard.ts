@@ -1,3 +1,12 @@
+export interface Card {
+  method: string
+  type: string
+  bankName: string
+  cardNumber: string
+  cardType: string
+  validityPeriod: string
+}
+
 export interface BuyerCard {
   id: number;
   buyerId: number;

@@ -3,7 +3,7 @@ import { Client, ResponseData } from "../../context/api";
 import { getCartsByServer } from "../Cart/Cart";
 import { Cart } from "../../interface/Cart";
 import { BuyerAddress } from "../../interface/BuyerAddress";
-import { BuyerCard } from "../../interface/BuyerCard";
+import { BuyerCard, Card } from "../../interface/BuyerCard";
 import { CreditCardResponse } from "../Account/CreditCard/CreditCard";
 import { AddressResponse } from "../Account/Address/Address.page";
 import { Buyer } from "../../interface/Buyer";
@@ -12,8 +12,12 @@ import OrderBuyerCardMole from "../../components/Order/OrderProcess/OrderBuyerCa
 import OrderProductOrgan from "../../components/Order/OrderProcess/OrderProduct.Organ";
 import OrderShippingAddressMole from "../../components/Order/OrderProcess/OrderShippingAddress.Mole";
 import OrderBuyerMole from "../../components/Order/OrderProcess/OrderBuyer.Mole";
-import OrderBuyButtonMole from "../../components/Order/OrderProcess/OrderBuyButton.Mole";
+import OrderBuyButtonMole, {
+  BuyProductType,
+  CartBuyProductType,
+} from "../../components/Order/OrderProcess/OrderBuyButton.Mole";
 import OrderBuyCostTotalOrgan from "../../components/Order/OrderProcess/OrderBuyCostTotal.Organ";
+import { Address } from "../../interface/Address";
 
 export type OrderBuyer = Pick<Buyer, "name" | "email" | "phoneNumber">;
 export default function OrderProcessByCartPage() {
@@ -26,12 +30,16 @@ export default function OrderProcessByCartPage() {
   const [cardArray, setCardArray] = useState([] as BuyerCard[]);
   const [addressArray, setAddressArray] = useState([] as BuyerAddress[]);
 
+  const [buyProduct, setBuyProducts] = useState([] as CartBuyProductType[]);
+  const [buyCard, setBuyCard] = useState({} as Card);
+  const [buyAddress, setBuyAddress] = useState({} as Address);
+
   useEffect(() => {
     const getMyAccount = async () => {
       const response = await Client.get(`/buyer`);
       const responseData = response.data as ResponseData<BuyerAccountResponse>;
       const myAccount = responseData.content;
-      const { id, userId, name, nickName, email, phoneNumber, createdAt, updatedAt } = myAccount;
+      const { name, email, phoneNumber } = myAccount;
 
       setBuyer({
         name,
@@ -44,6 +52,14 @@ export default function OrderProcessByCartPage() {
       const result = response.data as ResponseData<getCartsByServer>;
       const cartFilter = result.content.carts.filter((cart) => cart.status === "ACTIVE");
       setCarts(cartFilter);
+
+      const buyProductMapping = cartFilter.map((product) => {
+        return {
+          productId: product.productId,
+          productQuantity: product.productQuantity,
+        } as CartBuyProductType;
+      });
+      setBuyProducts(buyProductMapping);
     };
     const getCreditCard = async () => {
       const response = await Client.get("/buyer/card");
@@ -77,14 +93,13 @@ export default function OrderProcessByCartPage() {
       <h1 className="mb-10 text-center text-2xl font-bold"> 결제하기 페이지 </h1>
       <OrderProductOrgan carts={carts} />
       <OrderBuyerMole buyer={buyer} setFunction={setBuyer} />
-      <OrderShippingAddressMole addresses={addressArray} />
+      <OrderShippingAddressMole addresses={addressArray} setFunction={setBuyAddress} />
 
+      <OrderBuyerCardMole creditCards={cardArray} setFunction={setBuyCard} />
 
-      <OrderBuyerCardMole creditCards={cardArray} />
+      <OrderBuyCostTotalOrgan carts={carts} />
 
-      {/*<OrderBuyCostTotalOrgan carts={carts} />*/}
-      {/**/}
-      {/*<OrderBuyButtonMole />*/}
+      <OrderBuyButtonMole card={buyCard} address={buyAddress} products={buyProduct} />
     </div>
   );
 }

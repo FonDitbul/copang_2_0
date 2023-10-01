@@ -35,9 +35,9 @@ export default function ProductCard({ id, name, cost }: IProductDetail) {
       </div>
       <div className="flex">
         <CartAddButton productId={id} />
-        <Button id="productBuy" onClick={productBuyButton}>
-          바로 구매하기
-        </Button>
+        {/*<Button id="productBuy" onClick={productBuyButton}>*/}
+        {/*  바로 구매하기*/}
+        {/*</Button>*/}
       </div>
     </div>
   );

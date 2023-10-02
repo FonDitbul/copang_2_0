@@ -2,6 +2,7 @@ import Button from "../Common/Atom/Button";
 import { IShippingStatus, OrderProduct } from "../../interface/OrderProduct";
 import { costDisplayDot } from "../Common/Logic/Cost.Logic";
 import { calculateCost } from "../Cart/CartCost.Logic";
+import ReviewCreateNavigateButtonMole from "../Review/ReviewCreateNavigateButton.Mole";
 
 export type IShippingStatusMessage = "결제 진행중" | "배송 대기중" | "배송중" | "배송 완료";
 
@@ -28,14 +29,16 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
       </div>
       <div className="mt-4 justify-between">
         <div className="flex items-center space-x-4">
-          <p className="text-gray-700 text-sm">{costDisplayDot(calculateCost(orderProduct.cost, orderProduct.buyQuantity))} 원</p>
+          <p className="text-gray-700 text-sm">
+            {costDisplayDot(calculateCost(orderProduct.cost, orderProduct.buyQuantity))} 원
+          </p>
         </div>
         <div>
           <p className="text-gray-700"> {orderProductMap.get(shippingStatus)} </p>
         </div>
 
         <div>
-          <Button>리뷰 작성하기</Button>
+          <ReviewCreateNavigateButtonMole productId={orderProduct.productId} />
         </div>
       </div>
     </div>

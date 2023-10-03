@@ -4,3 +4,7 @@ export interface ProductFindAllRes {
   products: Product[];
   isEndPage: boolean;
 }
+
+export interface ProductFindOneRes {
+  product: Product;
+}

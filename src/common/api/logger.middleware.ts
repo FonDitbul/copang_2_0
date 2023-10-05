@@ -4,10 +4,15 @@ import { isEmptyObject } from '../../util/object.util';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  private logger = new Logger('HTTP');
+  private logger = new Logger('HTTP', { timestamp: true });
 
   private bodyMasking(body: object, key: string): object {
     const copyBody = { ...body };
+
+    if (!copyBody[key]) {
+      return copyBody;
+    }
+
     copyBody[key] = '******';
     return copyBody;
   }

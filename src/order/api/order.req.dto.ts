@@ -47,7 +47,6 @@ export class OrderBuyProductReq {
   card: Card;
 
   @IsNotEmpty()
-  @MaxLength(100)
   address: string;
 
   @IsNotEmpty()

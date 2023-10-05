@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IOrderService } from '../domain/order.service';
 import { OrderBuyIn } from '../domain/port/order.in';
+
 import { IProductRepository } from '../../product/domain/product.repository';
 import { Product } from '../../product/domain/product';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
@@ -11,11 +12,15 @@ import { OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } fr
 import { IOrderPaymentServer } from '../domain/order.payment.server';
 import { ICartRepository } from '../../cart/domain/cart.repository';
 import { ICartDeleteByBuyOut } from '../../cart/domain/port/cart.out';
+import { OrderProduct } from '../domain/orderProduct';
+import { IOrderProductRepository } from '../domain/orderProduct.repository';
+import { OrderFindAllOrderProductIn } from '../domain/port/orderProduct.in';
 
 @Injectable()
 export class OrderService implements IOrderService {
   constructor(
     @Inject('IOrderRepository') private orderRepository: IOrderRepository,
+    @Inject('IOrderProductRepository') private orderProductRepository: IOrderProductRepository,
     @Inject('IProductRepository') private productRepository: IProductRepository,
     @Inject('IOrderPaymentServer') private orderPaymentServer: IOrderPaymentServer,
     @Inject('ICartRepository') private cartRepository: ICartRepository,
@@ -86,5 +91,13 @@ export class OrderService implements IOrderService {
     await this.cartRepository.deleteByBuy(deleteCart);
 
     return true;
+  }
+
+  async findAllOrderProduct(findAllOrderProductIn: OrderFindAllOrderProductIn): Promise<OrderProduct[]> {
+    const { buyerId, lastId, limit } = findAllOrderProductIn;
+
+    const orderProducts = await this.orderProductRepository.findAllByBuyerIdNoOffset({ buyerId, lastId, limit });
+
+    return orderProducts;
   }
 }

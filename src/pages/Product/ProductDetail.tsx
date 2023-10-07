@@ -4,6 +4,7 @@ import { Product } from "../../interface/Product";
 import { Client, ResponseData } from "../../context/api";
 import { CartAddButton } from "../../components/Cart/CartAddButton.Mole";
 import { costDisplayDot } from "../../components/Common/Logic/Cost.Logic";
+import ReviewProductOrgan from "../../components/Review/ReviewProduct.Organ";
 
 interface getOneProduct {
   product: Product;
@@ -23,6 +24,7 @@ export default function ProductDetail() {
 
       setProduct(oneProduct);
     };
+
     getOneProduct();
   }, []);
 
@@ -42,29 +44,12 @@ export default function ProductDetail() {
           <h3 className="mt-4 text-lg font-medium text-gray-900">{product.description}</h3>
           <h3 className="mt-4 text-lg font-medium text-gray-900">{product.information}</h3>
 
-          <p className="mt-1.5 text-sm text-gray-700">{costDisplayDot(product.cost)} 원</p>
+          <p className="mt-1.5 text-sm text-gray-700">{costDisplayDot(+product.cost)} 원</p>
 
           <CartAddButton productId={productId} />
         </div>
       </div>
-      {/*<span>{productId}</span>*/}
-      {/*<span>{product.name}</span>*/}
-      {/*<span>{product.description}</span>*/}
-      {/*<span>{product.information}</span>*/}
-      {/*<span>{product.quantity}</span>*/}
-
-      {/*<CartAddButton productId={productId} />*/}
-      {/*<span> 리뷰 현황 </span>*/}
-      {/*<Input placeholder="내 리뷰" />*/}
-      {/*<ul>*/}
-      {/*  {reviewArray.length !== 0 &&*/}
-      {/*    reviewArray.map((review) => (*/}
-      {/*      <li key={review.id}>*/}
-      {/*        {review.content}*/}
-      {/*        {review.star}*/}
-      {/*      </li>*/}
-      {/*    ))}*/}
-      {/*</ul>*/}
+      <ReviewProductOrgan />
     </div>
   );
 }

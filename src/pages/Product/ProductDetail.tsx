@@ -49,7 +49,7 @@ export default function ProductDetail() {
           <CartAddButton productId={productId} />
         </div>
       </div>
-      <ReviewProductOrgan />
+      <ReviewProductOrgan productId={productId} />
     </div>
   );
 }

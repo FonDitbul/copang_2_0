@@ -8,7 +8,7 @@ export default function StarAtom({ isFull, ...attributes }: Props) {
   if (isFull) {
     return (
       <svg
-        className="w-4 h-4 text-yellow-300 mr-1"
+        className="w-6 h-6 text-yellow-300 mr-1"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
@@ -21,7 +21,7 @@ export default function StarAtom({ isFull, ...attributes }: Props) {
   }
   return (
     <svg
-      className="w-4 h-4 text-gray-200 dark:text-gray-600"
+      className="w-6 h-6 text-gray-200 dark:text-gray-600"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"

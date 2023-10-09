@@ -31,10 +31,6 @@ export default function ReviewProductOrgan({ productId }: PropsType) {
 
   return (
     <div>
-      <section className="border-2 p-2">
-        <ReviewCreateInputMole />
-      </section>
-
       <section className="border-2">
         {reviewArray.map((review) => (
           <ReviewCardMole key={review.id} {...review} />

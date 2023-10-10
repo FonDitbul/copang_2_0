@@ -1,3 +1,5 @@
+import { Buyer } from '../../buyer/domain/buyer';
+
 export interface Review {
   id: number;
   star: number;
@@ -8,4 +10,6 @@ export interface Review {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+
+  Buyer?: Partial<Buyer>;
 }

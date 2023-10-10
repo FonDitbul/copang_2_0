@@ -1,8 +1,9 @@
 import Button from "../Common/Atom/Button";
-import { IShippingStatus, OrderProduct } from "../../interface/OrderProduct";
-import { costDisplayDot } from "../Common/Logic/Cost.Logic";
-import { calculateCost } from "../Cart/CartCost.Logic";
-import ReviewCreateNavigateButtonMole from "../Review/ReviewCreateNavigateButton.Mole";
+import {IShippingStatus, OrderProduct} from "../../interface/OrderProduct";
+import {costDisplayDot} from "../Common/Logic/Cost.Logic";
+import {calculateCost} from "../Cart/CartCost.Logic";
+import {useState} from "react";
+import ReviewCreateInputModalMole from "../Review/ReviewCreateInputModalMole";
 
 export type IShippingStatusMessage = "결제 진행중" | "배송 대기중" | "배송중" | "배송 완료";
 
@@ -14,6 +15,8 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
   orderProductMap.set("SHIPPING_COMPLETE", "배송 완료");
 
   const shippingStatus = orderProduct.shippingStatus as IShippingStatus;
+
+  const [isCreateModal, setIsCreateModal] = useState(false);
 
   return (
     <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -38,8 +41,19 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
         </div>
 
         <div>
-          <ReviewCreateNavigateButtonMole productId={orderProduct.productId} />
+          {!orderProduct.reviewId && (
+            <Button
+              disabled={orderProduct.shippingStatus !== "SHIPPING_COMPLETE"}
+              onClick={(e) => {
+                setIsCreateModal(true);
+              }}
+            >
+              리뷰 작성하기
+            </Button>
+          )}
         </div>
+
+        {isCreateModal && <ReviewCreateInputModalMole orderProductId={orderProduct.id} onClose={setIsCreateModal} />}
       </div>
     </div>
   );

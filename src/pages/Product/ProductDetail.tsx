@@ -5,7 +5,7 @@ import { Client, ResponseData } from "../../context/api";
 import { CartAddButton } from "../../components/Cart/CartAddButton.Mole";
 import { costDisplayDot } from "../../components/Common/Logic/Cost.Logic";
 import ReviewProductOrgan from "../../components/Review/ReviewProduct.Organ";
-import ReviewCreateInputMole from "../../components/Review/ReviewCreateInput.Mole";
+import ReviewCreateInputModalMole from "../../components/Review/ReviewCreateInputModalMole";
 
 interface getOneProduct {
   product: Product;

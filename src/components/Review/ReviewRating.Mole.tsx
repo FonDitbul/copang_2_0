@@ -4,19 +4,18 @@ interface Props {
   currentRating: number;
 }
 export default function ReviewRatingMole({ currentRating }: Props) {
-  const maxRating = 5;
-
-  const starArray: boolean[] = [];
-
-  for (let i = 0; i < maxRating; i++) {
-    const isFull = currentRating > i;
-    starArray.push(isFull);
-  }
+  const starIndexArray = [1, 2, 3, 4, 5].map((num) => {
+    const isFull = currentRating >= num;
+    return {
+      index: num,
+      isFull: isFull,
+    };
+  });
 
   return (
     <div className="flex items-center mb-1">
-      {starArray.map((star) => (
-        <StarAtom key={1} isFull={star} />
+      {starIndexArray.map((star) => (
+        <StarAtom key={star.index} isFull={star.isFull} />
       ))}
     </div>
   );

@@ -1,10 +1,11 @@
 import Button from "../../components/Common/Atom/Button";
 import { useNavigate } from "react-router-dom";
+import { ClientStorage } from "../../context/ClientStorage";
 
 export default function LogoutButton() {
   const navigate = useNavigate();
   const logoutOnClick = () => {
-    localStorage.clear();
+    ClientStorage.clear();
     navigate("/");
     return;
   };

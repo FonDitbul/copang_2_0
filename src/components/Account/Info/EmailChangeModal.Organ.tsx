@@ -25,15 +25,6 @@ export default function EmailChangeModal({ onClose }: PropsType) {
       return alert("이메일 형식이 올바르지 않습니다.");
     }
 
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      return alert("재 로그인 바랍니다.");
-    }
-
-    Client.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      return config;
-    });
     await Client.post("/buyer/change/email", {
       email: email,
     });

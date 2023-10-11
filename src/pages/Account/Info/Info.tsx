@@ -30,12 +30,6 @@ export default function AccountInfoPage() {
 
   useEffect(() => {
     const getMyAccount = async () => {
-      const accessToken = ClientStorage.getTokenByKey("accessToken");
-
-      Client.interceptors.request.use((config) => {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-        return config;
-      });
       const response = await Client.get("/buyer");
       const responseData = response.data as ResponseData<BuyerAccountResponse>;
       const myAccount = responseData.content;

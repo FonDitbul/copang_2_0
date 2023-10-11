@@ -4,6 +4,7 @@ import Button from "../../../components/Common/Atom/Button";
 import SignUpLinkButton from "../../../components/Account/SignUpLink.Mole";
 import { useNavigate } from "react-router-dom";
 import { Client, ResponseData } from "../../../context/api";
+import {ClientStorage} from "../../../context/ClientStorage";
 
 export type TokenResponse = {
   value: string;
@@ -22,10 +23,10 @@ const loginByServer = async (userId: string, password: string) => {
 
   const result = responseData.content;
 
-  localStorage.setItem("accessToken", result.accessToken.value);
-  localStorage.setItem("accessTokenExpireAt", result.accessToken.expiredAt); // UTC로 저장
-  localStorage.setItem("refreshToken", result.refreshToken.value);
-  localStorage.setItem("refreshTokenExpireAt", result.refreshToken.expiredAt); // UTC로 저장
+  ClientStorage.setToken("accessToken", result.accessToken.value);
+  ClientStorage.setToken("accessTokenExpireAt", result.accessToken.expiredAt); // UTC로 저장
+  ClientStorage.setToken("refreshToken", result.refreshToken.value);
+  ClientStorage.setToken("refreshTokenExpireAt", result.refreshToken.expiredAt); // UTC로 저장
 };
 
 export default function AccountLoginPage() {

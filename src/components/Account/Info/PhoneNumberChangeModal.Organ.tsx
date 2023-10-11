@@ -21,15 +21,6 @@ export default function PhoneNumberChangeModal({ onClose }: PropsType) {
       return alert("닉네임을 입력해 주세요.");
     }
     const formatPhoneNumber = formattingPhoneNumber(phoneNumber);
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      return alert("재 로그인 바랍니다.");
-    }
-
-    Client.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      return config;
-    });
     await Client.post("/buyer/change/phone-number", {
       phoneNumber: formatPhoneNumber,
     });

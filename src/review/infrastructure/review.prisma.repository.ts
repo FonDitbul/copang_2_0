@@ -16,6 +16,9 @@ export class ReviewPrismaRepository implements IReviewRepository {
         productId,
         deletedAt: null,
       },
+      include: {
+        Buyer: { select: { id: true, name: true, nickName: true } },
+      },
       orderBy: [sortQuery],
       take: limit,
       skip: lastReviewId ? 1 : 0,

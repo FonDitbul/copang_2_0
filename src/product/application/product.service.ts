@@ -2,6 +2,7 @@ import { IProductService } from '../domain/product.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IProductRepository } from '../domain/product.repository';
 import { IProductFindAllIn } from '../domain/port/product.in';
+import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 
 @Injectable()
 export class ProductService implements IProductService {
@@ -17,5 +18,15 @@ export class ProductService implements IProductService {
     }
 
     return { products, isEndPage };
+  }
+
+  async findOne(id: number) {
+    const product = await this.productRepository.findOne({ id: id, deletedAt: null });
+
+    if (!product) {
+      throw new CoPangException(EXCEPTION_STATUS.PRODUCT_NOT_EXIST);
+    }
+
+    return product;
   }
 }

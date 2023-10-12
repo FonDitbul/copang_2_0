@@ -1,5 +1,5 @@
 import { Controller, DefaultValuePipe, Get, Inject, ParseIntPipe, Query } from '@nestjs/common';
-import { ProductFindAllRes } from './product.res.dto';
+import { ProductFindAllRes, ProductFindOneRes } from './product.res.dto';
 import { IProductService } from '../domain/product.service';
 
 @Controller()
@@ -13,5 +13,12 @@ export class ProductController {
   ): Promise<ProductFindAllRes> {
     const { products, isEndPage } = await this.productService.findAllForSale({ page, limit, searchName });
     return { products, isEndPage };
+  }
+
+  @Get('product')
+  async findOne(@Query('id', ParseIntPipe) id: number): Promise<ProductFindOneRes> {
+    const product = await this.productService.findOne(id);
+
+    return { product };
   }
 }

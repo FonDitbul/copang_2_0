@@ -1,23 +1,25 @@
+import { Cart } from '../cart';
+
 export interface ICartFindAllIn {
-  buyerId: number;
-  limit: number;
-  lastId: number;
+  readonly buyerId: Cart['buyerId'];
+  readonly limit: number;
+  readonly lastId: Cart['id'];
 }
 
 export interface ICartAddIn {
-  buyerId: number;
-  productId: number;
-  productQuantity: number;
+  readonly buyerId: Cart['buyerId'];
+  readonly productId: Cart['productId'];
+  readonly productQuantity: Cart['productQuantity'];
 }
 
 export interface ICartChangeIn {
-  id: number;
-  buyerId: number;
-  productQuantity: number;
-  status: string;
+  readonly id: Cart['id'];
+  readonly buyerId: Cart['buyerId'];
+  readonly productQuantity: Cart['productQuantity'];
+  readonly status: Cart['status'];
 }
 
 export interface ICartDeleteIn {
-  id: number;
-  buyerId: number;
+  readonly id: Cart['id'];
+  readonly buyerId: Cart['buyerId'];
 }

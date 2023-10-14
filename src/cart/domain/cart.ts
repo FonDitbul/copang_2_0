@@ -1,6 +1,6 @@
 import { Product } from '../../product/domain/product';
 
-export const CART_MAX_COUNT = 50;
+export const CART_MAX_COUNT = 20;
 
 export class Cart {
   id: number;
@@ -22,7 +22,7 @@ export class Cart {
     return !!cart.deletedAt;
   }
 
-  static isSameBuyerId(cart: Cart, buyerId: number) {
+  static isSameBuyerId(cart: Cart, buyerId: Cart['buyerId']) {
     return cart.buyerId === buyerId;
   }
 }

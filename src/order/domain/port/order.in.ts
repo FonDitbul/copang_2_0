@@ -1,13 +1,16 @@
 import { OrderCard } from '../orderCard';
 import { OrderBuyProduct } from '../orderBuyProduct';
+import { Order } from '../order';
+import { OrderProduct } from '../orderProduct';
+import { OrderPayment } from '../orderPayment';
 
 export interface OrderBuyIn {
-  buyerId: number;
-  card: OrderCard;
-  address: string;
-  buyProduct: OrderBuyProduct[];
+  readonly buyerId: Order['buyerId'];
+  readonly card: OrderCard;
+  readonly address: OrderProduct['address'];
+  readonly buyProduct: OrderBuyProduct[];
 }
 
 export interface OrderPaymentRequestIn {
-  paymentKey: string;
+  readonly paymentKey: OrderPayment['paymentKey'];
 }

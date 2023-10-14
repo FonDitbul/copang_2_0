@@ -5,6 +5,7 @@ import { UserInfo } from '../../auth/domain/login.token';
 import { OrderBuyProductReq } from './order.req.dto';
 import { IOrderService } from '../domain/order.service';
 import { OrderFindAllRes } from './order.res.dto';
+import { OrderProduct } from '../domain/orderProduct';
 
 @Controller()
 export class OrderController {
@@ -26,7 +27,7 @@ export class OrderController {
   @UseGuards(AuthAuthorizationGuard)
   async getOrderProduct(
     @Buyer() buyer: UserInfo,
-    @Query('lastId', new DefaultValuePipe(0), ParseIntPipe) lastId: number,
+    @Query('lastId', new DefaultValuePipe(0), ParseIntPipe) lastId: OrderProduct['id'],
     @Query('limit', new DefaultValuePipe(20), ParseIntPipe) limit: number,
   ): Promise<OrderFindAllRes> {
     const orderProducts = await this.orderService.findAllOrderProduct({ buyerId: buyer.id, lastId, limit });

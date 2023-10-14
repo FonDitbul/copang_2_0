@@ -6,9 +6,6 @@ import { OrderBuyOut } from '../domain/port/order.out';
 @Injectable()
 export class OrderPrismaRepository implements IOrderRepository {
   constructor(private prisma: PrismaService) {}
-  async findOne() {
-    return await this.prisma.order.findFirst();
-  }
   async buy(orderBuy: OrderBuyOut) {
     return await this.prisma.$transaction(async (tx) => {
       const order = await tx.order.create({

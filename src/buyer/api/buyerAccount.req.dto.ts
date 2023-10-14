@@ -7,56 +7,56 @@ import { BuyerCard } from '../domain/buyerCard';
 class CreateAddressReq {
   @IsNotEmpty()
   @IsNumberString()
-  postalCode: Address['postalCode']; // 우편 번호 ex) 13561
+  readonly postalCode: Address['postalCode']; // 우편 번호 ex) 13561
 
   @IsNotEmpty()
-  address: Address['address']; // 전체 주소
+  readonly address: Address['address']; // 전체 주소
 
   @IsNotEmpty()
-  roadAddress: Address['roadAddress']; // 도로명 주소
+  readonly roadAddress: Address['roadAddress']; // 도로명 주소
 
   @IsNotEmpty()
-  jibunAddress: Address['jibunAddress']; // 구 주소 추가
+  readonly jibunAddress: Address['jibunAddress']; // 구 주소 추가
 
   @IsOptional()
-  etc?: Address['etc']; // 기타 주소
+  readonly etc?: Address['etc']; // 기타 주소
 }
 export class BuyerCreateAddressReq {
   @IsNotEmpty()
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => CreateAddressReq)
-  address: CreateAddressReq;
+  readonly address: CreateAddressReq;
 }
 
 export class BuyerUpdateRepresentativeAddressReq {
   @IsNotEmpty()
   @Min(1)
-  id: BuyerAddress['id'];
+  readonly id: BuyerAddress['id'];
 }
 
 export class BuyerDeleteAddressReq {
   @IsNotEmpty()
   @Min(1)
-  id: BuyerAddress['id'];
+  readonly id: BuyerAddress['id'];
 }
 
 class CreateCardReq {
   @IsNotEmpty()
   @MaxLength(100)
-  bankName: BuyerCard['bankName'];
+  readonly bankName: BuyerCard['bankName'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardNumber: BuyerCard['cardNumber'];
+  readonly cardNumber: BuyerCard['cardNumber'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardType: BuyerCard['cardType'];
+  readonly cardType: BuyerCard['cardType'];
 
   @IsNotEmpty()
   @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
-  validityPeriod: BuyerCard['validityPeriod'];
+  readonly validityPeriod: BuyerCard['validityPeriod'];
 }
 
 export class BuyerCreateCardReq {
@@ -64,17 +64,17 @@ export class BuyerCreateCardReq {
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => CreateCardReq)
-  card: CreateCardReq;
+  readonly card: CreateCardReq;
 }
 
 export class BuyerUpdateRepresentativeCardReq {
   @IsNotEmpty()
   @Min(1)
-  id: BuyerCard['id'];
+  readonly id: BuyerCard['id'];
 }
 
 export class BuyerDeleteCardReq {
   @IsNotEmpty()
   @Min(1)
-  id: BuyerCard['id'];
+  readonly id: BuyerCard['id'];
 }

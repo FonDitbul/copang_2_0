@@ -1,36 +1,37 @@
 import { IsIn, IsInt, IsNotEmpty, Min } from 'class-validator';
+import { Cart } from '../domain/cart';
 
 export class CartAddReq {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  productId: number;
+  readonly productId: Cart['productId'];
 
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  productQuantity: number;
+  readonly productQuantity: Cart['productQuantity'];
 }
 
 export class CartChangeReq {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  id: number;
+  readonly id: Cart['id'];
 
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  productQuantity: number;
+  readonly productQuantity: Cart['productQuantity'];
 
   @IsNotEmpty()
   @IsIn(['ACTIVE', 'NONE'])
-  status: string;
+  readonly status: Cart['status'];
 }
 
 export class CartDeleteReq {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  id: number;
+  readonly id: Cart['id'];
 }

@@ -1,6 +1,8 @@
+import { Product } from '../product';
+
 export interface IProductFindAllOut {
-  limit: number;
-  page: number;
-  searchName?: string;
-  lastProductId?: number;
+  readonly limit: number;
+  readonly page: number;
+  readonly searchName?: Product['name'];
+  readonly lastProductId?: Product['id'];
 }

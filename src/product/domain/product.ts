@@ -20,7 +20,7 @@ export class Product {
     return !!product.deletedAt;
   }
 
-  static isOverQuantity(product: Product, quantity: number) {
+  static isOverQuantity(product: Product, quantity: Product['quantity']) {
     return product.quantity < quantity;
   }
 }

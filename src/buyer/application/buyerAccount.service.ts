@@ -14,7 +14,7 @@ import { BuyerCreateAddressOut, BuyerCreateCardOut } from '../domain/port/buyerA
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { BuyerCard } from '../domain/buyerCard';
 import { IBuyerCardRepository } from '../domain/buyerCard.repository';
-import { id } from 'date-fns/locale';
+import { BuyerAddress } from '../domain/buyerAddress';
 
 @Injectable()
 export class BuyerAccountService implements IBuyerAccountService {
@@ -23,7 +23,7 @@ export class BuyerAccountService implements IBuyerAccountService {
     @Inject('IBuyerCardRepository') private buyerCardRepository: IBuyerCardRepository,
   ) {}
 
-  async getAddressArray(buyerId: number) {
+  async getAddressArray(buyerId: BuyerAddress['buyerId']) {
     const addressArray = this.buyerAddressRepository.getAllAddressByBuyerId(buyerId);
 
     return addressArray;
@@ -62,7 +62,7 @@ export class BuyerAccountService implements IBuyerAccountService {
     await this.buyerAddressRepository.deleteAddressById(id);
   }
 
-  async getCardArray(buyerId: number): Promise<BuyerCard[]> {
+  async getCardArray(buyerId: BuyerCard['buyerId']): Promise<BuyerCard[]> {
     const addressArray = await this.buyerCardRepository.getAllByBuyerId(buyerId);
 
     return addressArray;

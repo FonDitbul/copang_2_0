@@ -1,32 +1,33 @@
 import { Address } from '../address';
 import { Card } from '../card';
+import { BuyerAddress } from '../buyerAddress';
 
 export interface BuyerCreateAddressIn {
-  buyerId: number;
-  address: Address;
+  readonly buyerId: BuyerAddress['buyerId'];
+  readonly address: Address;
 }
 
 export interface BuyerUpdateRepresentativeAddressIn {
-  buyerId: number;
-  id: number;
+  readonly id: BuyerAddress['id'];
+  readonly buyerId: BuyerAddress['buyerId'];
 }
 
 export interface BuyerDeleteAddressIn {
-  buyerId: number;
-  id: number;
+  readonly id: BuyerAddress['id'];
+  readonly buyerId: BuyerAddress['buyerId'];
 }
 
 export interface BuyerCreateCardIn {
-  buyerId: number;
-  card: Card;
+  readonly buyerId: number;
+  readonly card: Card;
 }
 
 export interface BuyerUpdateRepresentativeCardIn {
-  buyerId: number;
-  id: number;
+  readonly id: BuyerAddress['id'];
+  readonly buyerId: BuyerAddress['buyerId'];
 }
 
 export interface BuyerDeleteCardIn {
-  buyerId: number;
-  id: number;
+  readonly id: BuyerAddress['id'];
+  readonly buyerId: BuyerAddress['buyerId'];
 }

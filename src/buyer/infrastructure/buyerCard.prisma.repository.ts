@@ -8,7 +8,7 @@ import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception
 @Injectable()
 export class BuyerCardPrismaRepository implements IBuyerCardRepository {
   constructor(private prisma: PrismaService) {}
-  async getOneById(id: number): Promise<BuyerCard> {
+  async getOneById(id: BuyerCard['id']): Promise<BuyerCard> {
     const buyerCard = await this.prisma.buyerCard.findFirst({
       where: {
         id,
@@ -23,7 +23,7 @@ export class BuyerCardPrismaRepository implements IBuyerCardRepository {
     return buyerCard;
   }
 
-  getAllByBuyerId(buyerId: number): Promise<BuyerCard[]> {
+  getAllByBuyerId(buyerId: BuyerCard['buyerId']): Promise<BuyerCard[]> {
     return this.prisma.buyerCard.findMany({
       where: {
         buyerId,
@@ -46,7 +46,7 @@ export class BuyerCardPrismaRepository implements IBuyerCardRepository {
     });
   }
 
-  async updateIsRepresentativeById(id: number): Promise<void> {
+  async updateIsRepresentativeById(id: BuyerCard['id']): Promise<void> {
     await this.prisma.buyerCard.update({
       data: {
         isRepresentative: true,
@@ -57,7 +57,7 @@ export class BuyerCardPrismaRepository implements IBuyerCardRepository {
     });
   }
 
-  async updatesIsNotRepresentativeByBuyerId(buyerId: number): Promise<void> {
+  async updatesIsNotRepresentativeByBuyerId(buyerId: BuyerCard['buyerId']): Promise<void> {
     await this.prisma.buyerCard.updateMany({
       data: {
         isRepresentative: false,
@@ -70,7 +70,7 @@ export class BuyerCardPrismaRepository implements IBuyerCardRepository {
     return Promise.resolve(undefined);
   }
 
-  async deleteById(id: number): Promise<void> {
+  async deleteById(id: BuyerCard['id']): Promise<void> {
     await this.prisma.buyerCard.update({
       data: {
         deletedAt: new Date(),

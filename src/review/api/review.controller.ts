@@ -4,7 +4,7 @@ import { SortValidationPipe } from '../../common/api/pipe/sort-validation.pipe';
 import { ReviewFindAllRes } from './review.res.dto';
 import { IReviewService } from '../domain/review.service';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
-import { Buyer } from '../../buyer/api/buyer-info.decorator';
+import { BuyerUser } from '../../buyer/api/buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { ReviewCreateByBuyerReq } from './review.req.dto';
 import { Review } from '../domain/review';
@@ -35,7 +35,7 @@ export class ReviewController {
 
   @Post('/review/buyer')
   @UseGuards(AuthAuthorizationGuard)
-  async createByBuyer(@Buyer() buyer: UserInfo, @Body() createByBuyerReq: ReviewCreateByBuyerReq) {
+  async createByBuyer(@BuyerUser() buyer: UserInfo, @Body() createByBuyerReq: ReviewCreateByBuyerReq) {
     const review = await this.reviewService.createByBuyer({ buyerId: buyer.id, ...createByBuyerReq });
 
     return review;

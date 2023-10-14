@@ -14,6 +14,7 @@ import { BuyerSignUpOut } from '../domain/port/buyer.out';
 import { IPasswordEncrypt } from '../../auth/domain/password.encrypt';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { ILoginToken } from '../../auth/domain/login.token';
+import { Buyer } from '../domain/buyer';
 
 @Injectable()
 export class BuyerService implements IBuyerService {
@@ -60,7 +61,7 @@ export class BuyerService implements IBuyerService {
     return this.loginToken.verifyByRefresh(refreshLoginTokenIn);
   }
 
-  async checkExistUserId(userId: string) {
+  async checkExistUserId(userId: Buyer['userId']) {
     const existBuyer = await this.buyerRepository.findOne({ userId: userId });
     if (existBuyer) {
       return true;
@@ -68,7 +69,7 @@ export class BuyerService implements IBuyerService {
     return false;
   }
 
-  async checkExistNickName(nickName: string) {
+  async checkExistNickName(nickName: Buyer['nickName']) {
     const existBuyer = await this.buyerRepository.findOne({ nickName });
     if (existBuyer) {
       return true;
@@ -76,7 +77,7 @@ export class BuyerService implements IBuyerService {
     return false;
   }
 
-  async checkExistUserEmail(email: string) {
+  async checkExistUserEmail(email: Buyer['email']) {
     const existBuyer = await this.buyerRepository.findOne({ email: email });
     if (existBuyer) {
       return true;
@@ -84,7 +85,7 @@ export class BuyerService implements IBuyerService {
     return false;
   }
 
-  async checkExistUserPhoneNumber(phoneNumber: string) {
+  async checkExistUserPhoneNumber(phoneNumber: Buyer['phoneNumber']) {
     const existBuyer = await this.buyerRepository.findOne({ phoneNumber });
     if (existBuyer) {
       return true;
@@ -171,7 +172,7 @@ export class BuyerService implements IBuyerService {
     return changeBuyer;
   }
 
-  async getAccount(id: number): Promise<BuyerGetAccountIn> {
+  async getAccount(id: Buyer['id']): Promise<BuyerGetAccountIn> {
     const buyer = await this.buyerRepository.findOne({ id });
 
     if (!buyer) {

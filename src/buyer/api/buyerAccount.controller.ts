@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Inject, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
-import { Buyer } from './buyer-info.decorator';
+import { BuyerUser } from './buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { IBuyerAccountService } from '../domain/buyerAccount.service';
 import { BuyerAccountAddressRes, BuyerAccountCardRes } from './buyerAccount.res.dto';
@@ -19,7 +19,7 @@ export class BuyerAccountController {
 
   @Get('/buyer/address')
   @UseGuards(AuthAuthorizationGuard)
-  async getAddress(@Buyer() buyer: UserInfo): Promise<BuyerAccountAddressRes> {
+  async getAddress(@BuyerUser() buyer: UserInfo): Promise<BuyerAccountAddressRes> {
     const buyerAddresses = await this.buyerAccountService.getAddressArray(buyer.id);
 
     return { buyerAddresses };
@@ -27,7 +27,7 @@ export class BuyerAccountController {
 
   @Post('/buyer/address/add')
   @UseGuards(AuthAuthorizationGuard)
-  async createAddress(@Buyer() buyer: UserInfo, @Body() createAddressReq: BuyerCreateAddressReq): Promise<void> {
+  async createAddress(@BuyerUser() buyer: UserInfo, @Body() createAddressReq: BuyerCreateAddressReq): Promise<void> {
     const buyerId = buyer.id;
     const address = createAddressReq.address;
 
@@ -37,7 +37,10 @@ export class BuyerAccountController {
 
   @Patch('/buyer/address/representative')
   @UseGuards(AuthAuthorizationGuard)
-  async updateRepresentativeAddress(@Buyer() buyer: UserInfo, @Body() representativeAddressReq: BuyerUpdateRepresentativeAddressReq): Promise<void> {
+  async updateRepresentativeAddress(
+    @BuyerUser() buyer: UserInfo,
+    @Body() representativeAddressReq: BuyerUpdateRepresentativeAddressReq,
+  ): Promise<void> {
     const buyerId = buyer.id;
     const addressId = representativeAddressReq.id;
 
@@ -47,7 +50,7 @@ export class BuyerAccountController {
 
   @Delete('/buyer/address')
   @UseGuards(AuthAuthorizationGuard)
-  async deleteAddress(@Buyer() buyer: UserInfo, @Body() deleteAddressReq: BuyerDeleteAddressReq): Promise<void> {
+  async deleteAddress(@BuyerUser() buyer: UserInfo, @Body() deleteAddressReq: BuyerDeleteAddressReq): Promise<void> {
     const buyerId = buyer.id;
     const addressId = deleteAddressReq.id;
 
@@ -57,7 +60,7 @@ export class BuyerAccountController {
 
   @Get('/buyer/card')
   @UseGuards(AuthAuthorizationGuard)
-  async getCards(@Buyer() buyer: UserInfo): Promise<BuyerAccountCardRes> {
+  async getCards(@BuyerUser() buyer: UserInfo): Promise<BuyerAccountCardRes> {
     const buyerCards = await this.buyerAccountService.getCardArray(buyer.id);
 
     return { buyerCards };
@@ -65,7 +68,7 @@ export class BuyerAccountController {
 
   @Post('/buyer/card/add')
   @UseGuards(AuthAuthorizationGuard)
-  async createCard(@Buyer() buyer: UserInfo, @Body() createCardReq: BuyerCreateCardReq): Promise<void> {
+  async createCard(@BuyerUser() buyer: UserInfo, @Body() createCardReq: BuyerCreateCardReq): Promise<void> {
     const buyerId = buyer.id;
     const card = createCardReq.card;
     await this.buyerAccountService.createCard({ buyerId, card });
@@ -73,7 +76,7 @@ export class BuyerAccountController {
 
   @Patch('/buyer/card/representative')
   @UseGuards(AuthAuthorizationGuard)
-  async updateRepresentativeCard(@Buyer() buyer: UserInfo, @Body() representativeCardReq: BuyerUpdateRepresentativeCardReq): Promise<void> {
+  async updateRepresentativeCard(@BuyerUser() buyer: UserInfo, @Body() representativeCardReq: BuyerUpdateRepresentativeCardReq): Promise<void> {
     const buyerId = buyer.id;
     const id = representativeCardReq.id;
     await this.buyerAccountService.updateRepresentativeCard({ buyerId, id });
@@ -81,7 +84,7 @@ export class BuyerAccountController {
 
   @Delete('/buyer/card')
   @UseGuards(AuthAuthorizationGuard)
-  async deleteCard(@Buyer() buyer: UserInfo, @Body() deleteCardReq: BuyerDeleteCardReq): Promise<void> {
+  async deleteCard(@BuyerUser() buyer: UserInfo, @Body() deleteCardReq: BuyerDeleteCardReq): Promise<void> {
     const buyerId = buyer.id;
     const addressId = deleteCardReq.id;
 

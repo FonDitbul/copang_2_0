@@ -1,28 +1,11 @@
-export interface BuyerSignUpOut {
-  userId: string;
-  password: string;
-  name: string;
-  nickName: string;
-  email: string;
-  phoneNumber: string;
-}
+import { Buyer } from '../buyer';
 
-export interface BuyerChangePasswordOut {
-  id: number;
-  password: string;
-}
+export type BuyerSignUpOut = Pick<Buyer, 'userId' | 'password' | 'name' | 'nickName' | 'email' | 'phoneNumber'>;
 
-export interface BuyerChangeNickNameOut {
-  id: number;
-  nickName: string;
-}
+export type BuyerChangePasswordOut = Pick<Buyer, 'id' | 'password'>;
 
-export interface BuyerChangeEmailOut {
-  id: number;
-  email: string;
-}
+export type BuyerChangeNickNameOut = Pick<Buyer, 'id' | 'nickName'>;
 
-export interface BuyerChangePhoneNumberOut {
-  id: number;
-  phoneNumber: string;
-}
+export type BuyerChangeEmailOut = Pick<Buyer, 'id' | 'email'>;
+
+export type BuyerChangePhoneNumberOut = Pick<Buyer, 'id' | 'phoneNumber'>;

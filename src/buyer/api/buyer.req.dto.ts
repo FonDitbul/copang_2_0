@@ -7,49 +7,49 @@ export class BuyerSignUpReq {
   readonly userId: Buyer['userId'];
 
   @IsNotEmpty()
-  password: Buyer['password'];
+  readonly password: Buyer['password'];
 
   @IsNotEmpty()
-  name: Buyer['name'];
+  readonly name: Buyer['name'];
 
   @IsNotEmpty()
-  nickName: Buyer['nickName'];
+  readonly nickName: Buyer['nickName'];
 
   @IsEmail()
   @IsNotEmpty()
-  email: Buyer['email'];
+  readonly email: Buyer['email'];
 
   @IsNotEmpty()
   @Transform(({ value }) => formattingPhoneNumber(value))
-  phoneNumber: Buyer['phoneNumber'];
+  readonly phoneNumber: Buyer['phoneNumber'];
 }
 
 export class BuyerLoginReq {
   @IsNotEmpty()
-  userId: Buyer['userId'];
+  readonly userId: Buyer['userId'];
 
   @IsNotEmpty()
-  password: Buyer['password'];
+  readonly password: Buyer['password'];
 }
 
 export class BuyerChangePasswordReq {
   @IsNotEmpty()
-  password: Buyer['password'];
+  readonly password: Buyer['password'];
 }
 
 export class BuyerChangeNickNameReq {
   @IsNotEmpty()
-  nickName: Buyer['nickName'];
+  readonly nickName: Buyer['nickName'];
 }
 
 export class BuyerChangeEmailReq {
   @IsEmail()
   @IsNotEmpty()
-  email: Buyer['email'];
+  readonly email: Buyer['email'];
 }
 
 export class BuyerChangePhoneNumberReq {
   @IsNotEmpty()
   @Transform(({ value }) => formattingPhoneNumber(value))
-  phoneNumber: Buyer['phoneNumber'];
+  readonly phoneNumber: Buyer['phoneNumber'];
 }

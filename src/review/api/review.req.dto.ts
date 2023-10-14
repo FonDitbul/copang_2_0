@@ -1,15 +1,16 @@
 import { IsNumber, IsString, Max, Min } from 'class-validator';
+import { Review } from '../domain/review';
 
 export class ReviewCreateByBuyerReq {
   @IsNumber()
   @Max(10)
   @Min(0)
-  star: number;
+  readonly star: Review['star'];
 
   @IsString()
-  content: string;
+  readonly content: Review['content'];
 
   @IsNumber()
   @Min(1)
-  orderProductId: number;
+  readonly orderProductId: Review['orderProductId'];
 }

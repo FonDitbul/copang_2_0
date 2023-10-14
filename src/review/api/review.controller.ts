@@ -7,14 +7,15 @@ import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard'
 import { Buyer } from '../../buyer/api/buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { ReviewCreateByBuyerReq } from './review.req.dto';
+import { Review } from '../domain/review';
 
 @Controller()
 export class ReviewController {
   constructor(@Inject('IReviewService') private reviewService: IReviewService) {}
   @Get('/review/:productId')
   async findAllByProductId(
-    @Param('productId', ParseIntPipe) productId: number,
-    @Query('lastReviewId', new DefaultValuePipe(0), ParseIntPipe) lastReviewId: number,
+    @Param('productId', ParseIntPipe) productId: Review['productId'],
+    @Query('lastReviewId', new DefaultValuePipe(0), ParseIntPipe) lastReviewId: Review['id'],
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('sort', new DefaultValuePipe('DESC'), SortValidationPipe) sort: SortType,
     @Query('sortColumn', new DefaultValuePipe('id')) sortColumn: string,

@@ -1,5 +1,7 @@
+import { OrderProduct } from '../orderProduct';
+
 export interface OrderFindAllOrderProductIn {
-  buyerId: number;
-  lastId: number;
-  limit: number;
+  readonly buyerId: OrderProduct['buyerId'];
+  readonly lastId: OrderProduct['id'];
+  readonly limit: number;
 }

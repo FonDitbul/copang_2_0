@@ -1,6 +1,7 @@
 import { OrderProduct } from '../orderProduct';
 import { OrderPayment } from '../orderPayment';
 import { Order } from '../order';
+import { OrderCard } from '../orderCard';
 
 export type OrderCreateOut = Pick<Order, 'code' | 'name' | 'totalCost'>;
 
@@ -25,17 +26,17 @@ export type OrderProductCreateBuyOut = Pick<
 >;
 
 export interface OrderBuyOut {
-  buyerId: number;
-  order: OrderCreateOut;
-  payment: OrderPaymentCreateBuyOut;
-  buyProduct: OrderProductCreateBuyOut[];
+  readonly buyerId: Order['buyerId'];
+  readonly order: OrderCreateOut;
+  readonly payment: OrderPaymentCreateBuyOut;
+  readonly buyProduct: OrderProductCreateBuyOut[];
 }
 
 export interface OrderPaymentRequestOut {
-  method: string;
-  type: string;
-  bankName: string;
-  cardNumber: string;
-  cardType: string;
-  validityPeriod: string;
+  readonly method: OrderCard['method'];
+  readonly type: OrderCard['type'];
+  readonly bankName: OrderCard['bankName'];
+  readonly cardNumber: OrderCard['cardNumber'];
+  readonly cardType: OrderCard['cardType'];
+  readonly validityPeriod: OrderCard['validityPeriod'];
 }

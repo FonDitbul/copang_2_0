@@ -1,9 +1,10 @@
 import { Product } from '@prisma/client';
+import { OrderProduct } from './orderProduct';
 
 export interface OrderBuyProduct {
-  productId: number;
-  buyQuantity: number;
+  readonly productId: OrderProduct['productId'];
+  readonly buyQuantity: OrderProduct['buyQuantity'];
 }
 export type MergeOrderProduct = Product & {
-  buyQuantity: number;
+  readonly buyQuantity: OrderProduct['buyQuantity'];
 };

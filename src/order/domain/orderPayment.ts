@@ -15,6 +15,7 @@ export interface OrderPayment {
   approvedAt: Date | null;
   requestAt: Date;
   orderId: number;
+
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

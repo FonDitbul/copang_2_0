@@ -1,15 +1,16 @@
 import { Token } from '../../auth/domain/token';
+import { Buyer } from '../domain/buyer';
 
 export class BuyerSignUpRes {
-  id: number;
-  userId: string;
-  nickName: string;
-  email: string;
-  phoneNumber: string;
-  deletedAt: Date | null;
+  readonly id: Buyer['id'];
+  readonly userId: Buyer['userId'];
+  readonly nickName: Buyer['nickName'];
+  readonly email: Buyer['email'];
+  readonly phoneNumber: Buyer['phoneNumber'];
+  readonly deletedAt: Buyer['deletedAt'];
 }
 
 export class BuyerLoginRes {
-  accessToken: Token;
-  refreshToken: Token;
+  readonly accessToken: Token;
+  readonly refreshToken: Token;
 }

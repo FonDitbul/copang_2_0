@@ -1,22 +1,25 @@
 import { IsNotEmpty, IsNotEmptyObject, IsNumberString, IsOptional, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Address } from '../domain/address';
+import { BuyerAddress } from '../domain/buyerAddress';
+import { BuyerCard } from '../domain/buyerCard';
 
 class CreateAddressReq {
   @IsNotEmpty()
   @IsNumberString()
-  postalCode: string; // 우편 번호 ex) 13561
+  postalCode: Address['postalCode']; // 우편 번호 ex) 13561
 
   @IsNotEmpty()
-  address: string; // 전체 주소
+  address: Address['address']; // 전체 주소
 
   @IsNotEmpty()
-  roadAddress: string; // 도로명 주소
+  roadAddress: Address['roadAddress']; // 도로명 주소
 
   @IsNotEmpty()
-  jibunAddress: string; // 구 주소 추가
+  jibunAddress: Address['jibunAddress']; // 구 주소 추가
 
   @IsOptional()
-  etc?: string; // 기타 주소
+  etc?: Address['etc']; // 기타 주소
 }
 export class BuyerCreateAddressReq {
   @IsNotEmpty()
@@ -29,31 +32,31 @@ export class BuyerCreateAddressReq {
 export class BuyerUpdateRepresentativeAddressReq {
   @IsNotEmpty()
   @Min(1)
-  id: number;
+  id: BuyerAddress['id'];
 }
 
 export class BuyerDeleteAddressReq {
   @IsNotEmpty()
   @Min(1)
-  id: number;
+  id: BuyerAddress['id'];
 }
 
 class CreateCardReq {
   @IsNotEmpty()
   @MaxLength(100)
-  bankName: string;
+  bankName: BuyerCard['bankName'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardNumber: string;
+  cardNumber: BuyerCard['cardNumber'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardType: string;
+  cardType: BuyerCard['cardType'];
 
   @IsNotEmpty()
   @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
-  validityPeriod: string;
+  validityPeriod: BuyerCard['validityPeriod'];
 }
 
 export class BuyerCreateCardReq {
@@ -67,11 +70,11 @@ export class BuyerCreateCardReq {
 export class BuyerUpdateRepresentativeCardReq {
   @IsNotEmpty()
   @Min(1)
-  id: number;
+  id: BuyerCard['id'];
 }
 
 export class BuyerDeleteCardReq {
   @IsNotEmpty()
   @Min(1)
-  id: number;
+  id: BuyerCard['id'];
 }

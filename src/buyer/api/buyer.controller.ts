@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Inject, Param, Post, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Inject, Param, Post, UseGuards } from '@nestjs/common';
 import {
   BuyerChangeEmailReq,
   BuyerChangeNickNameReq,
@@ -11,8 +11,9 @@ import { IBuyerService } from '../domain/buyer.service';
 import { BuyerLoginRes, BuyerSignUpRes } from './buyer.res.dto';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { UserInfo } from '../../auth/domain/login.token';
-import { Buyer } from './buyer-info.decorator';
+import { BuyerUser } from './buyer-info.decorator';
 import { phoneNumberFormattingPipe } from './buyer-phone-number.pipe';
+import { Buyer } from '../domain/buyer';
 
 @Controller()
 export class BuyerController {
@@ -64,64 +65,64 @@ export class BuyerController {
 
   @Get('/buyer')
   @UseGuards(AuthAuthorizationGuard)
-  async account(@Buyer() buyer: UserInfo) {
+  async account(@BuyerUser() buyer: UserInfo) {
     const account = await this.buyerService.getAccount(buyer.id);
 
     return account;
   }
 
   @Get('/buyer/exist-user-id/:userId')
-  async checkExistId(@Param('userId') userId: string) {
+  async checkExistId(@Param('userId') userId: Buyer['userId']) {
     const response = this.buyerService.checkExistUserId(userId);
     return response;
   }
 
   @Get('/buyer/exist-user-nick-name/:nickName')
-  async checkExistNickName(@Param('nickName') nickName: string) {
+  async checkExistNickName(@Param('nickName') nickName: Buyer['nickName']) {
     const response = this.buyerService.checkExistNickName(nickName);
     return response;
   }
 
   @Get('/buyer/exist-user-email/:email')
-  async checkExistEmail(@Param('email') email: string) {
+  async checkExistEmail(@Param('email') email: Buyer['email']) {
     const response = this.buyerService.checkExistUserEmail(email);
     return response;
   }
 
   @Get('/buyer/exist-user-phone-number/:phoneNumber')
-  async checkExistPhoneNumber(@Param('phoneNumber', phoneNumberFormattingPipe) phoneNumber: string) {
+  async checkExistPhoneNumber(@Param('phoneNumber', phoneNumberFormattingPipe) phoneNumber: Buyer['phoneNumber']) {
     const response = this.buyerService.checkExistUserPhoneNumber(phoneNumber);
     return response;
   }
 
   @Post('/buyer/change/password')
   @UseGuards(AuthAuthorizationGuard)
-  async changePassword(@Buyer() buyer: UserInfo, @Body() changePasswordReq: BuyerChangePasswordReq) {
-    const id: number = buyer.id;
+  async changePassword(@BuyerUser() buyer: UserInfo, @Body() changePasswordReq: BuyerChangePasswordReq) {
+    const id = buyer.id;
 
     return await this.buyerService.changePassword({ id, ...changePasswordReq });
   }
 
   @Post('/buyer/change/nick-name')
   @UseGuards(AuthAuthorizationGuard)
-  async changeNickName(@Buyer() buyer: UserInfo, @Body() nickNameReq: BuyerChangeNickNameReq) {
-    const id: number = buyer.id;
+  async changeNickName(@BuyerUser() buyer: UserInfo, @Body() nickNameReq: BuyerChangeNickNameReq) {
+    const id = buyer.id;
 
     return await this.buyerService.changeNickName({ id, ...nickNameReq });
   }
 
   @Post('/buyer/change/email')
   @UseGuards(AuthAuthorizationGuard)
-  async changeEmail(@Buyer() buyer: UserInfo, @Body() emailReq: BuyerChangeEmailReq) {
-    const id: number = buyer.id;
+  async changeEmail(@BuyerUser() buyer: UserInfo, @Body() emailReq: BuyerChangeEmailReq) {
+    const id = buyer.id;
 
     return await this.buyerService.changeEmail({ id, ...emailReq });
   }
 
   @Post('/buyer/change/phone-number')
   @UseGuards(AuthAuthorizationGuard)
-  async changePhoneNumber(@Buyer() buyer: UserInfo, @Body() phoneNumberReq: BuyerChangePhoneNumberReq) {
-    const id: number = buyer.id;
+  async changePhoneNumber(@BuyerUser() buyer: UserInfo, @Body() phoneNumberReq: BuyerChangePhoneNumberReq) {
+    const id = buyer.id;
 
     return await this.buyerService.changePhoneNumber({ id, ...phoneNumberReq });
   }

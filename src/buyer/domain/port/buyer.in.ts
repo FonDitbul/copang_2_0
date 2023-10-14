@@ -1,37 +1,15 @@
 import { Buyer } from '../buyer';
 
-export interface BuyerSignUpIn {
-  userId: string;
-  password: string;
-  name: string;
-  nickName: string;
-  email: string;
-  phoneNumber: string;
-}
+export type BuyerSignUpIn = Pick<Buyer, 'userId' | 'password' | 'name' | 'nickName' | 'email' | 'phoneNumber'>;
 
-export interface BuyerLoginIn {
-  userId: string;
-  password: string;
-}
+export type BuyerLoginIn = Pick<Buyer, 'userId' | 'password'>;
 
-export interface BuyerId {
-  id: number;
-}
+export type BuyerChangePasswordIn = Pick<Buyer, 'id' | 'password'>;
 
-export interface BuyerChangePasswordIn extends BuyerId {
-  password: string;
-}
+export type BuyerChangeNickNameIn = Pick<Buyer, 'id' | 'nickName'>;
 
-export interface BuyerChangeNickNameIn extends BuyerId {
-  nickName: string;
-}
+export type BuyerChangeEmailIn = Pick<Buyer, 'id' | 'email'>;
 
-export interface BuyerChangeEmailIn extends BuyerId {
-  email: string;
-}
-
-export interface BuyerChangePhoneNumberIn extends BuyerId {
-  phoneNumber: string;
-}
+export type BuyerChangePhoneNumberIn = Pick<Buyer, 'id' | 'phoneNumber'>;
 
 export type BuyerGetAccountIn = Omit<Buyer, 'password'>;

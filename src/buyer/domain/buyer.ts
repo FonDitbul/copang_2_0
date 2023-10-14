@@ -15,11 +15,11 @@ export class Buyer {
   ) {}
 }
 
-export const formattingPhoneNumber = (phoneNumber: string) => {
+export const formattingPhoneNumber = (phoneNumber: Buyer['phoneNumber']) => {
   return phoneNumber.trim().replace(/-/g, '').replace(/(\s*)/g, '');
 };
 
-export const isNotMatchBuyerId = <T extends { buyerId: number }>(buyerAccount: T, buyerId: number) => {
+export const isNotMatchBuyerId = <T extends { buyerId: Buyer['id'] }>(buyerAccount: T, buyerId: Buyer['id']) => {
   if (isNotContainKeyInObject(buyerAccount, 'buyerId')) {
     throw new Error('buyerId가 존재하지 않습니다.');
   }

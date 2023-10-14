@@ -1,55 +1,55 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { formattingPhoneNumber } from '../domain/buyer';
+import { Buyer, formattingPhoneNumber } from '../domain/buyer';
 
 export class BuyerSignUpReq {
   @IsNotEmpty()
-  userId: string;
+  readonly userId: Buyer['userId'];
 
   @IsNotEmpty()
-  password: string;
+  password: Buyer['password'];
 
   @IsNotEmpty()
-  name: string;
+  name: Buyer['name'];
 
   @IsNotEmpty()
-  nickName: string;
+  nickName: Buyer['nickName'];
 
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email: Buyer['email'];
 
   @IsNotEmpty()
   @Transform(({ value }) => formattingPhoneNumber(value))
-  phoneNumber: string;
+  phoneNumber: Buyer['phoneNumber'];
 }
 
 export class BuyerLoginReq {
   @IsNotEmpty()
-  userId: string;
+  userId: Buyer['userId'];
 
   @IsNotEmpty()
-  password: string;
+  password: Buyer['password'];
 }
 
 export class BuyerChangePasswordReq {
   @IsNotEmpty()
-  password: string;
+  password: Buyer['password'];
 }
 
 export class BuyerChangeNickNameReq {
   @IsNotEmpty()
-  nickName: string;
+  nickName: Buyer['nickName'];
 }
 
 export class BuyerChangeEmailReq {
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email: Buyer['email'];
 }
 
 export class BuyerChangePhoneNumberReq {
   @IsNotEmpty()
   @Transform(({ value }) => formattingPhoneNumber(value))
-  phoneNumber: string;
+  phoneNumber: Buyer['phoneNumber'];
 }

@@ -15,13 +15,13 @@ export interface IBuyerService {
   login: (loginIn: BuyerLoginIn) => Promise<OneLoginToken>;
   loginByToken: (loginTokenIn: string) => UserInfo;
   refreshLoginByToken: (refreshLoginTokenIn: string) => OneLoginToken;
-  checkExistUserId: (userId: string) => Promise<boolean>;
-  checkExistNickName: (nickName: string) => Promise<boolean>;
-  checkExistUserEmail: (email: string) => Promise<boolean>;
-  checkExistUserPhoneNumber: (phoneNumber: string) => Promise<boolean>;
+  checkExistUserId: (userId: Buyer['userId']) => Promise<boolean>;
+  checkExistNickName: (nickName: Buyer['nickName']) => Promise<boolean>;
+  checkExistUserEmail: (email: Buyer['email']) => Promise<boolean>;
+  checkExistUserPhoneNumber: (phoneNumber: Buyer['phoneNumber']) => Promise<boolean>;
   changePassword: (changePasswordIn: BuyerChangePasswordIn) => Promise<void>;
   changeNickName: (changeNickNameIn: BuyerChangeNickNameIn) => Promise<Buyer>;
   changeEmail: (changeEmailIn: BuyerChangeEmailIn) => Promise<Buyer>;
   changePhoneNumber: (changePhoneNumberIn: BuyerChangePhoneNumberIn) => Promise<Buyer>;
-  getAccount: (id: number) => Promise<BuyerGetAccountIn>;
+  getAccount: (id: Buyer['id']) => Promise<BuyerGetAccountIn>;
 }

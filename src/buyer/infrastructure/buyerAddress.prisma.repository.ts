@@ -9,7 +9,7 @@ import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception
 export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getOneById(id: number): Promise<BuyerAddress> {
+  async getOneById(id: BuyerAddress['id']): Promise<BuyerAddress> {
     const buyerAddress = await this.prisma.buyerAddress.findFirst({
       where: {
         id,
@@ -21,7 +21,7 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
     return buyerAddress;
   }
 
-  getAllAddressByBuyerId(buyerId: number): Promise<BuyerAddress[]> {
+  getAllAddressByBuyerId(buyerId: BuyerAddress['buyerId']): Promise<BuyerAddress[]> {
     return this.prisma.buyerAddress.findMany({
       where: {
         buyerId,
@@ -42,7 +42,7 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
     return;
   }
 
-  async updateIsRepresentativeAddressById(id: number): Promise<void> {
+  async updateIsRepresentativeAddressById(id: BuyerAddress['id']): Promise<void> {
     await this.prisma.buyerAddress.update({
       data: {
         isRepresentative: true,
@@ -53,7 +53,7 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
     });
   }
 
-  async updatesIsNotRepresentativeAddressByBuyerId(buyerId: number): Promise<void> {
+  async updatesIsNotRepresentativeAddressByBuyerId(buyerId: BuyerAddress['buyerId']): Promise<void> {
     await this.prisma.buyerAddress.updateMany({
       data: {
         isRepresentative: false,
@@ -65,7 +65,7 @@ export class BuyerAddressPrismaRepository implements IBuyerAddressRepository {
     });
   }
 
-  async deleteAddressById(id: number): Promise<void> {
+  async deleteAddressById(id: BuyerAddress['id']): Promise<void> {
     await this.prisma.buyerAddress.update({
       data: {
         deletedAt: new Date(),

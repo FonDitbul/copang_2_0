@@ -1,12 +1,15 @@
+import { BuyerAddress } from '../buyerAddress';
+import { BuyerCard } from '../buyerCard';
+
 export interface BuyerCreateAddressOut {
-  buyerId: number;
-  address: string;
+  readonly buyerId: BuyerAddress['buyerId'];
+  readonly address: BuyerAddress['address'];
 }
 
 export interface BuyerCreateCardOut {
-  buyerId: number;
-  bankName: string;
-  cardType: string;
-  cardNumber: string;
-  validityPeriod: string;
+  readonly buyerId: BuyerCard['buyerId'];
+  readonly bankName: BuyerCard['bankName'];
+  readonly cardType: BuyerCard['cardType'];
+  readonly cardNumber: BuyerCard['cardNumber'];
+  readonly validityPeriod: BuyerCard['validityPeriod'];
 }

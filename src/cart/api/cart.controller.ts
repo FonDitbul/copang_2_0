@@ -4,7 +4,7 @@ import { Buyer } from '../../buyer/api/buyer-info.decorator';
 import { UserInfo } from '../../auth/domain/login.token';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { CartAddRes, CartChangeRes, CartDeleteRes, CartFindAllRes } from './cart.res.dto';
-import { CART_MAX_COUNT } from '../domain/cart';
+import { Cart, CART_MAX_COUNT } from '../domain/cart';
 import { CartAddReq, CartChangeReq, CartDeleteReq } from './cart.req.dto';
 
 @Controller()
@@ -16,7 +16,7 @@ export class CartController {
   async findAll(
     @Buyer() buyer: UserInfo,
     @Query('limit', new DefaultValuePipe(CART_MAX_COUNT), ParseIntPipe) limit: number,
-    @Query('lastId', new DefaultValuePipe(0), ParseIntPipe) lastId: number,
+    @Query('lastId', new DefaultValuePipe(0), ParseIntPipe) lastId: Cart['id'],
   ): Promise<CartFindAllRes> {
     const buyerId = buyer.id;
     const { carts, isEndPage } = await this.cartService.findAll({ buyerId, limit, lastId });

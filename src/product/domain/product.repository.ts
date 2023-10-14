@@ -7,5 +7,5 @@ export interface IProductRepository {
   findOne: (where: ProductWhere) => Promise<Product | null>;
   countForSale: (findAllOut: IProductFindAllOut) => Promise<number>;
   findAllForSale: (findAllOut: IProductFindAllOut) => Promise<Product[]>;
-  findAllById: (idArray: number[]) => Promise<Product[]>;
+  findAllById: (idArray: Product['id'][]) => Promise<Product[]>;
 }

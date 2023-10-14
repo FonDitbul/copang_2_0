@@ -1,5 +1,7 @@
+import { Product } from '../product';
+
 export interface IProductFindAllIn {
-  limit: number;
-  page: number;
-  searchName?: string;
+  readonly limit: number;
+  readonly page: number;
+  readonly searchName?: Product['name'];
 }

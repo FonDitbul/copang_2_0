@@ -1,17 +1,18 @@
 import { SortType } from '../../../common/domain/sort-type';
+import { Review } from '../review';
 
 export interface ReviewFindAllByProductIdOut {
-  productId: number;
-  lastReviewId: number;
-  limit: number;
-  sort: SortType;
-  sortColumn: string;
+  readonly productId: Review['productId'];
+  readonly lastReviewId: Review['id'];
+  readonly limit: number;
+  readonly sort: SortType;
+  readonly sortColumn: string;
 }
 
 export interface CreateByBuyerOut {
-  star: number;
-  content: string;
-  productId: number;
-  buyerId: number;
-  orderProductId: number;
+  star: Review['star'];
+  content: Review['content'];
+  productId: Review['productId'];
+  buyerId: Review['buyerId'];
+  orderProductId: Review['orderProductId'];
 }

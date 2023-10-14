@@ -30,7 +30,7 @@ export function createOrderName(nameArray: string[]): string {
   return name;
 }
 
-export function mergeOrderProduct(productArray: Product[], willBuyProductMap: Map<number, OrderBuyProduct>) {
+export function mergeOrderProduct(productArray: Product[], willBuyProductMap: Map<Product['id'], OrderBuyProduct>) {
   const productArrayCopy = productArray.slice();
   const willBuyProductCopy = new Map(willBuyProductMap);
   const returnMap: Map<number, MergeOrderProduct> = new Map();

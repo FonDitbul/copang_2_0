@@ -1,42 +1,44 @@
 import { ArrayNotEmpty, IsIn, IsInt, IsNotEmpty, IsNotEmptyObject, Matches, MaxLength, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { OrderProduct } from '../domain/orderProduct';
+import { OrderCard } from '../domain/orderCard';
 
 export class Card {
   @IsNotEmpty()
   @IsIn(['CARD'])
-  method: string;
+  readonly method: OrderCard['method'];
 
   @IsNotEmpty()
   @IsIn(['CARD'])
-  type: string;
+  readonly type: OrderCard['type'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  bankName: string;
+  readonly bankName: OrderCard['bankName'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardNumber: string;
+  readonly cardNumber: OrderCard['cardNumber'];
 
   @IsNotEmpty()
   @MaxLength(100)
-  cardType: string;
+  readonly cardType: OrderCard['cardType'];
 
   @IsNotEmpty()
   @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
-  validityPeriod: string;
+  readonly validityPeriod: OrderCard['validityPeriod'];
 }
 
 class BuyProduct {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  productId: number;
+  readonly productId: OrderProduct['productId'];
 
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  buyQuantity: number;
+  readonly buyQuantity: OrderProduct['buyQuantity'];
 }
 
 export class OrderBuyProductReq {
@@ -44,14 +46,14 @@ export class OrderBuyProductReq {
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => Card)
-  card: Card;
+  readonly card: Card;
 
   @IsNotEmpty()
-  address: string;
+  readonly address: string;
 
   @IsNotEmpty()
   @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => BuyProduct)
-  products: BuyProduct[];
+  readonly products: BuyProduct[];
 }

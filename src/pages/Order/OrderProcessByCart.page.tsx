@@ -31,8 +31,20 @@ export default function OrderProcessByCartPage() {
   const [addressArray, setAddressArray] = useState([] as BuyerAddress[]);
 
   const [buyProduct, setBuyProducts] = useState([] as CartBuyProductType[]);
-  const [buyCard, setBuyCard] = useState({} as Card);
-  const [buyAddress, setBuyAddress] = useState({} as Address);
+  const [buyCard, setBuyCard] = useState({
+    method: "",
+    type: "",
+    bankName: "",
+    cardNumber: "",
+    cardType: "",
+    validityPeriod: "",
+  } as Card);
+  const [buyAddress, setBuyAddress] = useState({
+    postalCode: "",
+    address: "",
+    roadAddress: "",
+    jibunAddress: "",
+  } as Address);
 
   useEffect(() => {
     const getMyAccount = async () => {

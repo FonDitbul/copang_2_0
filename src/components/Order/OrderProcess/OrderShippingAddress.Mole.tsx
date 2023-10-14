@@ -10,7 +10,12 @@ export default function OrderShippingAddressMole({
   addresses: BuyerAddress[];
   setFunction: React.Dispatch<React.SetStateAction<Address>>;
 }) {
-  const [address, setAddress] = useState({} as Address);
+  const [address, setAddress] = useState({
+    postalCode: "",
+    address: "",
+    roadAddress: "",
+    jibunAddress: "",
+  } as Address);
 
   useEffect(() => {
     let representativeAddress = addresses.find((address) => address.isRepresentative);

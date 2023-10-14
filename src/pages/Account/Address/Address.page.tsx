@@ -11,6 +11,7 @@ export type AddressResponse = {
 
 export default function AccountAddressPage() {
   const [addressArray, setAddressArray] = useState([] as BuyerAddress[]);
+
   useEffect(() => {
     const getAddress = async () => {
       const response = await Client.get("/buyer/address");

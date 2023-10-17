@@ -2,13 +2,10 @@ export const stringToDate = (date: string): Date => {
   return new Date(date);
 };
 export const setDateWithTimeZone = (date: Date): Date => {
-  const tempDate = new Date();
+  const timezone = date.getTimezoneOffset();
+  const resultData = new Date(date.getTime() - timezone * 60 * 1000);
 
-  const timezone = tempDate.getTimezoneOffset();
-
-  const resultDate = new Date(date.getTime() - timezone * 60 * 100 * 10);
-
-  return resultDate;
+  return resultData;
 };
 
 export const dateToString = (date: Date) => {

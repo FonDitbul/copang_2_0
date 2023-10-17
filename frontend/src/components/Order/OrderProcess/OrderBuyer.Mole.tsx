@@ -1,14 +1,8 @@
-import { OrderBuyer } from "../../../pages/Order/OrderProcessByCart.page";
-import Input from "../../Common/Atom/Input";
-import React from "react";
+import { OrderBuyer } from '../../../pages/Order/OrderProcessByCart.page';
+import Input from '../../Common/Atom/Input';
+import React from 'react';
 
-export default function OrderBuyerMole({
-  buyer,
-  setFunction,
-}: {
-  buyer: OrderBuyer;
-  setFunction: React.Dispatch<React.SetStateAction<OrderBuyer>>;
-}) {
+export default function OrderBuyerMole({ buyer, setFunction }: { buyer: OrderBuyer; setFunction: React.Dispatch<React.SetStateAction<OrderBuyer>> }) {
   return (
     <div className="max-w-5xl justify-between mb-6 rounded-lg p-6 shadow-md sm:justify-start border-2">
       <h1 className="mb-10 text-center text-2xl font-bold">주문자 정보</h1>

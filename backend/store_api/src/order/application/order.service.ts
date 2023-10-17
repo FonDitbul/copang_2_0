@@ -6,7 +6,7 @@ import { IProductRepository } from '../../product/domain/product.repository';
 import { Product } from '../../product/domain/product';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { IOrderRepository } from '../domain/order.repository';
-import { listToMap } from '../../util/map-util';
+import { listToMap } from '@libs/utils';
 import { createOrderCode, createOrderName, mergeOrderProduct, sumTotalCost } from '../domain/order';
 import { OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } from '../domain/port/order.out';
 import { IOrderPaymentServer } from '../domain/order.payment.server';

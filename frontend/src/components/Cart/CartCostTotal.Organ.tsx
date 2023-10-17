@@ -1,8 +1,8 @@
-import { Cart } from "../../interface/Cart";
-import { useEffect, useState } from "react";
-import { costDisplayDot } from "../Common/Logic/Cost.Logic";
-import { calculateCartCost } from "./CartCost.Logic";
-import CartBuyProcessButtonMole from "./CartBuyProcessButton.Mole";
+import { Cart } from '../../interface/Cart';
+import { useEffect, useState } from 'react';
+import { costDisplayDot } from '../Common/Logic/Cost.Logic';
+import { calculateCartCost } from './CartCost.Logic';
+import CartBuyProcessButtonMole from './CartBuyProcessButton.Mole';
 
 interface cartCostProps {
   carts: Cart[];

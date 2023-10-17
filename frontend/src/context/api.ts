@@ -1,9 +1,9 @@
-import axios, { Axios } from "axios";
-import { ClientStorage } from "./ClientStorage";
-import { isBiggerLeftDate } from "../utils/date";
-import { AuthRefreshTokenStrategy } from "./AuthTokenStrategy";
+import axios, { Axios } from 'axios';
+import { ClientStorage } from './ClientStorage';
+import { isBiggerLeftDate } from '@libs/utils';
+import { AuthRefreshTokenStrategy } from './AuthTokenStrategy';
 
-export const serverUrl = "192.168.0.16:5000";
+export const serverUrl = '192.168.0.16:5000';
 
 export interface ResponseData<T> {
   isSuccess: boolean;
@@ -14,20 +14,20 @@ export interface ResponseData<T> {
 export const Client: Axios = axios.create({
   baseURL: `http://${serverUrl}`,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 Client.interceptors.request.use((config) => {
   try {
-    const accessToken = ClientStorage.getTokenByKey("accessToken");
-    const accessTokenExpireAt = ClientStorage.getTokenByKey("accessTokenExpireAt");
+    const accessToken = ClientStorage.getTokenByKey('accessToken');
+    const accessTokenExpireAt = ClientStorage.getTokenByKey('accessTokenExpireAt');
 
     const currentDate = new Date();
     const accessTokenExpireDate = new Date(accessTokenExpireAt);
 
     if (isBiggerLeftDate(currentDate, accessTokenExpireDate)) {
-      throw new Error("만료된 토큰입니다.");
+      throw new Error('만료된 토큰입니다.');
     }
 
     config.headers.Authorization = `Bearer ${accessToken}`;

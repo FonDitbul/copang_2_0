@@ -1,5 +1,5 @@
-import { Cart } from "../../interface/Cart";
-import { Product } from "../../interface/Product";
+import { Cart } from '../../interface/Cart';
+import { Product } from '../../interface/Product';
 
 type CartWithProduct = {
   Product: Product;
@@ -7,7 +7,7 @@ type CartWithProduct = {
 
 export const cartWithProduct = (cart: Cart): CartWithProduct => {
   if (!cart.Product) {
-    throw new Error("no Product Information");
+    throw new Error('no Product Information');
   }
   return cart as CartWithProduct;
 };

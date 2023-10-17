@@ -1,10 +1,10 @@
-import Button from "../../Common/Atom/Button";
-import { Modal } from "../../Common/Atom/Modal";
-import Input from "../../Common/Atom/Input";
-import DaumPostcode from "react-daum-postcode";
-import { Address as DaumAddress } from "react-daum-postcode";
-import React, { useState } from "react";
-import { Client } from "../../../context/api";
+import Button from '../../Common/Atom/Button';
+import { Modal } from '../../Common/Atom/Modal';
+import Input from '../../Common/Atom/Input';
+import DaumPostcode from 'react-daum-postcode';
+import { Address as DaumAddress } from 'react-daum-postcode';
+import React, { useState } from 'react';
+import { Client } from '../../../context/api';
 
 interface PropsType {
   onClose: Function;
@@ -16,7 +16,7 @@ export function AddressAddModalOrgan({ onClose }: PropsType) {
   const [etc, setEtc] = useState<string | undefined>(undefined);
 
   const onClickButtonEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
-    Client.post("/buyer/address/add", {
+    Client.post('/buyer/address/add', {
       address: {
         postalCode: address.zonecode,
         address: address.address,
@@ -25,7 +25,7 @@ export function AddressAddModalOrgan({ onClose }: PropsType) {
         etc: etc,
       },
     }).then((r) => {
-      alert("주소 추가가 완료되었습니다.");
+      alert('주소 추가가 완료되었습니다.');
       location.reload();
     });
   };
@@ -48,7 +48,7 @@ export function AddressAddModalOrgan({ onClose }: PropsType) {
           onChange={(e) => {
             setEtc(e.target.value);
           }}
-          placeholder={"상세 주소 입력"}
+          placeholder={'상세 주소 입력'}
         />
       </div>
 

@@ -1,9 +1,9 @@
-import { AddressCardMole } from "../../../components/Account/Address/AddressCard.Mole";
-import { useEffect, useState } from "react";
-import { BuyerAddress } from "../../../interface/BuyerAddress";
-import { Client, ResponseData } from "../../../context/api";
-import { AddressAddModalOrgan } from "../../../components/Account/Address/AddressAddModal.Organ";
-import Button from "../../../components/Common/Atom/Button";
+import { AddressCardMole } from '../../../components/Account/Address/AddressCard.Mole';
+import { useEffect, useState } from 'react';
+import { BuyerAddress } from '../../../interface/BuyerAddress';
+import { Client, ResponseData } from '../../../context/api';
+import { AddressAddModalOrgan } from '../../../components/Account/Address/AddressAddModal.Organ';
+import Button from '../../../components/Common/Atom/Button';
 
 export type AddressResponse = {
   buyerAddresses: BuyerAddress[];
@@ -14,7 +14,7 @@ export default function AccountAddressPage() {
 
   useEffect(() => {
     const getAddress = async () => {
-      const response = await Client.get("/buyer/address");
+      const response = await Client.get('/buyer/address');
       const responseData = response.data as ResponseData<AddressResponse>;
       const buyerAddresses = responseData.content.buyerAddresses;
       setAddressArray(buyerAddresses);
@@ -30,7 +30,7 @@ export default function AccountAddressPage() {
         <div>저장 된 주소가 존재하지 않습니다.</div>
       ) : (
         addressArray.map((address) => {
-          return <AddressCardMole key={address.id} {...address}/>;
+          return <AddressCardMole key={address.id} {...address} />;
         })
       )}
 

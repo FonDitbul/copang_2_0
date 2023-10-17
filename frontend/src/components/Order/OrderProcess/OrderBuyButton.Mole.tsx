@@ -1,11 +1,11 @@
-import { Client } from "../../../context/api";
-import Button from "../../Common/Atom/Button";
-import { Card } from "../../../interface/BuyerCard";
-import { Address } from "../../../interface/Address";
-import { Cart } from "../../../interface/Cart";
-import { useNavigate } from "react-router-dom";
+import { Client } from '../../../context/api';
+import Button from '../../Common/Atom/Button';
+import { Card } from '../../../interface/BuyerCard';
+import { Address } from '../../../interface/Address';
+import { Cart } from '../../../interface/Cart';
+import { useNavigate } from 'react-router-dom';
 
-export type CartBuyProductType = Pick<Cart, "productId" | "productQuantity">;
+export type CartBuyProductType = Pick<Cart, 'productId' | 'productQuantity'>;
 
 interface PropsType {
   card: Card;
@@ -42,11 +42,11 @@ export default function OrderBuyButtonMole({ card, address, products }: PropsTyp
     };
 
     try {
-      await Client.post("buyer/order/buy-product", requestData);
-      alert("결제가 성공하였습니다.");
-      navigate("/");
+      await Client.post('buyer/order/buy-product', requestData);
+      alert('결제가 성공하였습니다.');
+      navigate('/');
     } catch (e) {
-      alert("결제가 실패하였습니다");
+      alert('결제가 실패하였습니다');
       console.error(e);
     }
   };

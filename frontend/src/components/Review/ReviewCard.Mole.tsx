@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Review } from "../../interface/Review";
-import { stringToDate } from "../../utils/time";
-import { ServerReview } from "./ReviewProduct.Organ";
-import { format } from "date-fns";
-import ReviewRatingMole from "./ReviewRating.Mole";
+import React, { useEffect, useState } from 'react';
+import { Review } from '../../interface/Review';
+import { stringToDate } from '@libs/utils';
+import { ServerReview } from './ReviewProduct.Organ';
+import { format } from 'date-fns';
+import ReviewRatingMole from './ReviewRating.Mole';
 
 export default function ReviewCardMole(reviewProps: ServerReview) {
   const [review, setReview] = useState({
     id: 0,
     star: 0,
-    content: "test",
+    content: 'test',
     productId: 0,
     buyerId: 0,
     orderProductId: 0,
@@ -21,7 +21,7 @@ export default function ReviewCardMole(reviewProps: ServerReview) {
 
   useEffect(() => {
     if (!reviewProps.Buyer) {
-      throw new Error("buyer is not exist");
+      throw new Error('buyer is not exist');
     }
 
     setReview({
@@ -44,11 +44,8 @@ export default function ReviewCardMole(reviewProps: ServerReview) {
         <div className="space-y-1 font-medium dark:text-white">
           <p>
             {review.Buyer?.nickName}
-            <time
-              dateTime={format(review.createdAt, "yyyy/MM/dd : hh")}
-              className="block text-sm text-gray-500 dark:text-gray-400"
-            >
-              {format(review.createdAt, "yyyy/MM/dd")}
+            <time dateTime={format(review.createdAt, 'yyyy/MM/dd : hh')} className="block text-sm text-gray-500 dark:text-gray-400">
+              {format(review.createdAt, 'yyyy/MM/dd')}
             </time>
           </p>
         </div>

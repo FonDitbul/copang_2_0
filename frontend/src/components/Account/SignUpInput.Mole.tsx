@@ -1,6 +1,6 @@
-import React, { ChangeEventHandler } from "react";
-import DuplicateButton, { DuplicateButtonProps } from "./DuplicateButton.Mole";
-import Input from "../Common/Atom/Input";
+import React, { ChangeEventHandler } from 'react';
+import DuplicateButton, { DuplicateButtonProps } from './DuplicateButton.Mole';
+import Input from '../Common/Atom/Input';
 
 export interface ISignUpInput {
   id: string;
@@ -10,7 +10,7 @@ export interface ISignUpInput {
   duplicateButton?: DuplicateButtonProps;
   type: string;
 }
-export default function SignUpInput({ id, text, value, onChange, duplicateButton, type = "text" }: ISignUpInput) {
+export default function SignUpInput({ id, text, value, onChange, duplicateButton, type = 'text' }: ISignUpInput) {
   let button = <></>;
 
   if (duplicateButton) {

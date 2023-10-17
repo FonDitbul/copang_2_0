@@ -1,4 +1,4 @@
-export type TokenKey = "accessToken" | "accessTokenExpireAt" | "refreshToken" | "refreshTokenExpireAt";
+export type TokenKey = 'accessToken' | 'accessTokenExpireAt' | 'refreshToken' | 'refreshTokenExpireAt';
 
 export type Token = {
   value: string;
@@ -12,7 +12,7 @@ export class ClientStorage {
   static getTokenByKey(key: TokenKey): string {
     const value = localStorage.getItem(key);
     if (!value) {
-      throw new Error("not exist value");
+      throw new Error('not exist value');
     }
     return value;
   }
@@ -20,10 +20,10 @@ export class ClientStorage {
     localStorage.setItem(key, value);
   }
   static setTokenAfterLogin(loginToken: LoginToken) {
-    this.setToken("accessToken", loginToken.accessToken.value);
-    this.setToken("accessTokenExpireAt", loginToken.accessToken.expiredAt); // UTC로 저장
-    this.setToken("refreshToken", loginToken.refreshToken.value);
-    this.setToken("refreshTokenExpireAt", loginToken.refreshToken.expiredAt); // UTC로 저장
+    this.setToken('accessToken', loginToken.accessToken.value);
+    this.setToken('accessTokenExpireAt', loginToken.accessToken.expiredAt); // UTC로 저장
+    this.setToken('refreshToken', loginToken.refreshToken.value);
+    this.setToken('refreshTokenExpireAt', loginToken.refreshToken.expiredAt); // UTC로 저장
     console.log(loginToken);
   }
   static clear() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/infrastructure/prisma.service';
 import { IProductRepository, ProductWhere } from '../domain/product.repository';
-import { removeUndefinedKey } from '../../util/json.util';
+import { removeUndefinedKey } from '@libs/utils';
 import { IProductFindAllOut } from '../domain/port/product.out';
 
 @Injectable()

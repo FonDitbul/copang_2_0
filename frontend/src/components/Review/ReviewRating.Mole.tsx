@@ -1,4 +1,4 @@
-import StarAtom from "../Common/Atom/Star";
+import StarAtom from '../Common/Atom/Star';
 
 interface Props {
   currentRating: number;

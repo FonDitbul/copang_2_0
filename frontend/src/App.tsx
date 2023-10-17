@@ -1,17 +1,17 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Common/Organ/Header";
-import Footer from "./components/Common/Organ/Footer";
-import ProductHome from "./pages/Product/ProductHome";
-import ProductDetail from "./pages/Product/ProductDetail";
-import CartPage from "./pages/Cart/Cart";
-import OrderHistoryPage from "./pages/Order/OrderHistory.page";
-import Account from "./pages/Account/Account";
-import AccountSignUp from "./pages/Account/SignUp/SignUp";
-import AccountCreditCardPage from "./pages/Account/CreditCard/CreditCard";
-import AccountCreditCardAddPage from "./pages/Account/CreditCard/CreditCardAdd.page";
-import AccountAddressPage from "./pages/Account/Address/Address.page";
-import OrderProcessByCartPage from "./pages/Order/OrderProcessByCart.page";
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './components/Common/Organ/Header';
+import Footer from './components/Common/Organ/Footer';
+import ProductHome from './pages/Product/ProductHome';
+import ProductDetail from './pages/Product/ProductDetail';
+import CartPage from './pages/Cart/Cart';
+import OrderHistoryPage from './pages/Order/OrderHistory.page';
+import Account from './pages/Account/Account';
+import AccountSignUp from './pages/Account/SignUp/SignUp';
+import AccountCreditCardPage from './pages/Account/CreditCard/CreditCard';
+import AccountCreditCardAddPage from './pages/Account/CreditCard/CreditCardAdd.page';
+import AccountAddressPage from './pages/Account/Address/Address.page';
+import OrderProcessByCartPage from './pages/Order/OrderProcessByCart.page';
 
 function App() {
   return (

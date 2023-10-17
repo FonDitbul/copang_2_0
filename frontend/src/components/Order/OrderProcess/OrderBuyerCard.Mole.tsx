@@ -1,6 +1,6 @@
-import { BuyerCard, Card } from "../../../interface/BuyerCard";
-import React, { useEffect, useState } from "react";
-import { CreditCardEditButtonMole } from "../../Account/CreditCard/CreditCardEditButton.Mole";
+import { BuyerCard, Card } from '../../../interface/BuyerCard';
+import React, { useEffect, useState } from 'react';
+import { CreditCardEditButtonMole } from '../../Account/CreditCard/CreditCardEditButton.Mole';
 
 export default function OrderBuyerCardMole({
   creditCards,
@@ -19,8 +19,8 @@ export default function OrderBuyerCardMole({
     setCreditCards(representativeCreditCards);
 
     setFunction({
-      method: "CARD",
-      type: "CARD",
+      method: 'CARD',
+      type: 'CARD',
       bankName: representativeCreditCards.bankName,
       cardType: representativeCreditCards.cardType,
       cardNumber: representativeCreditCards.cardNumber,

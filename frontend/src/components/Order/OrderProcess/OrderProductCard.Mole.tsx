@@ -1,13 +1,13 @@
-import { Cart } from "../../../interface/Cart";
-import React from "react";
-import { costDisplayDot } from "../../Common/Logic/Cost.Logic";
-import { calculateCost } from "../../Cart/CartCost.Logic";
+import { Cart } from '../../../interface/Cart';
+import React from 'react';
+import { costDisplayDot } from '../../Common/Logic/Cost.Logic';
+import { calculateCost } from '../../Cart/CartCost.Logic';
 
 type OrderProductCardProps = Cart;
 
 export default function OrderProductCardMole(cart: OrderProductCardProps) {
   if (!cart.Product) {
-    throw new Error("no product information");
+    throw new Error('no product information');
   }
   return (
     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">

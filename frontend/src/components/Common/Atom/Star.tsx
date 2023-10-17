@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-interface Props extends React.SVGProps<any>{
+interface Props extends React.SVGProps<any> {
   isFull: boolean;
 }
 

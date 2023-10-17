@@ -1,14 +1,14 @@
-import ReviewCardMole from "./ReviewCard.Mole";
-import ReviewCreateInputModalMole from "./ReviewCreateInputModalMole";
-import { useEffect, useState } from "react";
-import { Client, ResponseData } from "../../context/api";
-import { Review } from "../../interface/Review";
+import ReviewCardMole from './ReviewCard.Mole';
+import ReviewCreateInputModalMole from './ReviewCreateInputModalMole';
+import { useEffect, useState } from 'react';
+import { Client, ResponseData } from '../../context/api';
+import { Review } from '../../interface/Review';
 
 interface PropsType {
   productId: number;
 }
 
-export type ServerReview = Omit<Review, "createdAt" | "updatedAt"> & {
+export type ServerReview = Omit<Review, 'createdAt' | 'updatedAt'> & {
   createdAt: string;
   updatedAt: string;
 };

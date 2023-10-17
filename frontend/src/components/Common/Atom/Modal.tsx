@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import Button from "./Button";
-import CloseButton from "./CloseButton";
+import React, { useRef } from 'react';
+import Button from './Button';
+import CloseButton from './CloseButton';
 
 interface PropsType {
-  onClose: Function
+  onClose: Function;
   children: React.ReactNode;
 }
 
@@ -34,9 +34,7 @@ export const Modal = ({ onClose, children }: PropsType) => {
             <CloseButton onClick={closeModal}></CloseButton>
           </div>
           {/*<!-- Modal body content -->*/}
-          <div className="items-center justify-center p-6 space-y-6">
-            {children}
-          </div>
+          <div className="items-center justify-center p-6 space-y-6">{children}</div>
           {/*<!-- Modal footer -->*/}
           {/*<div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">*/}
           {/*  <Button*/}

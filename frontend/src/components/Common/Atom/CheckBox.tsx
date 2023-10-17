@@ -1,5 +1,5 @@
-import Input from "./Input";
-import React from "react";
+import Input from './Input';
+import React from 'react';
 
 export function CheckBox({ ...attributes }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (

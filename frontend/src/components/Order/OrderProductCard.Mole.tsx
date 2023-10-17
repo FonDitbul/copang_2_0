@@ -1,18 +1,18 @@
-import Button from "../Common/Atom/Button";
-import {IShippingStatus, OrderProduct} from "../../interface/OrderProduct";
-import {costDisplayDot} from "../Common/Logic/Cost.Logic";
-import {calculateCost} from "../Cart/CartCost.Logic";
-import {useState} from "react";
-import ReviewCreateInputModalMole from "../Review/ReviewCreateInputModalMole";
+import Button from '../Common/Atom/Button';
+import { IShippingStatus, OrderProduct } from '../../interface/OrderProduct';
+import { costDisplayDot } from '../Common/Logic/Cost.Logic';
+import { calculateCost } from '../Cart/CartCost.Logic';
+import { useState } from 'react';
+import ReviewCreateInputModalMole from '../Review/ReviewCreateInputModalMole';
 
-export type IShippingStatusMessage = "결제 진행중" | "배송 대기중" | "배송중" | "배송 완료";
+export type IShippingStatusMessage = '결제 진행중' | '배송 대기중' | '배송중' | '배송 완료';
 
 export default function OrderProductCard(orderProduct: OrderProduct) {
   const orderProductMap = new Map<IShippingStatus, IShippingStatusMessage>();
-  orderProductMap.set("PAYMENT_INPROGRESS", "결제 진행중");
-  orderProductMap.set("SHIPPING_READY", "배송 대기중");
-  orderProductMap.set("SHIPPING", "배송중");
-  orderProductMap.set("SHIPPING_COMPLETE", "배송 완료");
+  orderProductMap.set('PAYMENT_INPROGRESS', '결제 진행중');
+  orderProductMap.set('SHIPPING_READY', '배송 대기중');
+  orderProductMap.set('SHIPPING', '배송중');
+  orderProductMap.set('SHIPPING_COMPLETE', '배송 완료');
 
   const shippingStatus = orderProduct.shippingStatus as IShippingStatus;
 
@@ -32,9 +32,7 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
       </div>
       <div className="mt-4 justify-between">
         <div className="flex items-center space-x-4">
-          <p className="text-gray-700 text-sm">
-            {costDisplayDot(calculateCost(orderProduct.cost, orderProduct.buyQuantity))} 원
-          </p>
+          <p className="text-gray-700 text-sm">{costDisplayDot(calculateCost(orderProduct.cost, orderProduct.buyQuantity))} 원</p>
         </div>
         <div>
           <p className="text-gray-700"> {orderProductMap.get(shippingStatus)} </p>
@@ -43,7 +41,7 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
         <div>
           {!orderProduct.reviewId && (
             <Button
-              disabled={orderProduct.shippingStatus !== "SHIPPING_COMPLETE"}
+              disabled={orderProduct.shippingStatus !== 'SHIPPING_COMPLETE'}
               onClick={(e) => {
                 setIsCreateModal(true);
               }}

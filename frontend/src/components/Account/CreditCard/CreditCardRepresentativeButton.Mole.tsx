@@ -1,6 +1,6 @@
-import { Client } from "../../../context/api";
-import StarAtom from "../../Common/Atom/Star";
-import React from "react";
+import { Client } from '../../../context/api';
+import StarAtom from '../../Common/Atom/Star';
+import React from 'react';
 
 type PropsType = {
   id: number;
@@ -8,7 +8,7 @@ type PropsType = {
 export default function CreditCardRepresentativeStar({ id }: PropsType) {
   const onClickEvent = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await Client.patch("buyer/card/representative", {
+    await Client.patch('buyer/card/representative', {
       id,
     });
     location.reload();

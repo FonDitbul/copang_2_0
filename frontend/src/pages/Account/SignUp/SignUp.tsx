@@ -1,36 +1,31 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
-import SignUpInput from "../../../components/Account/SignUpInput.Mole";
+import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import SignUpInput from '../../../components/Account/SignUpInput.Mole';
 
-import {
-  emailValidation,
-  formattingPhoneNumber,
-  passwordSameCheck,
-  phoneNumberValidation,
-} from "../../../components/Account/SignUp.Logic";
-import { Client, ResponseData } from "../../../context/api";
-import { useNavigate } from "react-router-dom";
-import Input from "../../../components/Common/Atom/Input";
-import { SignUpDuplicateAction } from "../../../components/Account/SignUpDuplicationAction";
+import { emailValidation, formattingPhoneNumber, passwordSameCheck, phoneNumberValidation } from '../../../components/Account/SignUp.Logic';
+import { Client, ResponseData } from '../../../context/api';
+import { useNavigate } from 'react-router-dom';
+import Input from '../../../components/Common/Atom/Input';
+import { SignUpDuplicateAction } from '../../../components/Account/SignUpDuplicationAction';
 
-export type AvailableState = "INIT" | "AVAILABLE" | "DUPLICATE";
+export type AvailableState = 'INIT' | 'AVAILABLE' | 'DUPLICATE';
 
-export type DuplicationType = "USER_ID" | "NICK_NAME" | "EMAIL" | "PHONE_NUMBER";
+export type DuplicationType = 'USER_ID' | 'NICK_NAME' | 'EMAIL' | 'PHONE_NUMBER';
 
 export type InputOnChangeType = { target: { value: string } };
 
 export default function AccountSignUp() {
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [name, setName] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [name, setName] = useState('');
+  const [nickName, setNickName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const [isUserIdAvailable, setIsUserIdAvailable] = useState("INIT" as AvailableState);
-  const [isNickNameAvailable, setIsNickNameAvailable] = useState("INIT" as AvailableState);
-  const [isEmailAvailable, setIsEmailAvailable] = useState("INIT" as AvailableState);
-  const [isPhoneNumberAvailable, setIsPhoneNumberAvailable] = useState("INIT" as AvailableState);
+  const [isUserIdAvailable, setIsUserIdAvailable] = useState('INIT' as AvailableState);
+  const [isNickNameAvailable, setIsNickNameAvailable] = useState('INIT' as AvailableState);
+  const [isEmailAvailable, setIsEmailAvailable] = useState('INIT' as AvailableState);
+  const [isPhoneNumberAvailable, setIsPhoneNumberAvailable] = useState('INIT' as AvailableState);
 
   const navigate = useNavigate();
 
@@ -38,25 +33,25 @@ export default function AccountSignUp() {
     e.preventDefault();
 
     if (
-      isUserIdAvailable !== "AVAILABLE" ||
-      isNickNameAvailable !== "AVAILABLE" ||
-      isEmailAvailable !== "AVAILABLE" ||
-      isPhoneNumberAvailable !== "AVAILABLE"
+      isUserIdAvailable !== 'AVAILABLE' ||
+      isNickNameAvailable !== 'AVAILABLE' ||
+      isEmailAvailable !== 'AVAILABLE' ||
+      isPhoneNumberAvailable !== 'AVAILABLE'
     ) {
-      return alert("중복 확인 필요");
+      return alert('중복 확인 필요');
     }
     if (!passwordSameCheck(password, passwordCheck)) {
-      return alert("비밀번호가 다르게 입력되었습니다.");
+      return alert('비밀번호가 다르게 입력되었습니다.');
     }
 
     if (!emailValidation(email)) {
-      return alert("이메일 형식이 올바르지 않습니다.");
+      return alert('이메일 형식이 올바르지 않습니다.');
     }
 
     if (!phoneNumberValidation(phoneNumber)) {
-      return alert("핸드폰 번호 형식이 올바르지 않습니다.");
+      return alert('핸드폰 번호 형식이 올바르지 않습니다.');
     }
-    const signUpResponse = await Client.post("/buyer/sign-up", {
+    const signUpResponse = await Client.post('/buyer/sign-up', {
       userId,
       name,
       email,
@@ -66,10 +61,10 @@ export default function AccountSignUp() {
     });
 
     if (signUpResponse.status !== 201) {
-      return alert("회원가입이 실패하였습니다");
+      return alert('회원가입이 실패하였습니다');
     }
-    alert("회원가입 성공");
-    navigate("/");
+    alert('회원가입 성공');
+    navigate('/');
 
     return;
   };
@@ -86,14 +81,14 @@ export default function AccountSignUp() {
                 text="아이디"
                 value={userId}
                 onChange={(e: InputOnChangeType) => {
-                  setIsUserIdAvailable("INIT");
+                  setIsUserIdAvailable('INIT');
                   setUserId(e.target.value);
                 }}
                 duplicateButton={{
-                  title: "아이디",
+                  title: '아이디',
                   value: userId,
                   onClick: async () => {
-                    await SignUpDuplicateAction("USER_ID", userId, setIsUserIdAvailable);
+                    await SignUpDuplicateAction('USER_ID', userId, setIsUserIdAvailable);
                   },
                   availableState: isUserIdAvailable,
                 }}
@@ -133,14 +128,14 @@ export default function AccountSignUp() {
                 text="닉네임"
                 value={nickName}
                 onChange={(e: InputOnChangeType) => {
-                  setIsNickNameAvailable("INIT");
+                  setIsNickNameAvailable('INIT');
                   setNickName(e.target.value);
                 }}
                 duplicateButton={{
-                  title: "닉네임",
+                  title: '닉네임',
                   value: nickName,
                   onClick: async () => {
-                    await SignUpDuplicateAction("NICK_NAME", nickName, setIsNickNameAvailable);
+                    await SignUpDuplicateAction('NICK_NAME', nickName, setIsNickNameAvailable);
                   },
                   availableState: isNickNameAvailable,
                 }}
@@ -152,14 +147,14 @@ export default function AccountSignUp() {
                 text="이메일"
                 value={email}
                 onChange={(e: InputOnChangeType) => {
-                  setIsEmailAvailable("INIT");
+                  setIsEmailAvailable('INIT');
                   setEmail(e.target.value);
                 }}
                 duplicateButton={{
-                  title: "이메일",
+                  title: '이메일',
                   value: email,
                   onClick: async () => {
-                    await SignUpDuplicateAction("EMAIL", email, setIsEmailAvailable);
+                    await SignUpDuplicateAction('EMAIL', email, setIsEmailAvailable);
                   },
                   availableState: isEmailAvailable,
                 }}
@@ -171,14 +166,14 @@ export default function AccountSignUp() {
                 text="핸드폰 번호"
                 value={phoneNumber}
                 onChange={(e: InputOnChangeType) => {
-                  setIsPhoneNumberAvailable("INIT");
+                  setIsPhoneNumberAvailable('INIT');
                   setPhoneNumber(formattingPhoneNumber(e.target.value));
                 }}
                 duplicateButton={{
-                  title: "핸드폰 번호",
+                  title: '핸드폰 번호',
                   value: phoneNumber,
                   onClick: async () => {
-                    await SignUpDuplicateAction("PHONE_NUMBER", phoneNumber, setIsPhoneNumberAvailable);
+                    await SignUpDuplicateAction('PHONE_NUMBER', phoneNumber, setIsPhoneNumberAvailable);
                   },
                   availableState: isPhoneNumberAvailable,
                 }}

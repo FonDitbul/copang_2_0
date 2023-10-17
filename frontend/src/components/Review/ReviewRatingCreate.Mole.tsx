@@ -1,5 +1,5 @@
-import StarAtom from "../Common/Atom/Star";
-import { useEffect, useState } from "react";
+import StarAtom from '../Common/Atom/Star';
+import { useEffect, useState } from 'react';
 
 interface Props {
   currentRating: number;
@@ -33,7 +33,7 @@ export default function ReviewRatingCreateMole({ currentRating, setFunction }: P
       {starIndexArray.map((star) => (
         <StarAtom
           key={star.index}
-          id={"" + star.index}
+          id={'' + star.index}
           isFull={star.isFull}
           onClick={(e: any) => {
             setRating(star.index);

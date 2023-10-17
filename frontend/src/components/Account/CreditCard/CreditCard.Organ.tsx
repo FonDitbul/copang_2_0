@@ -1,9 +1,9 @@
-import { BuyerCard } from "../../../interface/BuyerCard";
-import StarAtom from "../../Common/Atom/Star";
-import CreditCardRepresentativeStar from "./CreditCardRepresentativeButton.Mole";
-import CloseButton from "../../Common/Atom/CloseButton";
-import React from "react";
-import { Client } from "../../../context/api";
+import { BuyerCard } from '../../../interface/BuyerCard';
+import StarAtom from '../../Common/Atom/Star';
+import CreditCardRepresentativeStar from './CreditCardRepresentativeButton.Mole';
+import CloseButton from '../../Common/Atom/CloseButton';
+import React from 'react';
+import { Client } from '../../../context/api';
 
 type CreditCardProps = BuyerCard;
 
@@ -14,7 +14,7 @@ export function CreditCard(card: CreditCardProps) {
   }
 
   const deleteClickEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
-    Client.delete("/buyer/card", {
+    Client.delete('/buyer/card', {
       data: {
         id: card.id,
       },

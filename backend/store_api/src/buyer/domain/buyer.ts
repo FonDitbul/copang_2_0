@@ -1,4 +1,4 @@
-import { isNotContainKeyInObject } from '../../util/object.util';
+import { isNotContainKeyInObject } from '@libs/utils';
 
 export class Buyer {
   constructor(

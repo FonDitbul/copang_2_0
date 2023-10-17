@@ -1,30 +1,27 @@
-import { useEffect, useState } from "react";
-import { Client, ResponseData } from "../../context/api";
-import { getCartsByServer } from "../Cart/Cart";
-import { Cart } from "../../interface/Cart";
-import { BuyerAddress } from "../../interface/BuyerAddress";
-import { BuyerCard, Card } from "../../interface/BuyerCard";
-import { CreditCardResponse } from "../Account/CreditCard/CreditCard";
-import { AddressResponse } from "../Account/Address/Address.page";
-import { Buyer } from "../../interface/Buyer";
-import { BuyerAccountResponse } from "../Account/Info/Info";
-import OrderBuyerCardMole from "../../components/Order/OrderProcess/OrderBuyerCard.Mole";
-import OrderProductOrgan from "../../components/Order/OrderProcess/OrderProduct.Organ";
-import OrderShippingAddressMole from "../../components/Order/OrderProcess/OrderShippingAddress.Mole";
-import OrderBuyerMole from "../../components/Order/OrderProcess/OrderBuyer.Mole";
-import OrderBuyButtonMole, {
-  BuyProductType,
-  CartBuyProductType,
-} from "../../components/Order/OrderProcess/OrderBuyButton.Mole";
-import OrderBuyCostTotalOrgan from "../../components/Order/OrderProcess/OrderBuyCostTotal.Organ";
-import { Address } from "../../interface/Address";
+import { useEffect, useState } from 'react';
+import { Client, ResponseData } from '../../context/api';
+import { getCartsByServer } from '../Cart/Cart';
+import { Cart } from '../../interface/Cart';
+import { BuyerAddress } from '../../interface/BuyerAddress';
+import { BuyerCard, Card } from '../../interface/BuyerCard';
+import { CreditCardResponse } from '../Account/CreditCard/CreditCard';
+import { AddressResponse } from '../Account/Address/Address.page';
+import { Buyer } from '../../interface/Buyer';
+import { BuyerAccountResponse } from '../Account/Info/Info';
+import OrderBuyerCardMole from '../../components/Order/OrderProcess/OrderBuyerCard.Mole';
+import OrderProductOrgan from '../../components/Order/OrderProcess/OrderProduct.Organ';
+import OrderShippingAddressMole from '../../components/Order/OrderProcess/OrderShippingAddress.Mole';
+import OrderBuyerMole from '../../components/Order/OrderProcess/OrderBuyer.Mole';
+import OrderBuyButtonMole, { BuyProductType, CartBuyProductType } from '../../components/Order/OrderProcess/OrderBuyButton.Mole';
+import OrderBuyCostTotalOrgan from '../../components/Order/OrderProcess/OrderBuyCostTotal.Organ';
+import { Address } from '../../interface/Address';
 
-export type OrderBuyer = Pick<Buyer, "name" | "email" | "phoneNumber">;
+export type OrderBuyer = Pick<Buyer, 'name' | 'email' | 'phoneNumber'>;
 export default function OrderProcessByCartPage() {
   const [buyer, setBuyer] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
+    name: '',
+    email: '',
+    phoneNumber: '',
   } as OrderBuyer);
   const [carts, setCarts] = useState([] as Cart[]);
   const [cardArray, setCardArray] = useState([] as BuyerCard[]);
@@ -32,18 +29,18 @@ export default function OrderProcessByCartPage() {
 
   const [buyProduct, setBuyProducts] = useState([] as CartBuyProductType[]);
   const [buyCard, setBuyCard] = useState({
-    method: "",
-    type: "",
-    bankName: "",
-    cardNumber: "",
-    cardType: "",
-    validityPeriod: "",
+    method: '',
+    type: '',
+    bankName: '',
+    cardNumber: '',
+    cardType: '',
+    validityPeriod: '',
   } as Card);
   const [buyAddress, setBuyAddress] = useState({
-    postalCode: "",
-    address: "",
-    roadAddress: "",
-    jibunAddress: "",
+    postalCode: '',
+    address: '',
+    roadAddress: '',
+    jibunAddress: '',
   } as Address);
 
   useEffect(() => {
@@ -62,7 +59,7 @@ export default function OrderProcessByCartPage() {
     const getCartServer = async () => {
       const response = await Client.get(`/cart/list`);
       const result = response.data as ResponseData<getCartsByServer>;
-      const cartFilter = result.content.carts.filter((cart) => cart.status === "ACTIVE");
+      const cartFilter = result.content.carts.filter((cart) => cart.status === 'ACTIVE');
       setCarts(cartFilter);
 
       const buyProductMapping = cartFilter.map((product) => {
@@ -74,14 +71,14 @@ export default function OrderProcessByCartPage() {
       setBuyProducts(buyProductMapping);
     };
     const getCreditCard = async () => {
-      const response = await Client.get("/buyer/card");
+      const response = await Client.get('/buyer/card');
       const responseData = response.data as ResponseData<CreditCardResponse>;
       const buyerCards = responseData.content.buyerCards;
       setCardArray(buyerCards);
     };
 
     const getAddress = async () => {
-      const response = await Client.get("/buyer/address");
+      const response = await Client.get('/buyer/address');
       const responseData = response.data as ResponseData<AddressResponse>;
       const buyerAddresses = responseData.content.buyerAddresses;
       setAddressArray(buyerAddresses);

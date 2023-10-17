@@ -1,19 +1,16 @@
-import { Product } from "../../interface/Product";
-import { Link } from "react-router-dom";
-import { costDisplayDot } from "../Common/Logic/Cost.Logic";
-import { CartAddButton } from "../Cart/CartAddButton.Mole";
+import { Product } from '../../interface/Product';
+import { Link } from 'react-router-dom';
+import { costDisplayDot } from '../Common/Logic/Cost.Logic';
+import { CartAddButton } from '../Cart/CartAddButton.Mole';
 
-type IProductDetail = Pick<Product, "id" | "name" | "cost">;
+type IProductDetail = Pick<Product, 'id' | 'name' | 'cost'>;
 
 export default function ProductCard({ id, name, cost }: IProductDetail) {
   return (
     <div className="mt-4 flex flex-col mx-auto gap-6 mt-6 gap-x-6 gap-y-10">
       <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <Link to={`/product/${id}`}>
-          <img
-            src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
-            alt="사진 준비 중 "
-          />
+          <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="사진 준비 중 " />
         </Link>
       </div>
       <div className="mt-4 flex justify-between">

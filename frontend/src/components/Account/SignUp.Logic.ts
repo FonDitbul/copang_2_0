@@ -1,7 +1,4 @@
-export function passwordSameCheck(
-  password: string,
-  passwordCheck: string,
-): boolean {
+export function passwordSameCheck(password: string, passwordCheck: string): boolean {
   if (password === passwordCheck) {
     return true;
   }

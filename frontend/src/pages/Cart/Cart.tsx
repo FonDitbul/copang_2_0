@@ -1,8 +1,8 @@
-import CartCard from "../../components/Cart/CartCard.Mole";
-import CartCostTotal from "../../components/Cart/CartCostTotal.Organ";
-import { Cart } from "../../interface/Cart";
-import { useEffect, useState } from "react";
-import { Client, ResponseData } from "../../context/api";
+import CartCard from '../../components/Cart/CartCard.Mole';
+import CartCostTotal from '../../components/Cart/CartCostTotal.Organ';
+import { Cart } from '../../interface/Cart';
+import { useEffect, useState } from 'react';
+import { Client, ResponseData } from '../../context/api';
 
 export interface getCartsByServer {
   carts: Cart[];

@@ -1,6 +1,6 @@
-import React from "react";
-import { Client } from "../../../context/api";
-import StarAtom from "../../Common/Atom/Star";
+import React from 'react';
+import { Client } from '../../../context/api';
+import StarAtom from '../../Common/Atom/Star';
 
 type PropsType = {
   id: number;
@@ -8,7 +8,7 @@ type PropsType = {
 export default function AddressRepresentativeStar({ id }: PropsType) {
   const onClickEvent = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await Client.patch("buyer/address/representative", {
+    await Client.patch('buyer/address/representative', {
       id,
     });
     location.reload();

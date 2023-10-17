@@ -1,7 +1,7 @@
-import { BuyerAddress } from "../../../interface/BuyerAddress";
-import React, { useEffect, useState } from "react";
-import { AddressEditButtonMole } from "../../Account/Address/AddressEditButton.Mole";
-import { Address } from "../../../interface/Address";
+import { BuyerAddress } from '../../../interface/BuyerAddress';
+import React, { useEffect, useState } from 'react';
+import { AddressEditButtonMole } from '../../Account/Address/AddressEditButton.Mole';
+import { Address } from '../../../interface/Address';
 
 export default function OrderShippingAddressMole({
   addresses,
@@ -11,10 +11,10 @@ export default function OrderShippingAddressMole({
   setFunction: React.Dispatch<React.SetStateAction<Address>>;
 }) {
   const [address, setAddress] = useState({
-    postalCode: "",
-    address: "",
-    roadAddress: "",
-    jibunAddress: "",
+    postalCode: '',
+    address: '',
+    roadAddress: '',
+    jibunAddress: '',
   } as Address);
 
   useEffect(() => {

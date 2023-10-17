@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { Product } from "../../interface/Product";
-import { Client, ResponseData } from "../../context/api";
-import { CartAddButton } from "../../components/Cart/CartAddButton.Mole";
-import { costDisplayDot } from "../../components/Common/Logic/Cost.Logic";
-import ReviewProductOrgan from "../../components/Review/ReviewProduct.Organ";
-import ReviewCreateInputModalMole from "../../components/Review/ReviewCreateInputModalMole";
+import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Product } from '../../interface/Product';
+import { Client, ResponseData } from '../../context/api';
+import { CartAddButton } from '../../components/Cart/CartAddButton.Mole';
+import { costDisplayDot } from '../../components/Common/Logic/Cost.Logic';
+import ReviewProductOrgan from '../../components/Review/ReviewProduct.Organ';
+import ReviewCreateInputModalMole from '../../components/Review/ReviewCreateInputModalMole';
 
 interface getOneProduct {
   product: Product;

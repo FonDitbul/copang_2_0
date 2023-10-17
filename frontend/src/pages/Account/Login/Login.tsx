@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from "react";
-import Input from "../../../components/Common/Atom/Input";
-import Button from "../../../components/Common/Atom/Button";
-import SignUpLinkButton from "../../../components/Account/SignUpLink.Mole";
-import { useNavigate } from "react-router-dom";
-import { Client, ResponseData } from "../../../context/api";
-import {ClientStorage} from "../../../context/ClientStorage";
+import { ChangeEvent, useState } from 'react';
+import Input from '../../../components/Common/Atom/Input';
+import Button from '../../../components/Common/Atom/Button';
+import SignUpLinkButton from '../../../components/Account/SignUpLink.Mole';
+import { useNavigate } from 'react-router-dom';
+import { Client, ResponseData } from '../../../context/api';
+import { ClientStorage } from '../../../context/ClientStorage';
 
 export type TokenResponse = {
   value: string;
@@ -15,7 +15,7 @@ export type LoginResponse = {
   refreshToken: TokenResponse;
 };
 const loginByServer = async (userId: string, password: string) => {
-  const response = await Client.post("/buyer/login", {
+  const response = await Client.post('/buyer/login', {
     userId,
     password,
   });
@@ -23,26 +23,26 @@ const loginByServer = async (userId: string, password: string) => {
 
   const result = responseData.content;
 
-  ClientStorage.setToken("accessToken", result.accessToken.value);
-  ClientStorage.setToken("accessTokenExpireAt", result.accessToken.expiredAt); // UTC로 저장
-  ClientStorage.setToken("refreshToken", result.refreshToken.value);
-  ClientStorage.setToken("refreshTokenExpireAt", result.refreshToken.expiredAt); // UTC로 저장
+  ClientStorage.setToken('accessToken', result.accessToken.value);
+  ClientStorage.setToken('accessTokenExpireAt', result.accessToken.expiredAt); // UTC로 저장
+  ClientStorage.setToken('refreshToken', result.refreshToken.value);
+  ClientStorage.setToken('refreshTokenExpireAt', result.refreshToken.expiredAt); // UTC로 저장
 };
 
 export default function AccountLoginPage() {
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
   const loginButtonClick = async () => {
     if (!userId || !password) {
-      return alert("로그인 혹은 패스워드를 입력해주세요");
+      return alert('로그인 혹은 패스워드를 입력해주세요');
     }
 
     await loginByServer(userId, password);
-    alert("로그인 성공");
-    navigate("/");
+    alert('로그인 성공');
+    navigate('/');
     return;
   };
 
@@ -62,8 +62,8 @@ export default function AccountLoginPage() {
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  {" "}
-                  아이디{" "}
+                  {' '}
+                  아이디{' '}
                 </label>
                 <Input
                   name="id"
@@ -75,8 +75,8 @@ export default function AccountLoginPage() {
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  {" "}
-                  비밀번호{" "}
+                  {' '}
+                  비밀번호{' '}
                 </label>
                 <Input
                   type="password"
@@ -99,7 +99,7 @@ export default function AccountLoginPage() {
                   </div>
                   <div className="ml-3 text-sm">
                     <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
-                      로그인 정보 저장하기{" "}
+                      로그인 정보 저장하기{' '}
                     </label>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import {
   BuyerChangePhoneNumberOut,
   BuyerSignUpOut,
 } from '../domain/port/buyer.out';
-import { removeUndefinedKey } from '../../util/json.util';
+import { removeUndefinedKey } from '@libs/utils';
 
 @Injectable()
 export class BuyerPrismaRepository implements IBuyerRepository {

@@ -1,7 +1,5 @@
-import Input from "../../Common/Atom/Input";
+import Input from '../../Common/Atom/Input';
 
-export default function CreditCardBankNameInput () {
-  return (<Input>
-
-  </Input>)
+export default function CreditCardBankNameInput() {
+  return <Input></Input>;
 }

@@ -1,4 +1,4 @@
-import {Product} from "./Product";
+import { Product } from './Product';
 
 export interface Cart {
   id: number;
@@ -9,5 +9,5 @@ export interface Cart {
   createdAt: Date;
   updatedAt: Date;
 
-  Product?: Product
+  Product?: Product;
 }

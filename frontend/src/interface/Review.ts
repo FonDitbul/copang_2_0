@@ -1,4 +1,4 @@
-import { Buyer } from "./Buyer";
+import { Buyer } from './Buyer';
 
 export interface Review {
   id: number;

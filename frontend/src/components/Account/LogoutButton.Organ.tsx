@@ -1,4 +1,4 @@
-import Button from "../../components/Common/Atom/Button";
+import Button from "../Common/Atom/Button";
 import { useNavigate } from "react-router-dom";
 import { ClientStorage } from "../../context/ClientStorage";
 

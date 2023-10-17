@@ -3,7 +3,7 @@ import { Client, ResponseData } from '../../context/api';
 import { AvailableState, DuplicationType } from '../../pages/Account/SignUp/SignUp';
 
 export const SignUpDuplicateAction = async (type: DuplicationType, value: string, setFunction: Dispatch<SetStateAction<AvailableState>>) => {
-  let result: boolean = true;
+  let result = true;
 
   if (!value) {
     throw new Error('value 입력이 필요합니다.');

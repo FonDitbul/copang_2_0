@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Client } from '../../../context/api';
 
 interface PropsType {
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function AddressAddModalOrgan({ onClose }: PropsType) {

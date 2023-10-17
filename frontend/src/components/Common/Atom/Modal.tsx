@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-import Button from './Button';
 import CloseButton from './CloseButton';
 
 interface PropsType {
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
 }
 

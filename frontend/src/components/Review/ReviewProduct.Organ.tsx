@@ -1,5 +1,4 @@
 import ReviewCardMole from './ReviewCard.Mole';
-import ReviewCreateInputModalMole from './ReviewCreateInputModalMole';
 import { useEffect, useState } from 'react';
 import { Client, ResponseData } from '../../context/api';
 import { Review } from '../../interface/Review';

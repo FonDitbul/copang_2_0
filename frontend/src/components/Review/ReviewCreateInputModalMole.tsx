@@ -1,13 +1,13 @@
 import Input from '../Common/Atom/Input';
 import Button from '../Common/Atom/Button';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Client } from '../../context/api';
 import ReviewRatingCreateMole from './ReviewRatingCreate.Mole';
 import { Modal } from '../Common/Atom/Modal';
 
 interface Props {
   orderProductId: number;
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ReviewCreateInputModalMole({ orderProductId, onClose }: Props) {

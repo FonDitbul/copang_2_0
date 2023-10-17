@@ -7,7 +7,7 @@ import Button from '../../Common/Atom/Button';
 import { Client } from '../../../context/api';
 
 interface PropsType {
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function NickNameChangeModal({ onClose }: PropsType) {

@@ -8,7 +8,7 @@ import { Client } from '../../../context/api';
 import { emailValidation } from '../SignUp.Logic';
 
 interface PropsType {
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function EmailChangeModal({ onClose }: PropsType) {

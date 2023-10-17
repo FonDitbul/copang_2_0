@@ -1,7 +1,6 @@
 import { Cart } from '../../../interface/Cart';
 import React from 'react';
 import OrderProductCardMole from './OrderProductCard.Mole';
-import { OrderBuyer } from '../../../pages/Order/OrderProcessByCart.page';
 
 export default function OrderProductOrgan({ carts }: { carts: Cart[] }) {
   return (

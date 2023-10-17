@@ -29,8 +29,6 @@ export default function CreditCardAddOrgan() {
       alert('다시 입력해 주세요');
       return;
     }
-
-    return;
   };
 
   // TODO 은행 이름, 카드 타입은 선택하도록 변경

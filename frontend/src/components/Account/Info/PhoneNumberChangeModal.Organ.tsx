@@ -8,7 +8,7 @@ import { Client } from '../../../context/api';
 import { formattingPhoneNumber } from '../SignUp.Logic';
 
 interface PropsType {
-  onClose: Function;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function PhoneNumberChangeModal({ onClose }: PropsType) {

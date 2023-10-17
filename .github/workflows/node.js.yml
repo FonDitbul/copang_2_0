@@ -41,12 +41,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path:  '**/package-lock.json'
+
       - run: npm i -g @nestjs/cli
       - run: npm ci
+
       - name: prisma schema 생성
         run: npx prisma generate
-      - name: build
+
       - name: store api build
         run: nest build store_api
+
       - name: 테스트
         run: npm run test

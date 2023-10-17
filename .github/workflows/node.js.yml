@@ -30,7 +30,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [18.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -41,10 +41,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path:  '**/package-lock.json'
+
+      - run: npm i -g @nestjs/cli
       - run: npm ci
+
       - name: prisma schema 생성
         run: npx prisma generate
-      - name: build
-        run: npm run build
+
+      - name: store api build
+        run: nest build store_api
+
       - name: 테스트
         run: npm run test

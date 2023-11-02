@@ -13,6 +13,7 @@
     "prettier:fix": "prettier --write \"{backend,frontend,libs,test}/**/*.{ts,tsx}\"",
     "store_api:dev": "nest start store_api --watch",
     "batch:dev": "nest start batch --watch",
+    "payment_api:dev": "nest start payment_api --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

@@ -23,6 +23,15 @@
       "compilerOptions": {
         "tsConfigPath": "backend/batch/tsconfig.app.json"
       }
+    },
+    "payment_api": {
+      "type": "application",
+      "root": "backend/payment_api",
+      "entryFile": "main",
+      "sourceRoot": "backend/payment_api/src",
+      "compilerOptions": {
+        "tsConfigPath": "backend/payment_api/tsconfig.app.json"
+      }
     }
   }
 }

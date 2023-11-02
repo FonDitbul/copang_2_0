@@ -51,5 +51,8 @@ jobs:
       - name: store api build
         run: nest build store_api
 
+      - name: batch build
+        run: nest build batch
+
       - name: 테스트
         run: npm run test

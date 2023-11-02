@@ -54,5 +54,8 @@ jobs:
       - name: batch build
         run: nest build batch
 
+      - name: payment_api build
+        run: nest build payment_api
+
       - name: 테스트
         run: npm run test

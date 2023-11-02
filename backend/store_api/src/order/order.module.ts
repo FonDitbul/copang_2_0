@@ -8,9 +8,10 @@ import { OrderPrismaRepository } from './infrastructure/order.prisma.repository'
 import { OrderPaymentHttpServer } from './infrastructure/order.payment.http.server';
 import { CartModule } from '../cart/cart.module';
 import { OrderProductPrismaRepository } from './infrastructure/orderProduct.prisma.repository';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [RepositoryModule, AuthModule, ProductModule, CartModule],
+  imports: [RepositoryModule, AuthModule, ProductModule, CartModule, HttpModule],
   controllers: [OrderController],
   providers: [
     {

@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "rootDir": "./src",
     "outDir": "../../dist/backend/payment_api"
   },
   "include": ["src/**/*"],

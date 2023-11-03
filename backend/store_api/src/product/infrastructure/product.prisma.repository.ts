@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/infrastructure/prisma.service';
+import { PrismaService } from '@libs/repository';
 import { IProductRepository, ProductWhere } from '../domain/product.repository';
 import { removeUndefinedKey } from '@libs/utils';
 import { IProductFindAllOut } from '../domain/port/product.out';

@@ -3,7 +3,8 @@
   "root": "./",
   "monorepo": true,
   "compilerOptions": {
-    "tsConfigPath": "./tsconfig.build.json"
+    "tsConfigPath": "./tsconfig.build.json",
+    "webpack": true
   },
   "projects": {
     "store_api": {
@@ -31,6 +32,15 @@
       "sourceRoot": "backend/payment_api/src",
       "compilerOptions": {
         "tsConfigPath": "backend/payment_api/tsconfig.app.json"
+      }
+    },
+    "repository": {
+      "type": "library",
+      "root": "libs/repository",
+      "entryFile": "index",
+      "sourceRoot": "libs/repository/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/repository/tsconfig.lib.json"
       }
     }
   }

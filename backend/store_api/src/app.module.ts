@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { BuyerModule } from './buyer/buyer.module';
 import { HealthController } from './common/api/health.controller';
-import { PrismaService } from './database/infrastructure/prisma.service';
+import { PrismaService } from '@libs/repository';
 import { LoggerMiddleware } from './common/api/logger.middleware';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';

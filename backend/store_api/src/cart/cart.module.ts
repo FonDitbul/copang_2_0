@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RepositoryModule } from '../database/repository.module';
+import { RepositoryModule } from '@libs/repository';
 import { CartController } from './api/cart.controller';
 import { CartService } from './application/cart.service';
 import { CartPrismaRepository } from './infrastructure/cart.prisma.repository';

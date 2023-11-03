@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/infrastructure/prisma.service';
+import { PrismaService } from '@libs/repository';
 import { CartWhereCondition, ICartRepository } from '../domain/cart.repository';
 import { ICartAddOut, ICartChangeOut, ICartCountOut, ICartDeleteByBuyOut, ICartDeleteOut, ICartFindAllOut } from '../domain/port/cart.out';
 import { Cart } from '../domain/cart';

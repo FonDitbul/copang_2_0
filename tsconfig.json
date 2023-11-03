@@ -17,13 +17,26 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@libs/repository": [
+        "libs/repository/src"
+      ],
+      "@libs/repository/*": [
+        "libs/repository/src/*"
+      ]
+    }
   },
-  "files": [
-  ],
+  "files": [],
   "references": [
     {
       "path": "./libs/utils"
+    },
+    {
+      "path": "./libs/repository"
     }
+  ],
+  "include": [
+    "./libs/*"
   ]
 }

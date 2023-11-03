@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TempModule } from './temp/temp.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ShippingModule } from './shipping/shipping.module';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), TempModule],
+  imports: [ScheduleModule.forRoot(), ShippingModule],
   controllers: [],
   providers: [],
 })

@@ -87,7 +87,14 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@libs/repository(|/.*)$": "<rootDir>/libs/repository/src/$1"
+    }
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"

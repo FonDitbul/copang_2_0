@@ -48,6 +48,9 @@ jobs:
       - name: prisma schema 생성
         run: npx prisma generate
 
+      - name: repository build
+        run: nest build repository
+
       - name: store api build
         run: nest build store_api
 

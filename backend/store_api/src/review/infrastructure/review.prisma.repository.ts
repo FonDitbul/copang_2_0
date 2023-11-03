@@ -1,5 +1,5 @@
 import { IReviewRepository } from '../domain/reivew.repository';
-import { PrismaService } from '../../database/infrastructure/prisma.service';
+import { PrismaService } from '@libs/repository';
 import { Injectable } from '@nestjs/common';
 import { CreateByBuyerOut, ReviewFindAllByProductIdOut } from '../domain/port/review.out';
 import { Review as ReviewEntity } from '@prisma/client';

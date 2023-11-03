@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RepositoryModule } from '../database/repository.module';
+import { RepositoryModule } from '@libs/repository';
 import { OrderController } from './api/order.controller';
 import { AuthModule } from '../auth/auth.module';
 import { ProductModule } from '../product/product.module';

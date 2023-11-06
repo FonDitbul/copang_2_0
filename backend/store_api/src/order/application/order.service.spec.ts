@@ -46,6 +46,7 @@ describe('order Service test', () => {
             cost: 100_000,
             isSale: true,
             sellerId: 1,
+            categoryId: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
             deletedAt: null,

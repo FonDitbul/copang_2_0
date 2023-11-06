@@ -1,12 +1,23 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { CategoryRepository, CreateCategory } from './category.repository';
 
-export class CategoryCrawlerService implements OnModuleInit {
-  onModuleInit() {
-    this.getByCupang();
+@Injectable()
+export class CategoryCrawlerService implements OnApplicationBootstrap {
+  constructor(@Inject('CategoryRepository') private categoryRepository: CategoryRepository) {}
+
+  onApplicationBootstrap() {
+    // this.getByCupang();
   }
 
+  private createCode(categoryId: string) {
+    return `CUPANG-${categoryId}`;
+  }
+
+  /***
+   * cupang 에서 카테고리 crawler 1회만 실행
+   ***/
   async getByCupang() {
     const url = 'https://www.coupang.com/';
 
@@ -28,7 +39,7 @@ export class CategoryCrawlerService implements OnModuleInit {
 
       const menuList = $('.shopping-menu-list').children('li');
 
-      const categoryList = menuList
+      const categoryList: CreateCategory[] = menuList
         .toArray()
         .filter((i) => {
           const node = i.firstChild as unknown as Element;
@@ -50,12 +61,12 @@ export class CategoryCrawlerService implements OnModuleInit {
           const categoryName = categoryDataValueObj.param.categoryLabel;
 
           return {
-            id: categoryId,
+            code: this.createCode(categoryId),
             name: categoryName,
           };
         });
 
-      console.log(categoryList);
+      await this.categoryRepository.createMany(categoryList);
     } catch (e) {
       throw new Error(e);
     }

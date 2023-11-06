@@ -33,6 +33,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "axios": "^1.6.0",
     "bcrypt": "^5.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "date-fns": "^2.29.3",
@@ -95,7 +96,9 @@
     "moduleNameMapper": {
       "^@libs/repository(|/.*)$": "./libs/repository/src/$1"
     },
-    "transformIgnorePatterns": ["^.+\\.js$"]
+    "transformIgnorePatterns": [
+      "^.+\\.js$"
+    ]
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"

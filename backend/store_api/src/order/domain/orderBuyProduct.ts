@@ -1,4 +1,4 @@
-import { Product } from '@prisma/client';
+import { Product } from '../../product/domain/product';
 import { OrderProduct } from './orderProduct';
 
 export interface OrderBuyProduct {

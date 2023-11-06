@@ -1,4 +1,5 @@
 import { Seller } from '../../seller/domain/seller';
+import { Category } from '../../category/domain/category';
 
 export class Product {
   id: number;
@@ -10,11 +11,14 @@ export class Product {
   cost: number;
   isSale: boolean;
   sellerId: number;
+  categoryId: number;
+
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
 
   Seller?: Partial<Seller>;
+  Category?: Partial<Category>;
 
   static isDeleted(product: Product) {
     return !!product.deletedAt;

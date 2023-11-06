@@ -42,6 +42,7 @@ describe('order 테스트', () => {
           cost: 100_000,
           isSale: true,
           sellerId: 1,
+          categoryId: 1,
           createdAt: givenCreatedAt,
           updatedAt: givenUpdatedAt,
           deletedAt: null,
@@ -62,6 +63,7 @@ describe('order 테스트', () => {
         cost: 100_000,
         isSale: true,
         sellerId: 1,
+        categoryId: 1,
         createdAt: givenCreatedAt,
         updatedAt: givenUpdatedAt,
         deletedAt: null,
@@ -83,6 +85,7 @@ describe('order 테스트', () => {
           cost: 100_000,
           isSale: true,
           sellerId: 1,
+          categoryId: 1,
           createdAt: givenCreatedAt,
           updatedAt: givenUpdatedAt,
           deletedAt: null,
@@ -109,6 +112,7 @@ describe('order 테스트', () => {
         name: 'test',
         quantity: 0,
         sellerId: 0,
+        categoryId: 0,
         updatedAt: undefined,
       };
 
@@ -131,6 +135,7 @@ describe('order 테스트', () => {
         name: 'test',
         quantity: 0,
         sellerId: 0,
+        categoryId: 0,
         updatedAt: undefined,
       };
 

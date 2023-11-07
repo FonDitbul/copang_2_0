@@ -15,6 +15,7 @@ const seller1: any = {
           information: '가볍고 좋은노트북',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '갤럭시 워치',
@@ -23,6 +24,7 @@ const seller1: any = {
           information: '스마트 워치',
           quantity: 300000,
           cost: 150_000,
+          mainImage: '',
         },
         {
           name: '갤럭시S2000',
@@ -31,6 +33,7 @@ const seller1: any = {
           information: '스마트폰',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '갤럭시 폴드',
@@ -39,6 +42,7 @@ const seller1: any = {
           information: '접는핸드폰',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '갤럭시 버즈',
@@ -47,6 +51,7 @@ const seller1: any = {
           information: '블루투스 이어폰',
           quantity: 20000,
           cost: 1_500_000,
+          mainImage: '',
         },
       ],
     },
@@ -70,6 +75,7 @@ const seller2: any = {
           information: '가볍고 좋은노트북',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '애플 워치',
@@ -78,6 +84,7 @@ const seller2: any = {
           information: '스마트 워치',
           quantity: 300000,
           cost: 850_000,
+          mainImage: '',
         },
         {
           name: '에어팟',
@@ -86,6 +93,7 @@ const seller2: any = {
           information: '무선이어폰',
           quantity: 20000,
           cost: 300_000,
+          mainImage: '',
         },
         {
           name: '애플 폴드',
@@ -94,6 +102,7 @@ const seller2: any = {
           information: '접는핸드폰',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '아이폰',
@@ -102,6 +111,7 @@ const seller2: any = {
           information: '스마트폰',
           quantity: 20000,
           cost: 1_500_000,
+          mainImage: '',
         },
       ],
     },
@@ -125,6 +135,7 @@ const seller3: any = {
           information: '가볍고 좋은노트북',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '베가 워치',
@@ -133,6 +144,7 @@ const seller3: any = {
           information: '스마트 워치',
           quantity: 300000,
           cost: 850_000,
+          mainImage: '',
         },
         {
           name: '베가팟',
@@ -141,6 +153,7 @@ const seller3: any = {
           information: '무선이어폰',
           quantity: 20000,
           cost: 300_000,
+          mainImage: '',
         },
         {
           name: '베가 폴드',
@@ -149,6 +162,7 @@ const seller3: any = {
           information: '접는핸드폰',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '베가폰',
@@ -157,6 +171,7 @@ const seller3: any = {
           information: '스마트폰',
           quantity: 20000,
           cost: 1_500_000,
+          mainImage: '',
         },
       ],
     },
@@ -180,6 +195,7 @@ const seller4: any = {
           information: '가볍고 좋은노트북',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '쏘니 워치',
@@ -188,6 +204,7 @@ const seller4: any = {
           information: '스마트 워치',
           quantity: 300000,
           cost: 850_000,
+          mainImage: '',
         },
         {
           name: '쏘니팟',
@@ -196,6 +213,7 @@ const seller4: any = {
           information: '무선이어폰',
           quantity: 20000,
           cost: 300_000,
+          mainImage: '',
         },
         {
           name: '쏘니 폴드',
@@ -204,6 +222,7 @@ const seller4: any = {
           information: '접는핸드폰',
           quantity: 20000,
           cost: 1_150_000,
+          mainImage: '',
         },
         {
           name: '쏘니폰',
@@ -212,6 +231,7 @@ const seller4: any = {
           information: '스마트폰',
           quantity: 20000,
           cost: 1_500_000,
+          mainImage: '',
         },
       ],
     },

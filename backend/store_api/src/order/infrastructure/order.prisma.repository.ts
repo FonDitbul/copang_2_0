@@ -13,17 +13,8 @@ export class OrderPrismaRepository implements IOrderRepository {
       });
 
       const createOrderProductArray = orderBuy.buyProduct.map((product) => {
-        const { code, cost, name, description, information, buyQuantity, sellerId, productId, address } = product;
         return {
-          code,
-          cost,
-          name,
-          description,
-          information,
-          buyQuantity,
-          sellerId,
-          productId,
-          address,
+          ...product,
           buyerId: orderBuy.buyerId,
           orderId: order.id,
         };

@@ -22,7 +22,7 @@ export type OrderPaymentCreateBuyOut = Pick<
 
 export type OrderProductCreateBuyOut = Pick<
   OrderProduct,
-  'code' | 'cost' | 'name' | 'description' | 'information' | 'buyQuantity' | 'sellerId' | 'productId' | 'address'
+  'code' | 'cost' | 'name' | 'description' | 'information' | 'buyQuantity' | 'sellerId' | 'productId' | 'address' | 'mainImage'
 >;
 
 export interface OrderBuyOut {

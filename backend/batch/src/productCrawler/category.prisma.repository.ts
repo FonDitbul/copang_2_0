@@ -10,4 +10,12 @@ export class CategoryPrismaRepository implements CategoryRepository {
     await this.prisma.category.createMany({ data: categoryArray, skipDuplicates: true });
     return;
   }
+
+  findAll() {
+    return this.prisma.category.findMany({
+      where: {
+        deletedAt: null,
+      },
+    });
+  }
 }

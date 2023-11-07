@@ -2,18 +2,11 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { CategoryRepository, CreateCategory } from './category.repository';
+import { createCupangCode } from './createCode';
 
 @Injectable()
-export class CategoryCrawlerService implements OnApplicationBootstrap {
+export class CategoryCrawlerService {
   constructor(@Inject('CategoryRepository') private categoryRepository: CategoryRepository) {}
-
-  onApplicationBootstrap() {
-    // this.getByCupang();
-  }
-
-  private createCode(categoryId: string) {
-    return `CUPANG-${categoryId}`;
-  }
 
   /***
    * cupang 에서 카테고리 crawler 1회만 실행
@@ -43,7 +36,8 @@ export class CategoryCrawlerService implements OnApplicationBootstrap {
         .toArray()
         .filter((i) => {
           const node = i.firstChild as unknown as Element;
-          return node.attributes[2] || !node.attributes[0];
+
+          return node.attributes[2];
         })
         .map((elem) => {
           const node = elem.firstChild as unknown as Element;
@@ -61,7 +55,7 @@ export class CategoryCrawlerService implements OnApplicationBootstrap {
           const categoryName = categoryDataValueObj.param.categoryLabel;
 
           return {
-            code: this.createCode(categoryId),
+            code: createCupangCode(categoryId),
             name: categoryName,
           };
         });

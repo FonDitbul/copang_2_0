@@ -1,27 +1,47 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { CategoryRepository } from './category.repository';
+import { createCupangCode } from './createCode';
+import { CreateProduct, ProductRepository } from './product.repository';
+import { Cron } from '@nestjs/schedule';
 
-export class ProductCrawlerService implements OnModuleInit {
-  onModuleInit() {
-    this.crawlerFromCupang();
+@Injectable()
+export class ProductCrawlerService {
+  constructor(
+    @Inject('CategoryRepository') private categoryRepository: CategoryRepository,
+    @Inject('ProductRepository') private productRepository: ProductRepository,
+  ) {}
+
+  @Cron('0 30 23 * * 5')
+  async crawlerFromCupang() {
+    const categoryList = await this.categoryRepository.findAll();
+    // const categoryCupangIdList = categoryList.map((category) => category.code).map((code) => code.split('-')[1]);
+
+    for (const category of categoryList) {
+      const categoryCode = category.code.split('-')[1];
+      for (let page = 1; page < 10; page++) {
+        const products = await this.getProductsOfCategory(categoryCode, page);
+        const createProducts = products.map((product) => {
+          return {
+            name: product.name,
+            code: product.code,
+            description: product.name,
+            information: product.name,
+            quantity: 0,
+            cost: product.price,
+            isSale: true,
+            mainImage: product.imageSrc,
+            sellerId: 1, // 임시 하드코딩
+            categoryId: category.id,
+          } as CreateProduct;
+        });
+        await this.productRepository.createMany(createProducts);
+      }
+    }
   }
-  // TODO List Search를 다양하게 받는 방법은 어떻게 할지 ? ?
-  // search를 꼭 해야하나? paging 은 어떻게 해아하나 ?
-
-  // 숙제 데이터를 쌓는 방법 완
-  // ProductCode를 활용하여 CUPANG-6497880831 요런식
-  // productCode도 인덱스 필요 (중복제거 필)
-  // productId는 search-product-link에 존재
-
-  // 카테고리 create 기능도 필요할듯
-
-  // 한 큰 카테고리 내에서 ex) 가전 디지털
-  // first-depth 로만 하기 Category 테이블 만들기
-
-  crawlerFromCupang() {
-    const s = '모니터';
-    const url = 'https://www.coupang.com/np/search?component=&q=' + encodeURI(s) + '&channel=user';
+  private async getProductsOfCategory(categoryId: string, page: number) {
+    const url = `https://www.coupang.com/np/categories/${categoryId}?listSize=120&brand=&offerCondition=&filterType=&isPriceRange=false&minPrice=&maxPrice=&page=${page}&channel=user&fromComponent=N&selectedPlpKeepFilter=&sorter=bestAsc&filter=&rating=0`;
 
     const headers = {
       Host: 'www.coupang.com',
@@ -35,30 +55,53 @@ export class ProductCrawlerService implements OnModuleInit {
       'Cache-Control': 'no-cache',
     };
 
-    axios
-      .get(url, { headers: headers })
-      .then((html) => {
-        const $ = cheerio.load(html.data);
-        const list = $('.search-product').map((i, elem) => {
-          // console.log(i)
+    const result = await axios.get(url, { headers: headers });
 
-          const name = $(elem).find('.name').text();
-          const src = $(elem).find('img.search-product-wrap-img').attr('src');
-          // console.log(`name: ${name}, imageSrc: ${src}`)
-          // $(element).find('td:nth-of-type(1)').text()
-          // console.log(elem)
-        });
-        // const name = $('.search-product .name').text();
-        // const price = $('.search-product .price-value').text();
-        // const image = $('.search-product .search-product-wrap-img').attr('src');
-        // const rating = $('.search-product .rating').text();
-        // console.log(name);
-        // console.log(price);
-        // console.log(image)
-        // console.log(rating);
+    const $ = cheerio.load(result.data);
+    const productListServer = $('.baby-product-list').children('li');
+    const productList = productListServer
+      .map((num, product) => {
+        const code = createCupangCode($(product).attr('id').trim());
+        const name = $(product).children('a').children('dl').children('dd').children('div.name').text().trim();
+        let priceString = $(product)
+          .children('a')
+          .children('dl')
+          .children('dd')
+          .children('div.price-area')
+          .children('div.price-wrap')
+          .children('div.price')
+          .children('span.price-info')
+          .children('.base-price')
+          .text()
+          .trim();
+        if (!priceString) {
+          priceString = $(product)
+            .children('a')
+            .children('dl')
+            .children('dd')
+            .children('div.price-area')
+            .children('div.price-wrap')
+            .children('div.price')
+            .children('.sale')
+            .children('.price-value')
+            .text()
+            .trim();
+        }
+
+        const price = +priceString.split(',').join('');
+
+        const imageSrc = $(product).children('a').children('dl').children('dt').children('img').attr('src').trim();
+        return {
+          code,
+          name,
+          price,
+          imageSrc,
+        };
       })
-      .catch((e) => {
-        console.log('errr!!', e);
-      });
+      .toArray()
+      .filter((product) => product.code && product.name && product.price && product.imageSrc)
+      .filter((product) => product.name.length < 100);
+
+    return productList;
   }
 }

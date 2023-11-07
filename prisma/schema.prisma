@@ -108,13 +108,13 @@ model Review {
 model Product {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(100)
-  code        String  @db.VarChar(100)
-  description String  @db.VarChar(100)
-  information String  @db.VarChar(100)
+  code        String  @unique @db.VarChar(100)
+  description String
+  information String
   quantity    Int
   cost        Int
   isSale      Boolean @default(true) @map("is_sale")
-  mainImage   String
+  mainImage   String  @map("main_image")
 
   sellerId   Int @map("seller_id")
   categoryId Int @map("category_id")

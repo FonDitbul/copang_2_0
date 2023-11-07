@@ -43,6 +43,7 @@ describe('order 테스트', () => {
           isSale: true,
           sellerId: 1,
           categoryId: 1,
+          mainImage: '',
           createdAt: givenCreatedAt,
           updatedAt: givenUpdatedAt,
           deletedAt: null,
@@ -68,6 +69,7 @@ describe('order 테스트', () => {
         updatedAt: givenUpdatedAt,
         deletedAt: null,
         buyQuantity: 1,
+        mainImage: '',
       });
     });
 
@@ -86,6 +88,7 @@ describe('order 테스트', () => {
           isSale: true,
           sellerId: 1,
           categoryId: 1,
+          mainImage: '',
           createdAt: givenCreatedAt,
           updatedAt: givenUpdatedAt,
           deletedAt: null,
@@ -113,6 +116,7 @@ describe('order 테스트', () => {
         quantity: 0,
         sellerId: 0,
         categoryId: 0,
+        mainImage: '',
         updatedAt: undefined,
       };
 
@@ -136,6 +140,7 @@ describe('order 테스트', () => {
         quantity: 0,
         sellerId: 0,
         categoryId: 0,
+        mainImage: '',
         updatedAt: undefined,
       };
 

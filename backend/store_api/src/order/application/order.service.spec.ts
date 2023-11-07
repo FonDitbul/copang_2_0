@@ -47,6 +47,7 @@ describe('order Service test', () => {
             isSale: true,
             sellerId: 1,
             categoryId: 1,
+            mainImage: '',
             createdAt: new Date(),
             updatedAt: new Date(),
             deletedAt: null,
@@ -113,6 +114,7 @@ describe('order Service test', () => {
         productId: 0,
         reviewId: 0,
         sellerId: 0,
+        mainImage: '',
         shippingStatus: undefined,
         updatedAt: undefined,
       };
@@ -138,6 +140,7 @@ describe('order Service test', () => {
         id: 0,
         information: 'information',
         name: 'name',
+        mainImage: '',
         orderId: 0,
         productId: 0,
         reviewId: 0,

@@ -12,6 +12,7 @@ export class Product {
   isSale: boolean;
   sellerId: number;
   categoryId: number;
+  mainImage: string;
 
   createdAt: Date;
   updatedAt: Date;

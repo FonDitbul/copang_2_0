@@ -10,11 +10,12 @@ import { listToMap } from '@libs/utils';
 import { createOrderCode, createOrderName, mergeOrderProduct, sumTotalCost } from '../domain/order';
 import { OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } from '../domain/port/order.out';
 import { IOrderPaymentServer } from '../domain/order.payment.server';
-import { ICartRepository } from '../../cart/domain/cart.repository';
 import { ICartDeleteByBuyOut } from '../../cart/domain/port/cart.out';
 import { OrderProduct } from '../domain/orderProduct';
 import { IOrderProductRepository } from '../domain/orderProduct.repository';
 import { OrderFindAllOrderProductIn } from '../domain/port/orderProduct.in';
+import { CommandBus } from '@nestjs/cqrs';
+import { OrderBuyCommand } from '../domain/order.buy.command';
 
 @Injectable()
 export class OrderService implements IOrderService {
@@ -23,12 +24,12 @@ export class OrderService implements IOrderService {
     @Inject('IOrderProductRepository') private orderProductRepository: IOrderProductRepository,
     @Inject('IProductRepository') private productRepository: IProductRepository,
     @Inject('IOrderPaymentServer') private orderPaymentServer: IOrderPaymentServer,
-    @Inject('ICartRepository') private cartRepository: ICartRepository,
+    private commandBus: CommandBus,
   ) {}
-  async buy(buyProductIn: OrderBuyIn): Promise<boolean> {
-    const buyerId = buyProductIn.buyerId;
+  async buy(buyIn: OrderBuyIn): Promise<boolean> {
+    const buyerId = buyIn.buyerId;
 
-    const productIdMap = listToMap(buyProductIn.buyProduct, (product) => product.productId);
+    const productIdMap = listToMap(buyIn.buyProduct, (product) => product.productId);
     const productIdArray = Array.from(productIdMap.keys());
 
     const productArray = await this.productRepository.findAllById(productIdArray);
@@ -57,9 +58,9 @@ export class OrderService implements IOrderService {
     const code = createOrderCode();
     const name = createOrderName(productNameArray);
     const now = new Date();
-    const address = buyProductIn.address;
+    const address = buyIn.address;
 
-    const paymentResult = await this.orderPaymentServer.request({ ...buyProductIn.card });
+    const paymentResult = await this.orderPaymentServer.request({ ...buyIn.card });
 
     const order: OrderCreateOut = {
       code,
@@ -67,7 +68,7 @@ export class OrderService implements IOrderService {
       totalCost,
     };
     const payment: OrderPaymentCreateBuyOut = {
-      ...buyProductIn.card,
+      ...buyIn.card,
 
       orderCode: code,
       orderName: name,
@@ -87,8 +88,9 @@ export class OrderService implements IOrderService {
       productIdArray: mergeProductArray.map((product) => product.id),
     };
 
-    await this.orderRepository.buy({ buyerId: buyProductIn.buyerId, order: order, payment: payment, buyProduct: orderProduct });
-    await this.cartRepository.deleteByBuy(deleteCart);
+    // await this.orderRepository.buy({ buyerId: buyIn.buyerId, order: order, payment: payment, buyProduct: orderProduct });
+    await this.commandBus.execute(new OrderBuyCommand(buyIn));
+    // await this.cartRepository.deleteByBuy(deleteCart);
 
     return true;
   }

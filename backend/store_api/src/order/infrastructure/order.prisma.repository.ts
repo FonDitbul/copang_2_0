@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@libs/repository';
 import { IOrderRepository } from '../domain/order.repository';
 import { OrderBuyOut } from '../domain/port/order.out';
+import { mapperOrderProduct } from '../domain/orderProduct';
 
 @Injectable()
 export class OrderPrismaRepository implements IOrderRepository {
@@ -12,13 +13,7 @@ export class OrderPrismaRepository implements IOrderRepository {
         data: { ...orderBuy.order, buyerId: orderBuy.buyerId },
       });
 
-      const createOrderProductArray = orderBuy.buyProduct.map((product) => {
-        return {
-          ...product,
-          buyerId: orderBuy.buyerId,
-          orderId: order.id,
-        };
-      });
+      const createOrderProductArray = orderBuy.buyProduct.map((product) => mapperOrderProduct(product, orderBuy.buyerId, order.id));
 
       await tx.orderProduct.createMany({
         data: createOrderProductArray,

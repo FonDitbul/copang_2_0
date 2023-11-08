@@ -4,14 +4,24 @@ import { OrderBuyIn } from '../domain/port/order.in';
 import { OrderProduct } from '../domain/orderProduct';
 import { IOrderProductRepository } from '../domain/orderProduct.repository';
 import { OrderFindAllOrderProductIn } from '../domain/port/orderProduct.in';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, EventBus } from '@nestjs/cqrs';
 import { OrderBuyCommand } from '../domain/order.buy.command';
+import { CartBuyEvent } from '../../cart/domain/cart.buy.event';
+import { OrderBuyOut } from '../domain/port/order.out';
 
 @Injectable()
 export class OrderService implements IOrderService {
-  constructor(@Inject('IOrderProductRepository') private orderProductRepository: IOrderProductRepository, private commandBus: CommandBus) {}
+  constructor(
+    @Inject('IOrderProductRepository') private orderProductRepository: IOrderProductRepository,
+    private commandBus: CommandBus,
+    private eventBus: EventBus,
+  ) {}
   async buy(buyIn: OrderBuyIn): Promise<boolean> {
-    await this.commandBus.execute(new OrderBuyCommand(buyIn));
+    const buyResult: OrderBuyOut = await this.commandBus.execute(new OrderBuyCommand(buyIn));
+
+    const resultProductIdArray = buyResult.buyProduct.map((product) => product.productId);
+
+    await this.eventBus.publish(new CartBuyEvent(buyResult.buyerId, resultProductIdArray));
 
     return true;
   }

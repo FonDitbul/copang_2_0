@@ -1,15 +1,14 @@
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { OrderBuyCommand } from '../domain/order.buy.command';
 import { Inject } from '@nestjs/common';
 import { IOrderRepository } from '../domain/order.repository';
 import { IProductRepository } from '../../product/domain/product.repository';
 import { IOrderPaymentServer } from '../domain/order.payment.server';
-import { CartBuyEvent } from '../../cart/domain/cart.buy.event';
 import { listToMap } from '@libs/utils';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { createOrderCode, createOrderName, mergeOrderProduct, sumTotalCost } from '../domain/order';
 import { Product } from '../../product/domain/product';
-import { OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } from '../domain/port/order.out';
+import { OrderBuyOut, OrderCreateOut, OrderPaymentCreateBuyOut, OrderProductCreateBuyOut } from '../domain/port/order.out';
 
 @CommandHandler(OrderBuyCommand)
 export class OrderBuyHandler implements ICommandHandler<OrderBuyCommand> {
@@ -17,12 +16,10 @@ export class OrderBuyHandler implements ICommandHandler<OrderBuyCommand> {
     @Inject('IOrderRepository') private orderRepository: IOrderRepository,
     @Inject('IProductRepository') private productRepository: IProductRepository,
     @Inject('IOrderPaymentServer') private orderPaymentServer: IOrderPaymentServer,
-    private eventBus: EventBus,
   ) {}
 
   async execute(command: OrderBuyCommand) {
     const buyIn = command.orderBuyIn;
-    const buyerId = buyIn.buyerId;
 
     const productIdMap = listToMap(buyIn.buyProduct, (product) => product.productId);
     const productIdArray = Array.from(productIdMap.keys());
@@ -79,7 +76,9 @@ export class OrderBuyHandler implements ICommandHandler<OrderBuyCommand> {
       };
     });
 
-    await this.orderRepository.buy({ buyerId: buyIn.buyerId, order: order, payment: payment, buyProduct: orderProduct });
-    await this.eventBus.publish(new CartBuyEvent(buyerId, productIdArray));
+    const buyOut: OrderBuyOut = { buyerId: buyIn.buyerId, order: order, payment: payment, buyProduct: orderProduct };
+
+    await this.orderRepository.buy(buyOut);
+    return buyOut;
   }
 }

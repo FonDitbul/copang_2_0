@@ -3,22 +3,24 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import { IOrderProductRepository } from '../domain/orderProduct.repository';
 import { OrderFindAllOrderProductIn } from '../domain/port/orderProduct.in';
 import { OrderProduct } from '../domain/orderProduct';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, EventBus } from '@nestjs/cqrs';
 import { OrderBuyIn } from '../domain/port/order.in';
 import { OrderBuyCommand } from '../domain/order.buy.command';
+import { CartBuyEvent } from '../../cart/domain/cart.buy.event';
 
 describe('order Service test', () => {
   const orderProductRepository: MockProxy<IOrderProductRepository> = mock<IOrderProductRepository>();
   const commandBus: MockProxy<CommandBus> = mock<CommandBus>();
+  const eventBus: MockProxy<EventBus> = mock<EventBus>();
 
-  const sut = new OrderService(orderProductRepository, commandBus);
+  const sut = new OrderService(orderProductRepository, commandBus, eventBus);
 
-  describe('buy 물품 구매 메소드 coomand 테스트', () => {
+  describe('buy 물품 구매 메소드 command 테스트', () => {
     it('command 를 성공적으로 호출한 경우', async () => {
       const givenBuyIn: OrderBuyIn = {
         address: '',
         buyProduct: [],
-        buyerId: 0,
+        buyerId: 1,
         card: {
           bankName: '테스트 은행',
           cardNumber: '1234-4555-1521-1234',
@@ -29,9 +31,41 @@ describe('order Service test', () => {
         },
       };
 
+      commandBus.execute.mockResolvedValue({
+        buyerId: 1,
+        order: { code: '1241245', name: 'test', totalCost: 10000 },
+        payment: {
+          bankName: '테스트은행',
+          cardNumber: '1234-1234',
+          cardType: '체크카드',
+          paymentKey: 'paymentKey',
+          type: 'test',
+          orderCode: 'ordercode',
+          orderName: 'orderName',
+          method: 'card',
+          totalAmount: 10000,
+          validityPeriod: '23/04/05',
+          requestAt: new Date(),
+        },
+        buyProduct: [
+          {
+            code: 'test',
+            cost: 10000,
+            description: 'test',
+            information: 'test',
+            buyQuantity: 1,
+            sellerId: 1,
+            productId: 1,
+            address: '서울시 양천구',
+            mainImage: 'test',
+          },
+        ],
+      });
+
       await sut.buy(givenBuyIn);
 
       expect(commandBus.execute).toHaveBeenCalledWith(new OrderBuyCommand(givenBuyIn));
+      expect(eventBus.publish).toHaveBeenCalledWith(new CartBuyEvent(1, [1]));
     });
   });
 

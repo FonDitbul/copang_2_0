@@ -1,12 +1,5 @@
 import { OrderService } from './order.service';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { IOrderRepository } from '../domain/order.repository';
-import { IProductRepository } from '../../product/domain/product.repository';
-import { IOrderPaymentServer } from '../domain/order.payment.server';
-import { OrderCard } from '../domain/orderCard';
-import { OrderBuyProduct } from '../domain/orderBuyProduct';
-import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
-import { ICartRepository } from '../../cart/domain/cart.repository';
 import { IOrderProductRepository } from '../domain/orderProduct.repository';
 import { OrderFindAllOrderProductIn } from '../domain/port/orderProduct.in';
 import { OrderProduct } from '../domain/orderProduct';

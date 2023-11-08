@@ -6,17 +6,14 @@ import { OrderCard } from '../domain/orderCard';
 import { OrderBuyProduct } from '../domain/orderBuyProduct';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { OrderBuyHandler } from './order.buy.handler';
-import { EventBus } from '@nestjs/cqrs';
 import { OrderBuyCommand } from '../domain/order.buy.command';
-import { CartBuyEvent } from '../../cart/domain/cart.buy.event';
 
 describe('order BuyHandler test', () => {
   const orderRepository: MockProxy<IOrderRepository> = mock<IOrderRepository>();
   const productRepository: MockProxy<IProductRepository> = mock<IProductRepository>();
   const orderPaymentServer: MockProxy<IOrderPaymentServer> = mock<IOrderPaymentServer>();
-  const eventBus: MockProxy<EventBus> = mock<EventBus>();
 
-  const sut = new OrderBuyHandler(orderRepository, productRepository, orderPaymentServer, eventBus);
+  const sut = new OrderBuyHandler(orderRepository, productRepository, orderPaymentServer);
 
   describe('buy 물품 구매 메소드 테스트', () => {
     describe('성공 케이스', () => {
@@ -63,7 +60,6 @@ describe('order BuyHandler test', () => {
         );
 
         expect(orderRepository.buy).toBeCalled();
-        expect(eventBus.publish).toBeCalledWith(new CartBuyEvent(1, [1]));
       });
     });
 

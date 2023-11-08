@@ -9,9 +9,11 @@ import { OrderPaymentHttpServer } from './infrastructure/order.payment.http.serv
 import { CartModule } from '../cart/cart.module';
 import { OrderProductPrismaRepository } from './infrastructure/orderProduct.prisma.repository';
 import { HttpModule } from '@nestjs/axios';
+import { OrderBuyHandler } from './application/order.buy.handler';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
-  imports: [RepositoryModule, AuthModule, ProductModule, CartModule, HttpModule],
+  imports: [RepositoryModule, AuthModule, ProductModule, CartModule, HttpModule, CqrsModule],
   controllers: [OrderController],
   providers: [
     {
@@ -30,6 +32,7 @@ import { HttpModule } from '@nestjs/axios';
       provide: 'IOrderPaymentServer',
       useClass: OrderPaymentHttpServer,
     },
+    OrderBuyHandler,
   ],
   exports: ['IOrderProductRepository'],
 })

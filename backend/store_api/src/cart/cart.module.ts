@@ -5,9 +5,11 @@ import { CartService } from './application/cart.service';
 import { CartPrismaRepository } from './infrastructure/cart.prisma.repository';
 import { AuthModule } from '../auth/auth.module';
 import { ProductModule } from '../product/product.module';
+import { CartBuyEventHandler } from './application/cart.buy.event.handler';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
-  imports: [AuthModule, ProductModule, RepositoryModule],
+  imports: [AuthModule, ProductModule, RepositoryModule, CqrsModule],
   controllers: [CartController],
   providers: [
     {
@@ -18,6 +20,7 @@ import { ProductModule } from '../product/product.module';
       provide: 'ICartRepository',
       useClass: CartPrismaRepository,
     },
+    CartBuyEventHandler,
   ],
   exports: ['ICartRepository'],
 })

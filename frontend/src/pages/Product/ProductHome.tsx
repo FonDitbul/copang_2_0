@@ -42,7 +42,7 @@ export default function ProductHome() {
         {products.map((product) => (
           <li key={product.id}>
             {product.name}
-            <ProductCard key={product.id} id={product.id} name={product.name} cost={product.cost} />
+            <ProductCard key={product.id} id={product.id} name={product.name} cost={product.cost} mainImage={product.mainImage} />
           </li>
         ))}
       </ul>

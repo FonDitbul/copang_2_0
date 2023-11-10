@@ -14,6 +14,8 @@ describe('Cart Cost Logic 테스트', function () {
       cost: cost,
       isSale: true,
       sellerId: 1,
+      categoryId: 0,
+      mainImage: 'mainImage',
       createdAt: new Date(),
       updatedAt: new Date(),
     };

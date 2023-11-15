@@ -31,7 +31,8 @@ services:
         sudo /app/wait-for-it.sh db:5432 -t 10
         npx prisma db push
         npx prisma generate
-        npm run store_api:dev
+        nest build store_api
+        node dist/backend/store_api/main.js
 
     volumes: 
       - ./:/app/

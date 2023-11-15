@@ -1,4 +1,5 @@
 import { Seller } from './Seller';
+import { Category } from './Category';
 
 export interface Product {
   id: number;
@@ -9,9 +10,14 @@ export interface Product {
   quantity: number;
   cost: number;
   isSale: boolean;
+  mainImage: string;
   sellerId: number;
+  categoryId: number;
+  
   createdAt: Date;
   updatedAt: Date;
 
   Seller?: Partial<Seller>;
+
+  Category?: Partial<Category>;
 }

@@ -1,0 +1,37 @@
+version: '2.23.0'
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    container_name: copang_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: copangDev
+      POSTGRES_SHARED_PRELOAD_LIBRARIES: pg_stat_statements
+
+  store_app: 
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env.docker
+    depends_on: 
+      - db 
+    ports: 
+      - "5000:5000"
+    command: 
+      - bash
+      - -c
+      - | 
+        chmod +x ./wait-for-it.sh
+        sudo /app/wait-for-it.sh db:5432 -t 10
+        npx prisma db push
+        npx prisma generate
+        npm run store_api:dev
+
+    volumes: 
+      - ./:/app/

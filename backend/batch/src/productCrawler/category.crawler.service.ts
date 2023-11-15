@@ -5,8 +5,12 @@ import { CategoryRepository, CreateCategory } from './category.repository';
 import { createCupangCode } from './createCode';
 
 @Injectable()
-export class CategoryCrawlerService {
+export class CategoryCrawlerService implements OnApplicationBootstrap {
   constructor(@Inject('CategoryRepository') private categoryRepository: CategoryRepository) {}
+
+  onApplicationBootstrap() {
+    this.getByCupang();
+  }
 
   /***
    * cupang 에서 카테고리 crawler 1회만 실행

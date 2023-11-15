@@ -33,6 +33,29 @@ services:
         npx prisma generate
         nest build store_api
         node dist/backend/store_api/main.js
-
     volumes: 
+      - ./:/app/
+
+  batch:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env.docker
+    depends_on:
+      - db
+    ports:
+      - "5001:5001"
+    command:
+      - bash
+      - -c
+      - |
+        chmod +x ./wait-for-it.sh
+        sudo /app/wait-for-it.sh db:5432 -t 10
+        npx prisma db push
+        npx prisma generate
+        nest build batch
+        node dist/backend/batch/main.js
+
+    volumes:
       - ./:/app/

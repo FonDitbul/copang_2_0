@@ -11,7 +11,7 @@ export class OrderPaymentHttpServer implements IOrderPaymentServer {
   constructor(private readonly httpService: HttpService) {}
   async request(requestOut: OrderPaymentRequestOut): Promise<OrderPaymentRequestIn> {
     const { data } = await firstValueFrom(
-      this.httpService.post<{ paymentKey: string }>('http://localhost:5001/payment', requestOut).pipe(
+      this.httpService.post<{ paymentKey: string }>('http://store:5002/payment', requestOut).pipe(
         catchError((error: AxiosError) => {
           throw `${error} An error happened!`;
         }),

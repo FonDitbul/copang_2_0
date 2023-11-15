@@ -33,3 +33,4 @@ RUN npm install
 # Docker Demon Port Mapping
 EXPOSE 5000
 EXPOSE 5001
+EXPOSE 5002

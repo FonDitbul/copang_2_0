@@ -27,8 +27,8 @@ COPY . .
 # Create Directory for the Container
 
 # Only copy the package.json file to work directory
-RUN npm i -g nest-cli
 RUN npm install
 
 # Docker Demon Port Mapping
 EXPOSE 5000
+EXPOSE 5001

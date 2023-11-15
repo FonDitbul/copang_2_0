@@ -28,11 +28,10 @@ services:
       - -c
       - | 
         chmod +x ./wait-for-it.sh
-        sudo /app/wait-for-it.sh db:5432 -t 10
+        /app/wait-for-it.sh db:5432 -t 10
         npx prisma db push
         npx prisma generate
-        nest build store_api
-        node dist/backend/store_api/main.js
+        nest start store_api
     volumes: 
       - ./:/app/
 
@@ -51,11 +50,9 @@ services:
       - -c
       - |
         chmod +x ./wait-for-it.sh
-        sudo /app/wait-for-it.sh db:5432 -t 10
+        /app/wait-for-it.sh db:5432 -t 10
         npx prisma db push
         npx prisma generate
-        nest build batch
-        node dist/backend/batch/main.js
-
+        nest start batch
     volumes:
       - ./:/app/

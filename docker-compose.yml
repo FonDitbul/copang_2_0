@@ -31,7 +31,7 @@ services:
         /app/wait-for-it.sh db:5432 -t 10
         npx prisma db push
         npx prisma generate
-        nest start store_api
+        npm run store_api
     volumes: 
       - ./:/app/
 
@@ -53,6 +53,6 @@ services:
         /app/wait-for-it.sh db:5432 -t 10
         npx prisma db push
         npx prisma generate
-        nest start batch
+        npm run batch
     volumes:
       - ./:/app/

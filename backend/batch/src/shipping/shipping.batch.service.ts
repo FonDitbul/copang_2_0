@@ -6,7 +6,7 @@ import { OrderProductRepository } from './orderProduct.repository';
 export class ShippingBatchService {
   constructor(@Inject('OrderProductRepository') private orderProductRepository: OrderProductRepository) {}
 
-  @Cron('* 0/10 * * * *')
+  @Cron('* 0/30 * * * *')
   async updateToShipping() {
     const orderProductArray = await this.orderProductRepository.findAllReady();
 
@@ -15,7 +15,7 @@ export class ShippingBatchService {
     await this.orderProductRepository.updateToShipping(orderProductIdArray);
   }
 
-  @Cron('0 0/15 * * * *')
+  @Cron('0 0/45 * * * *')
   async updateToShippingComplete() {
     const orderProductArray = await this.orderProductRepository.findAllShipping();
 

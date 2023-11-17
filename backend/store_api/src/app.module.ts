@@ -7,9 +7,19 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
 import { CartModule } from './cart/cart.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [BuyerModule, ProductModule, ReviewModule, OrderModule, CartModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    BuyerModule,
+    ProductModule,
+    ReviewModule,
+    OrderModule,
+    CartModule,
+  ],
   controllers: [HealthController],
   providers: [PrismaService],
 })

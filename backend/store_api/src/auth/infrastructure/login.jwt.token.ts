@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ACCESS_TOKEN_EXPIRE_DAY, REFRESH_TOKEN_EXPIRE_DAY, secretJwtKey } from '../../common/domain/definition';
+import { ACCESS_TOKEN_EXPIRE_DAY, REFRESH_TOKEN_EXPIRE_DAY } from '../../common/domain/definition';
 import { ILoginToken, OneLoginToken, UserInfo } from '../domain/login.token';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
 import { addDays } from 'date-fns';
 import { JwtPayload, sign, TokenExpiredError, verify } from 'jsonwebtoken';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class LoginJwtToken implements ILoginToken {
+  constructor(private readonly configService: ConfigService) {}
+
   private transformUserInfo(payload: JwtPayload): UserInfo {
     return {
       id: payload.id,
@@ -16,6 +19,8 @@ export class LoginJwtToken implements ILoginToken {
 
   getOne(userInfo: UserInfo): OneLoginToken {
     const now = new Date();
+    const secretJwtKey: string = this.configService.getOrThrow('SECRET_JWT_KEY');
+
     const accessTokenExpire = addDays(now, ACCESS_TOKEN_EXPIRE_DAY);
     const refreshTokenExpire = addDays(now, REFRESH_TOKEN_EXPIRE_DAY);
 
@@ -38,6 +43,7 @@ export class LoginJwtToken implements ILoginToken {
   }
 
   verifyByAccess(token: string): UserInfo {
+    const secretJwtKey = this.configService.getOrThrow<string>('SECRET_JWT_KEY');
     let tokenDecoded: JwtPayload;
     verify(token, secretJwtKey, { complete: true }, function (err, decoded) {
       if (err) {
@@ -53,6 +59,7 @@ export class LoginJwtToken implements ILoginToken {
   }
 
   verifyByRefresh(token: string): OneLoginToken {
+    const secretJwtKey = this.configService.getOrThrow<string>('SECRET_JWT_KEY');
     let tokenDecoded: JwtPayload;
 
     verify(token, secretJwtKey, { complete: true }, function (err, decoded) {

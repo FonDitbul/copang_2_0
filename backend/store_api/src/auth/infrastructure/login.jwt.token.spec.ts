@@ -1,13 +1,27 @@
 import { LoginJwtToken } from './login.jwt.token';
 import { UserInfo } from '../domain/login.token';
 import { CoPangException, EXCEPTION_STATUS } from '../../common/domain/exception';
+import { ConfigService } from '@nestjs/config';
+
+class ConfigServiceMocking extends ConfigService {
+  get(path: string): string {
+    return 'TEST';
+  }
+
+  getOrThrow(path: string): string {
+    return 'TEST';
+  }
+}
 
 describe('Login Token 테스트', () => {
-  const sut = new LoginJwtToken();
+  const configService = new ConfigServiceMocking();
+
+  const sut = new LoginJwtToken(configService);
   const givenUser: UserInfo = {
     id: 1,
     userId: 'copang1234',
   };
+  beforeEach(() => {});
 
   describe('getOne access token 과 refresh token 받아오기 테스트', () => {
     test('주어진 정보로 인한 access token refresh token 발급 완료 ', () => {

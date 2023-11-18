@@ -5,9 +5,9 @@ export interface OneLoginToken {
   refreshToken: Token;
 }
 
-export interface UserInfo {
-  id: number;
-  userId: string;
+export class UserInfo {
+  readonly id: number;
+  readonly userId: string;
 }
 
 export interface ILoginToken {

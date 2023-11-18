@@ -13,7 +13,7 @@ export interface Product {
   mainImage: string;
   sellerId: number;
   categoryId: number;
-  
+
   createdAt: Date;
   updatedAt: Date;
 

@@ -16,7 +16,7 @@ async function bootstrap() {
     .setTitle('copang store api')
     .setDescription('copang 프로젝트 stroe api 입니다.')
     .setVersion('2.0')
-    .addTag('coapng')
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'access-token')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);

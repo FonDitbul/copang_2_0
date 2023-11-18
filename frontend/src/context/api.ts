@@ -3,7 +3,7 @@ import { ClientStorage } from './ClientStorage';
 import { isBiggerLeftDate } from '@libs/utils';
 import { AuthRefreshTokenStrategy } from './AuthTokenStrategy';
 
-export const serverUrl = '192.168.0.16:5000';
+export const serverUrl = 'localhost:5000';
 
 export interface ResponseData<T> {
   isSuccess: boolean;

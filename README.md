@@ -1,10 +1,18 @@
 # Copang
-// TODO Badge
-// Typescript NestJS PostgreSQL Prisma   
+<div align="Center">
+   <p stype="bold">E-commerce 사이드 프로젝트 With Nest JS</p>
+   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6.svg?&style=plastic&logo=TypeScript&logoColor=white"/>
+   <img alt="NestJs" src="https://img.shields.io/badge/NestJs-E0234E.svg?&style=plastic&logo=NestJs&logoColor=white"/>
+   <img alt="Prisma" src="https://img.shields.io/badge/Prisma-2D3748.svg?&style=plastic&logo=Prisma&logoColor=white"/>
+   <br>
+   <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?&style=plastic&logo=PostgreSQL&logoColor=white"/>
+   <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED.svg?&style=plastic&logo=Docker&logoColor=white"/>
+   <br>
+</div>
 
+# System
+![copang_system drawio](https://github.com/FonDitbul/copang_2_0/assets/49264688/c128bcad-f0ef-4896-9d60-e2d32486c5eb)
 
-# Summary
-* E-commerce 사이드 프로젝트 With Nest JS
 
 ## Demo
 * TODO 호스팅 후 URL 추가 필요
@@ -12,11 +20,8 @@
 * API docs With Swagger
     * localhost:5000/swagger
 
-## System
-// 시스템 그림 img
-
-
 # DB ERD
+![prisma_erdd](https://github.com/FonDitbul/copang_2_0/assets/49264688/ba693796-b1c1-4e58-846a-57f7e2a15eea)
 
 
 # Structure
@@ -50,47 +55,10 @@
   - 외부로부터 독립적으로 만들어져야 한다.
   - 외부 코드나 로직의 주입을 막으며 분리 시킨다.
   - 비즈니스 로직에 유닛 테스트 코드를 작성한다.
-- 한계점
-  - NestJS 아키텍처도 외부 의존성 이므로 제거 해야 하는가 ?
-    - 현재 단계에서는 불필요한 추상화, 불필요한 의존성 제거라고 생각하여 모든 레이어에서 NestJs에 대한 의존성을 제거하지 않고 진행했습니다.
-  - 과한 추상화
-    - 모든 레이어는 domain 에서만 의존성이 존재해야 하고, 서로 영향을 받지 않아야 한다.
-    - interface 들이 중복되어 선언되어 있는 것들이 많다.
-  - 코드가 많아진다.
 
-### Layer example
 
-- 폴더 구조 예시
-
-    ```jsx
-    |   +---review
-    |   |   |   review.module.ts
-    |   |   |
-    |   |   +---api
-    |   |   |       review.controller.ts
-    |   |   |       review.req.dto.ts
-    |   |   |       review.res.dto.ts
-    |   |   |
-    |   |   +---application
-    |   |   |       review.service.spec.ts
-    |   |   |       review.service.ts
-    |   |   |
-    |   |   +---domain
-    |   |   |   |   reivew.repository.ts
-    |   |   |   |   review.service.ts
-    |   |   |   |   review.ts
-    |   |   |   |
-    |   |   |   \---port
-    |   |   |           review.in.ts
-    |   |   |           review.out.ts
-    |   |   |
-    |   |   \---infrastructure
-    |   |           review.prisma.repository.ts
-    ```
-
-    - 예시로 review domain 을 위와 같이 표기
-    - module은 모든 레이어를 알고(import) 있어야 하므로 상위 폴더에 두었다.
-
+### Application, Domain, Infrastructure example
+![hexogola 아키텍처 drawio](https://github.com/FonDitbul/copang_2_0/assets/49264688/2ffc0e76-544a-49aa-96ed-6cbc576cc0d8)
 # Api
 - infrastructure 에 존재 해야 하는 HTTP 에 의존하는 외부 레이어 이지만 HTTP 웹서버 특성상 input output, 데코레이터 등 중요하게 다뤄야 하는 것이 많아 폴더를 따로 구성
 - controller, Request DTO, Response DTO 등을 작성 한다.
@@ -125,3 +93,34 @@
 - 라이브러리도 변경될 수 있다는 것을 감안하여 분리하여 작성한다.
     - ex)
     - HTTP 통신, Database, ORM
+
+### 폴더 구조 예시
+
+    ```
+    +---review
+    |   |   review.module.ts
+    |   |
+    |   +---api
+    |   |       review.controller.ts
+    |   |       review.req.dto.ts
+    |   |       review.res.dto.ts
+    |   |
+    |   +---application
+    |   |       review.service.spec.ts
+    |   |       review.service.ts
+    |   |
+    |   +---domain
+    |   |   |   reivew.repository.ts
+    |   |   |   review.service.ts
+    |   |   |   review.ts
+    |   |   |
+    |   |   \---port
+    |   |           review.in.ts
+    |   |           review.out.ts
+    |   |
+    |   \---infrastructure
+    |           review.prisma.repository.ts
+    ```
+
+    - 예시로 review domain 을 위와 같이 표기
+    - module은 모든 레이어를 알고(import) 있어야 하므로 상위 폴더에 두었다.

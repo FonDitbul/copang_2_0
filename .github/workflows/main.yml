@@ -30,6 +30,8 @@ jobs:
         run: npm i
 
       - name: Build
+        env:
+          CI: false
         run: npm run build
 
       - name: Deploy

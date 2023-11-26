@@ -3,7 +3,7 @@ import { ClientStorage } from './ClientStorage';
 import { isBiggerLeftDate } from '@libs/utils';
 import { AuthRefreshTokenStrategy } from './AuthTokenStrategy';
 
-export const serverUrl = 'copang.p-e.kr/';
+export const serverUrl = 'api.copang.p-e.kr/';
 
 export interface ResponseData<T> {
   isSuccess: boolean;

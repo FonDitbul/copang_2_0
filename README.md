@@ -15,10 +15,12 @@
 
 
 ## Demo
-* TODO 호스팅 후 URL 추가 필요
-* localhost:3000
+* store
+  * http://copang.p-e.kr
+* API
+  * http://api.copang.p-e.kr 
 * API docs With Swagger
-    * localhost:5000/swagger
+  * http://api.copang.p-e.kr/swagger
 
 # DB ERD
 ![prisma_erdd](https://github.com/FonDitbul/copang_2_0/assets/49264688/ba693796-b1c1-4e58-846a-57f7e2a15eea)

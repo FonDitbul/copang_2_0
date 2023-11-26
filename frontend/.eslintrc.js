@@ -1,10 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    // project: './tsconfig.json', // <tsconfigRootDir/ Error>
-    // https://stackoverflow.com/questions/74413483/eslint-cypress-parsing-error-eslint-was-configured-to-run-on-tsconfigrootd
     sourceType: 'module',
-    workingDirectories: ['frontend/*', 'backend/*'],
     tsconfigRootDir: __dirname,
     ecmaFeatures: {
       jsx: true,

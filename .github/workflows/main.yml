@@ -10,12 +10,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./frontend
     steps:
       - name: Checkout source code
         uses: actions/checkout@master
-      - defaults:
-          run:
-            working-directory: ./frontend
 
       - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1

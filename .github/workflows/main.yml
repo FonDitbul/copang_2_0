@@ -8,7 +8,7 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -22,12 +22,12 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-
+      - run: cd frontend
       - name: Install
-        run: cd front && npm i
+        run: npm i
 
       - name: Build
-        run: cd front && npm run build
+        run: npm run build
 
       - name: Deploy
         env:

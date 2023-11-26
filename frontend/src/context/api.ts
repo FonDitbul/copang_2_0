@@ -3,7 +3,7 @@ import { ClientStorage } from './ClientStorage';
 import { isBiggerLeftDate } from '@libs/utils';
 import { AuthRefreshTokenStrategy } from './AuthTokenStrategy';
 
-export const serverUrl = 'localhost:5000';
+export const serverUrl = 'copang.p-e.kr/';
 
 export interface ResponseData<T> {
   isSuccess: boolean;

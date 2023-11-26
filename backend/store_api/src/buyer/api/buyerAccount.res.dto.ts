@@ -42,7 +42,7 @@ class BuyerAddressSwagger implements BuyerAddress {
 
   @ApiProperty({
     type: String,
-    nullable: true
+    nullable: true,
   })
   // -----------------------------------------------
   readonly deletedAt: Date | null;

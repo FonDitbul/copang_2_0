@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@libs/repository';
 import { IProductRepository, ProductWhere } from '../domain/product.repository';
 import { removeUndefinedKey } from '@libs/utils';
-import { IProductFindAllOut } from '../domain/port/product.out';
+import { IProductFindAllOut, IProductIdArrayOut } from '../domain/port/product.out';
 
 @Injectable()
 export class ProductPrismaRepository implements IProductRepository {
@@ -70,7 +70,7 @@ export class ProductPrismaRepository implements IProductRepository {
     return product;
   }
 
-  async findAllById(idArray: number[]) {
+  async findAllById(idArray: IProductIdArrayOut) {
     return this.prisma.product.findMany({
       where: {
         id: {

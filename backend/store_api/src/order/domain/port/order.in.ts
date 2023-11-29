@@ -4,13 +4,10 @@ import { Order } from '../order';
 import { OrderProduct } from '../orderProduct';
 import { OrderPayment } from '../orderPayment';
 
-export interface OrderBuyIn {
-  readonly buyerId: Order['buyerId'];
-  readonly card: OrderCard;
-  readonly address: OrderProduct['address'];
-  readonly buyProduct: OrderBuyProduct[];
-}
+export type OrderBuyIn = Pick<Order, 'buyerId'> &
+  Pick<OrderProduct, 'address'> & {
+    readonly card: OrderCard;
+    readonly buyProduct: OrderBuyProduct[];
+  };
 
-export interface OrderPaymentRequestIn {
-  readonly paymentKey: OrderPayment['paymentKey'];
-}
+export type OrderPaymentRequestIn = Pick<OrderPayment, 'paymentKey'>;

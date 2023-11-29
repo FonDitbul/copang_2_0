@@ -1,18 +1,11 @@
 import { SortType } from '../../../common/domain/sort-type';
 import { Review } from '../review';
 
-export interface ReviewFindAllByProductIdOut {
-  readonly productId: Review['productId'];
+export type ReviewFindAllByProductIdOut = Pick<Review, 'productId'> & {
   readonly lastReviewId: Review['id'];
   readonly limit: number;
   readonly sort: SortType;
   readonly sortColumn: string;
-}
+};
 
-export interface CreateByBuyerOut {
-  star: Review['star'];
-  content: Review['content'];
-  productId: Review['productId'];
-  buyerId: Review['buyerId'];
-  orderProductId: Review['orderProductId'];
-}
+export type CreateByBuyerOut = Pick<Review, 'buyerId' | 'star' | 'content' | 'productId' | 'orderProductId'>;

@@ -1,15 +1,16 @@
 import { BuyerAddress } from '../buyerAddress';
 import { BuyerCard } from '../buyerCard';
 
-export interface BuyerCreateAddressOut {
-  readonly buyerId: BuyerAddress['buyerId'];
-  readonly address: BuyerAddress['address'];
-}
+// address
+export type BuyerAddressIdOut = BuyerAddress['id'];
 
-export interface BuyerCreateCardOut {
-  readonly buyerId: BuyerCard['buyerId'];
-  readonly bankName: BuyerCard['bankName'];
-  readonly cardType: BuyerCard['cardType'];
-  readonly cardNumber: BuyerCard['cardNumber'];
-  readonly validityPeriod: BuyerCard['validityPeriod'];
-}
+export type BuyerAddressBuyerIdOut = BuyerAddress['buyerId'];
+
+export type BuyerCreateAddressOut = Pick<BuyerAddress, 'buyerId' | 'address'>;
+
+// card
+export type BuyerCreateCardOut = Pick<BuyerCard, 'buyerId' | 'bankName' | 'cardType' | 'cardNumber' | 'validityPeriod'>;
+
+export type BuyerCardIdOut = BuyerCard['id'];
+
+export type BuyerCardBuyerIdOut = BuyerCard['buyerId'];

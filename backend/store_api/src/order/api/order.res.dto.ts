@@ -6,110 +6,111 @@ class OrderProductSwagger implements OrderProduct {
     type: Number,
   })
   // -----------------------------------------------
-  id: number;
+  readonly id: number;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  address: string;
+  readonly address: string;
 
   @ApiProperty({
     type: Number,
   })
   // -----------------------------------------------
-  buyQuantity: number;
-  @ApiProperty({
-    type: Number,
-  })
-  // -----------------------------------------------
-  buyerId: number;
-
-  @ApiProperty({
-    type: String,
-  })
-  // -----------------------------------------------
-  code: string;
+  readonly buyQuantity: number;
 
   @ApiProperty({
     type: Number,
   })
   // -----------------------------------------------
-  cost: number;
+  readonly buyerId: number;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  description: string;
-
-  @ApiProperty({
-    type: String,
-  })
-  // -----------------------------------------------
-  information: string;
-
-  @ApiProperty({
-    type: String,
-  })
-  // -----------------------------------------------
-  mainImage: string;
-
-  @ApiProperty({
-    type: String,
-  })
-  // -----------------------------------------------
-  name: string;
+  readonly code: string;
 
   @ApiProperty({
     type: Number,
   })
   // -----------------------------------------------
-  orderId: number;
+  readonly cost: number;
+
+  @ApiProperty({
+    type: String,
+  })
+  // -----------------------------------------------
+  readonly description: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  // -----------------------------------------------
+  readonly information: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  // -----------------------------------------------
+  readonly mainImage: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  // -----------------------------------------------
+  readonly name: string;
 
   @ApiProperty({
     type: Number,
   })
   // -----------------------------------------------
-  productId: number;
+  readonly orderId: number;
+
+  @ApiProperty({
+    type: Number,
+  })
+  // -----------------------------------------------
+  readonly productId: number;
 
   @ApiProperty({
     type: Number,
     nullable: true,
   })
   // -----------------------------------------------
-  reviewId: number | null;
+  readonly reviewId: number | null;
 
   @ApiProperty({
     type: Number,
   })
   // -----------------------------------------------
-  sellerId: number;
+  readonly sellerId: number;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  shippingStatus: string | IShippingStatus;
+  readonly shippingStatus: string | IShippingStatus;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  createdAt: Date;
+  readonly createdAt: Date;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  updatedAt: Date;
+  readonly updatedAt: Date;
 
   @ApiProperty({
     type: String,
     nullable: true,
   })
   // -----------------------------------------------
-  deletedAt: Date | null;
+  readonly deletedAt: Date | null;
 }
 
 export class OrderFindAllRes {
@@ -117,5 +118,5 @@ export class OrderFindAllRes {
     type: () => [OrderProductSwagger],
   })
   // -----------------------------------------------
-  orderProducts: OrderProduct[];
+  readonly orderProducts: OrderProduct[];
 }

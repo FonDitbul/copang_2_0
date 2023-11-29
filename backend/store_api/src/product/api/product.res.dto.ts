@@ -92,14 +92,14 @@ export class ProductFindAllRes {
     type: () => [ProductSwagger],
   })
   // -----------------------------------------------
-  products: Product[];
+  readonly products: Product[];
 
   @ApiProperty({
     type: Boolean,
     description: '현재 페이지가 끝페이지 인지',
   })
   // -----------------------------------------------
-  isEndPage: boolean;
+  readonly isEndPage: boolean;
 }
 
 export class ProductFindOneRes {
@@ -107,5 +107,5 @@ export class ProductFindOneRes {
     type: ProductSwagger,
   })
   // -----------------------------------------------
-  product: Product;
+  readonly product: Product;
 }

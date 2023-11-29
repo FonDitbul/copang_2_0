@@ -25,18 +25,10 @@ export type OrderProductCreateBuyOut = Pick<
   'code' | 'cost' | 'name' | 'description' | 'information' | 'buyQuantity' | 'sellerId' | 'productId' | 'address' | 'mainImage'
 >;
 
-export interface OrderBuyOut {
-  readonly buyerId: Order['buyerId'];
+export type OrderBuyOut = Pick<Order, 'buyerId'> & {
   readonly order: OrderCreateOut;
   readonly payment: OrderPaymentCreateBuyOut;
   readonly buyProduct: OrderProductCreateBuyOut[];
-}
+};
 
-export interface OrderPaymentRequestOut {
-  readonly method: OrderCard['method'];
-  readonly type: OrderCard['type'];
-  readonly bankName: OrderCard['bankName'];
-  readonly cardNumber: OrderCard['cardNumber'];
-  readonly cardType: OrderCard['cardType'];
-  readonly validityPeriod: OrderCard['validityPeriod'];
-}
+export type OrderPaymentRequestOut = Pick<OrderCard, 'method' | 'type' | 'bankName' | 'cardNumber' | 'validityPeriod'>;

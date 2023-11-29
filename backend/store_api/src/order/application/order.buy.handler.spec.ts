@@ -50,14 +50,7 @@ describe('order BuyHandler test', () => {
         ]);
         orderPaymentServer.request.mockResolvedValue({ paymentKey: 'payment-key' });
 
-        const result = await sut.execute(
-          new OrderBuyCommand({
-            buyerId: givenBuyerId,
-            card: givenCard,
-            address: givenAddress,
-            buyProduct: givenBuyProducts,
-          }),
-        );
+        await sut.execute(new OrderBuyCommand(givenBuyerId, givenAddress, givenCard, givenBuyProducts));
 
         expect(orderRepository.buy).toBeCalled();
       });
@@ -80,14 +73,7 @@ describe('order BuyHandler test', () => {
         productRepository.findAllById.mockResolvedValue([]);
 
         await expect(async () => {
-          await sut.execute(
-            new OrderBuyCommand({
-              buyerId: givenBuyerId,
-              card: givenCard,
-              address: givenAddress,
-              buyProduct: givenBuyProducts,
-            }),
-          );
+          await sut.execute(new OrderBuyCommand(givenBuyerId, givenAddress, givenCard, givenBuyProducts));
         }).rejects.toThrow(new CoPangException(EXCEPTION_STATUS.PRODUCT_NOT_EXIST));
       });
     });

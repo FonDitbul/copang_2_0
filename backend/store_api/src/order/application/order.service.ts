@@ -17,7 +17,7 @@ export class OrderService implements IOrderService {
     private eventBus: EventBus,
   ) {}
   async buy(buyIn: OrderBuyIn): Promise<boolean> {
-    const buyResult: OrderBuyOut = await this.commandBus.execute(new OrderBuyCommand(buyIn));
+    const buyResult: OrderBuyOut = await this.commandBus.execute(new OrderBuyCommand(buyIn.buyerId, buyIn.address, buyIn.card, buyIn.buyProduct));
 
     const resultProductIdArray = buyResult.buyProduct.map((product) => product.productId);
 

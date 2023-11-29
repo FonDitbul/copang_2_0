@@ -64,7 +64,9 @@ describe('order Service test', () => {
 
       await sut.buy(givenBuyIn);
 
-      expect(commandBus.execute).toHaveBeenCalledWith(new OrderBuyCommand(givenBuyIn));
+      expect(commandBus.execute).toHaveBeenCalledWith(
+        new OrderBuyCommand(givenBuyIn.buyerId, givenBuyIn.address, givenBuyIn.card, givenBuyIn.buyProduct),
+      );
       expect(eventBus.publish).toHaveBeenCalledWith(new CartBuyEvent(1, [1]));
     });
   });

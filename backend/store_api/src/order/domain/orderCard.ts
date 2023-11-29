@@ -1,8 +1,6 @@
-export interface OrderCard {
+import { Card } from '../../buyer/domain/card';
+
+export type OrderCard = Card & {
   method: string;
   type: string;
-  bankName: string;
-  cardNumber: string;
-  cardType: string;
-  validityPeriod: string;
-}
+};

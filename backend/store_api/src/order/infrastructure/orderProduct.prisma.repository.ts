@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@libs/repository';
 import { IOrderProductRepository } from '../domain/orderProduct.repository';
 import { OrderProduct } from '../domain/orderProduct';
-import { OrderProductFindAllOut } from '../domain/port/orderProduct.out';
+import { OrderProductFindAllOut, OrderProductUpdateByReviewOut } from '../domain/port/orderProduct.out';
 
 @Injectable()
 export class OrderProductPrismaRepository implements IOrderProductRepository {
@@ -17,7 +17,8 @@ export class OrderProductPrismaRepository implements IOrderProductRepository {
     });
   }
 
-  async updateByReview(id: number, reviewId: number) {
+  async updateByReview(updateOut: OrderProductUpdateByReviewOut) {
+    const { reviewId, id } = updateOut;
     return this.prisma.orderProduct.update({
       data: {
         reviewId,

@@ -1,5 +1,15 @@
 import { Buyer } from '../buyer';
 
+export type BuyerIdIn = Buyer['id'];
+
+export type BuyerUserIdIn = Buyer['userId'];
+
+export type BuyerNickNameIn = Buyer['nickName'];
+
+export type BuyerEmailIn = Buyer['email'];
+
+export type BuyerPhoneNumberIn = Buyer['phoneNumber'];
+
 export type BuyerSignUpIn = Pick<Buyer, 'userId' | 'password' | 'name' | 'nickName' | 'email' | 'phoneNumber'>;
 
 export type BuyerLoginIn = Pick<Buyer, 'userId' | 'password'>;

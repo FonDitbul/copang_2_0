@@ -1,7 +1,6 @@
 import { OrderProduct } from '../orderProduct';
 
-export interface OrderFindAllOrderProductIn {
-  readonly buyerId: OrderProduct['buyerId'];
-  readonly lastId: OrderProduct['id'];
+export type OrderFindAllOrderProductIn = Pick<OrderProduct, 'buyerId'> & {
   readonly limit: number;
-}
+  readonly lastId: OrderProduct['id'];
+};

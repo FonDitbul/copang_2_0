@@ -1,7 +1,9 @@
 import { Product } from '../product';
 
-export interface IProductFindAllIn {
+export type IProductFindAllIn = {
   readonly limit: number;
   readonly page: number;
   readonly searchName?: Product['name'];
-}
+};
+
+export type IProductIdIn = Product['id'];

@@ -1,11 +1,11 @@
 import { BuyerAddress } from './buyerAddress';
-import { BuyerCreateAddressOut } from './port/buyerAccount.out';
+import { BuyerAddressBuyerIdOut, BuyerAddressIdOut, BuyerCreateAddressOut } from './port/buyerAccount.out';
 
 export interface IBuyerAddressRepository {
-  getOneById(id: BuyerAddress['id']): Promise<BuyerAddress>;
-  getAllAddressByBuyerId(buyerId: BuyerAddress['buyerId']): Promise<BuyerAddress[]>;
+  getOneById(id: BuyerAddressIdOut): Promise<BuyerAddress>;
+  getAllAddressByBuyerId(buyerId: BuyerAddressBuyerIdOut): Promise<BuyerAddress[]>;
   createAddress(createAddressOut: BuyerCreateAddressOut): Promise<void>;
-  updateIsRepresentativeAddressById(id: BuyerAddress['id']): Promise<void>;
-  updatesIsNotRepresentativeAddressByBuyerId(buyerId: BuyerAddress['buyerId']): Promise<void>;
-  deleteAddressById(id: BuyerAddress['id']): Promise<void>;
+  updateIsRepresentativeAddressById(id: BuyerAddressIdOut): Promise<void>;
+  updatesIsNotRepresentativeAddressByBuyerId(buyerId: BuyerAddressBuyerIdOut): Promise<void>;
+  deleteAddressById(id: BuyerAddressIdOut): Promise<void>;
 }

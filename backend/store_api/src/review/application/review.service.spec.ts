@@ -121,7 +121,7 @@ describe('Buyer Service test  ', () => {
 
         const result = await sut.createByBuyer(createByBuyerIn);
 
-        expect(orderProductRepository.updateByReview).toHaveBeenCalledWith(createByBuyerIn.orderProductId, givenReview.id);
+        expect(orderProductRepository.updateByReview).toHaveBeenCalledWith({ id: createByBuyerIn.orderProductId, reviewId: givenReview.id });
         expect(orderProductRepository.findOneById).toHaveBeenCalledWith(createByBuyerIn.orderProductId);
         expect(result).toEqual(givenReview);
       });

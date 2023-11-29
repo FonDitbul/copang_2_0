@@ -61,5 +61,5 @@ export class ReviewFindAllRes {
     type: [ReviewSwagger],
   })
   // -----------------------------------------------
-  list: Review[];
+  readonly list: Review[];
 }

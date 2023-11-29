@@ -7,54 +7,54 @@ class CartSwagger implements Cart {
     description: 'cart id',
   })
   // -----------------------------------------------
-  id: number;
+  readonly id: number;
 
   @ApiProperty({
     type: Number,
     description: '해당 유저 아이디',
   })
   // -----------------------------------------------
-  buyerId: number;
+  readonly buyerId: number;
 
   @ApiProperty({
     type: Number,
     description: '장바구니에 담긴 물품 아이디',
   })
   // -----------------------------------------------
-  productId: number;
+  readonly productId: number;
 
   @ApiProperty({
     type: Number,
     description: '구매하고자 하는 수량',
   })
   // -----------------------------------------------
-  productQuantity: number;
+  readonly productQuantity: number;
 
   @ApiProperty({
     type: String,
     description: '장바구니 물품 상태 표기 ACTIVE: 장바구니에 담긴 물품 DONE: 구매 완료',
   })
   // -----------------------------------------------
-  status: string;
+  readonly status: string;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  createdAt: Date;
+  readonly createdAt: Date;
 
   @ApiProperty({
     type: String,
   })
   // -----------------------------------------------
-  updatedAt: Date;
+  readonly updatedAt: Date;
 
   @ApiProperty({
     type: String,
     nullable: true,
   })
   // -----------------------------------------------
-  deletedAt: Date | null;
+  readonly deletedAt: Date | null;
 }
 export class CartFindAllRes {
   @ApiProperty({
@@ -62,12 +62,12 @@ export class CartFindAllRes {
     description: '해당 page 이후로 데이터가 없을시 true',
   })
   // ------------------------------------------------
-  carts: Cart[];
+  readonly carts: Cart[];
 
   @ApiProperty({
     type: Boolean,
     description: '해당 page 이후로 데이터가 없을시 true',
   })
   // ------------------------------------------------
-  isEndPage: boolean;
+  readonly isEndPage: boolean;
 }

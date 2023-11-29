@@ -1,11 +1,11 @@
 import { BuyerCard } from './buyerCard';
-import { BuyerCreateCardOut } from './port/buyerAccount.out';
+import { BuyerCardBuyerIdOut, BuyerCardIdOut, BuyerCreateCardOut } from './port/buyerAccount.out';
 
 export interface IBuyerCardRepository {
-  getOneById(id: BuyerCard['id']): Promise<BuyerCard>;
-  getAllByBuyerId(buyerId: BuyerCard['buyerId']): Promise<BuyerCard[]>;
+  getOneById(id: BuyerCardIdOut): Promise<BuyerCard>;
+  getAllByBuyerId(buyerId: BuyerCardBuyerIdOut): Promise<BuyerCard[]>;
   create(createCardOut: BuyerCreateCardOut): Promise<void>;
-  updateIsRepresentativeById(id: BuyerCard['id']): Promise<void>;
-  updatesIsNotRepresentativeByBuyerId(buyerId: BuyerCard['buyerId']): Promise<void>;
-  deleteById(id: BuyerCard['id']): Promise<void>;
+  updateIsRepresentativeById(id: BuyerCardIdOut): Promise<void>;
+  updatesIsNotRepresentativeByBuyerId(buyerId: BuyerCardBuyerIdOut): Promise<void>;
+  deleteById(id: BuyerCardIdOut): Promise<void>;
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Inject, Param, Post, Type, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post, UseGuards } from '@nestjs/common';
 import {
   BuyerChangeEmailReq,
   BuyerChangeNickNameReq,
@@ -8,7 +8,7 @@ import {
   BuyerSignUpReq,
 } from './buyer.req.dto';
 import { IBuyerService } from '../domain/buyer.service';
-import { BuyerAccountRes, BuyerLoginRes, BuyerSignUpRes } from './buyer.res.dto';
+import { BuyerAccountRes, BuyerLoginRes } from './buyer.res.dto';
 import { AuthAuthorizationGuard } from '../../auth/api/auth.authorization.guard';
 import { UserInfo } from '../../auth/domain/login.token';
 import { BuyerUser } from './buyer-info.decorator';
@@ -29,17 +29,8 @@ export class BuyerController {
   // ------------------------------------------------------------------------------------------
   @Post('/buyer/sign-up')
   async signUp(@Body() signUpReq: BuyerSignUpReq) {
-    const response = await this.buyerService.signUp(signUpReq);
-
-    const signUpResponse: BuyerSignUpRes = {
-      id: response.id,
-      userId: response.userId,
-      nickName: response.nickName,
-      email: response.email,
-      phoneNumber: response.phoneNumber,
-      deletedAt: response.deletedAt,
-    };
-    return signUpResponse;
+    await this.buyerService.signUp(signUpReq);
+    return;
   }
 
   @ApiOperation({ summary: '구매자 (유저) 아이디 패스워드 로그인', description: '유저의 아이디와 비밀번호를 입력하여 토큰을 발급합니다.' })

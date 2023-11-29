@@ -41,7 +41,7 @@ export class ReviewService implements IReviewService {
       buyerId,
       orderProductId,
     });
-    await this.orderProductRepository.updateByReview(orderProductId, review.id);
+    await this.orderProductRepository.updateByReview({ id: orderProductId, reviewId: review.id });
 
     return review;
   }

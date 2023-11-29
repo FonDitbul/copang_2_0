@@ -19,7 +19,7 @@ export class OrderBuyHandler implements ICommandHandler<OrderBuyCommand> {
   ) {}
 
   async execute(command: OrderBuyCommand) {
-    const buyIn = command.orderBuyIn;
+    const buyIn = command;
 
     const productIdMap = listToMap(buyIn.buyProduct, (product) => product.productId);
     const productIdArray = Array.from(productIdMap.keys());

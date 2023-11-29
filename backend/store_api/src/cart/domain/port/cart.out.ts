@@ -1,33 +1,16 @@
 import { Cart } from '../cart';
 
-export interface ICartFindAllOut {
-  readonly buyerId: Cart['buyerId'];
+export type ICartFindAllOut = Pick<Cart, 'buyerId'> & {
   readonly limit: number;
   readonly lastId: Cart['id'];
-}
+};
 
-export interface ICartCountOut {
-  readonly buyerId: Cart['buyerId'];
-  readonly lastId: Cart['id'];
-}
+export type ICartCountOut = Pick<Cart, 'buyerId'> & { readonly lastId: Cart['id'] };
 
-export interface ICartAddOut {
-  readonly buyerId: Cart['buyerId'];
-  readonly productId: Cart['productId'];
-  readonly productQuantity: Cart['productQuantity'];
-}
+export type ICartAddOut = Pick<Cart, 'buyerId' | 'productId' | 'productQuantity'>;
 
-export interface ICartChangeOut {
-  readonly id: Cart['id'];
-  readonly productQuantity: Cart['productQuantity'];
-  readonly status: Cart['status'];
-}
+export type ICartChangeOut = Pick<Cart, 'id' | 'productQuantity' | 'status'>;
 
-export interface ICartDeleteOut {
-  readonly id: Cart['id'];
-}
+export type ICartDeleteOut = Pick<Cart, 'id'>;
 
-export interface ICartDeleteByBuyOut {
-  readonly buyerId: Cart['buyerId'];
-  readonly productIdArray: Cart['productId'][];
-}
+export type ICartDeleteByBuyOut = Pick<Cart, 'buyerId'> & { readonly productIdArray: Cart['productId'][] };

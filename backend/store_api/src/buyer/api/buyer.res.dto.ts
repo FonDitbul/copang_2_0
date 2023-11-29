@@ -1,16 +1,6 @@
 import { Token } from '../../auth/domain/token';
-import { Buyer } from '../domain/buyer';
 import { ApiProperty } from '@nestjs/swagger';
 import { BuyerGetAccountIn } from '../domain/port/buyer.in';
-
-export class BuyerSignUpRes {
-  readonly id: Buyer['id'];
-  readonly userId: Buyer['userId'];
-  readonly nickName: Buyer['nickName'];
-  readonly email: Buyer['email'];
-  readonly phoneNumber: Buyer['phoneNumber'];
-  readonly deletedAt: Buyer['deletedAt'];
-}
 
 class TokenForSwagger extends Token {
   @ApiProperty({
@@ -18,6 +8,7 @@ class TokenForSwagger extends Token {
     example: 'saffqwtq6y46sfzx',
     description: '발급된 토큰 값',
   })
+  // -----------------------------------------------
   readonly value: string;
 
   @ApiProperty({
@@ -25,6 +16,7 @@ class TokenForSwagger extends Token {
     example: '2023-11-17T16:59:42.172Z',
     description: '발급된 토큰 의 만료 날짜',
   })
+  // -----------------------------------------------
   readonly expiredAt: Date;
 }
 

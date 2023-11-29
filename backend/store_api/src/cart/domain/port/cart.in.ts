@@ -1,25 +1,9 @@
 import { Cart } from '../cart';
 
-export interface ICartFindAllIn {
-  readonly buyerId: Cart['buyerId'];
-  readonly limit: number;
-  readonly lastId: Cart['id'];
-}
+export type ICartFindAllIn = Pick<Cart, 'buyerId'> & { readonly limit: number; readonly lastId: Cart['id'] };
 
-export interface ICartAddIn {
-  readonly buyerId: Cart['buyerId'];
-  readonly productId: Cart['productId'];
-  readonly productQuantity: Cart['productQuantity'];
-}
+export type ICartAddIn = Pick<Cart, 'buyerId' | 'productId' | 'productQuantity'>;
 
-export interface ICartChangeIn {
-  readonly id: Cart['id'];
-  readonly buyerId: Cart['buyerId'];
-  readonly productQuantity: Cart['productQuantity'];
-  readonly status: Cart['status'];
-}
+export type ICartChangeIn = Pick<Cart, 'id' | 'buyerId' | 'productQuantity' | 'status'>;
 
-export interface ICartDeleteIn {
-  readonly id: Cart['id'];
-  readonly buyerId: Cart['buyerId'];
-}
+export type ICartDeleteIn = Pick<Cart, 'id' | 'buyerId'>;

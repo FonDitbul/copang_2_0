@@ -1,33 +1,22 @@
 import { Address } from '../address';
 import { Card } from '../card';
 import { BuyerAddress } from '../buyerAddress';
+import { BuyerCard } from '../buyerCard';
 
-export interface BuyerCreateAddressIn {
-  readonly buyerId: BuyerAddress['buyerId'];
-  readonly address: Address;
-}
+// address
+export type BuyerAddressBuyerIdIn = BuyerAddress['buyerId'];
 
-export interface BuyerUpdateRepresentativeAddressIn {
-  readonly id: BuyerAddress['id'];
-  readonly buyerId: BuyerAddress['buyerId'];
-}
+export type BuyerCreateAddressIn = Pick<BuyerAddress, 'buyerId'> & { readonly address: Address };
 
-export interface BuyerDeleteAddressIn {
-  readonly id: BuyerAddress['id'];
-  readonly buyerId: BuyerAddress['buyerId'];
-}
+export type BuyerUpdateRepresentativeAddressIn = Pick<BuyerAddress, 'id' | 'buyerId'>;
 
-export interface BuyerCreateCardIn {
-  readonly buyerId: number;
-  readonly card: Card;
-}
+export type BuyerDeleteAddressIn = Pick<BuyerAddress, 'id' | 'buyerId'>;
 
-export interface BuyerUpdateRepresentativeCardIn {
-  readonly id: BuyerAddress['id'];
-  readonly buyerId: BuyerAddress['buyerId'];
-}
+// card
+export type BuyerCardBuyerIdIn = BuyerCard['buyerId'];
 
-export interface BuyerDeleteCardIn {
-  readonly id: BuyerAddress['id'];
-  readonly buyerId: BuyerAddress['buyerId'];
-}
+export type BuyerCreateCardIn = Pick<BuyerCard, 'buyerId'> & { readonly card: Card };
+
+export type BuyerUpdateRepresentativeCardIn = Pick<BuyerCard, 'id' | 'buyerId'>;
+
+export type BuyerDeleteCardIn = Pick<BuyerCard, 'id' | 'buyerId'>;

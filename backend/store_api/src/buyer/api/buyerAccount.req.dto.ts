@@ -120,12 +120,12 @@ class CreateCardReq implements Pick<BuyerCard, 'bankName' | 'cardNumber' | 'card
 
   @ApiProperty({
     type: String,
-    example: '2025/12/23',
-    description: '유효 기간 입력 20YY/MM/DD 형식으로 입력 필요',
+    example: '2025/12',
+    description: '유효 기간 입력 20YY/MM 형식으로 입력 필요',
   })
   // -----------------------------------------------
   @IsNotEmpty()
-  @Matches(RegExp('^((20\\d{2})\\/(0[1-9])|(1[0-2]))$'))
+  @Matches(RegExp('^\\d{4}\\/(0[1-9]|1[012])$'))
   readonly validityPeriod: string;
 }
 

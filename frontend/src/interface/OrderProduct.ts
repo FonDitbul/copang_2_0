@@ -10,6 +10,7 @@ export interface OrderProduct {
   buyQuantity: number;
   shippingStatus: string | IShippingStatus;
   address: string;
+  mainImage: string;
   sellerId: number;
   orderId: number;
   buyerId: number;

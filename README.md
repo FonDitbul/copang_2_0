@@ -17,6 +17,9 @@
 ## Demo
 * store
   * http://copang.p-e.kr
+  * sample 계정
+  * ID : admin
+  * PW : admin
 * API
   * http://api.copang.p-e.kr 
 * API docs With Swagger

@@ -20,11 +20,7 @@ export default function OrderProductCard(orderProduct: OrderProduct) {
 
   return (
     <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-      <img
-        src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1131&q=80"
-        alt="product-image"
-        className="w-full rounded-lg sm:w-40"
-      />
+      <img src={orderProduct.mainImage} alt="product-image" className="w-full rounded-lg sm:w-40" />
 
       <div className="mt-5 sm:mt-0">
         <h2 className="text-lg font-bold text-gray-900">{orderProduct.name}</h2>

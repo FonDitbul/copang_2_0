@@ -39,7 +39,6 @@ export default function OrderHistoryPage() {
   }
 
   const moreButtonEventHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('?');
     const orderLast = orderProductArray.at(-1);
     if (orderLast && orderLast.id === orderLastId) {
       const result = await getOrderProduct(orderLastId);

@@ -5,6 +5,7 @@ import { ClientStorage } from '../../context/ClientStorage';
 export default function LogoutButton() {
   const navigate = useNavigate();
   const logoutOnClick = () => {
+    window.location.replace('/');
     ClientStorage.clear();
     navigate('/');
     return;

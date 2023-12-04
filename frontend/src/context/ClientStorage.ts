@@ -16,6 +16,12 @@ export class ClientStorage {
     }
     return value;
   }
+
+  static getTokenOrNullByKey(key: TokenKey): string | null {
+    const value = localStorage.getItem(key);
+    return value;
+  }
+
   static setToken(key: TokenKey, value: string) {
     localStorage.setItem(key, value);
   }
@@ -24,7 +30,6 @@ export class ClientStorage {
     this.setToken('accessTokenExpireAt', loginToken.accessToken.expiredAt); // UTC로 저장
     this.setToken('refreshToken', loginToken.refreshToken.value);
     this.setToken('refreshTokenExpireAt', loginToken.refreshToken.expiredAt); // UTC로 저장
-    console.log(loginToken);
   }
   static clear() {
     localStorage.clear();

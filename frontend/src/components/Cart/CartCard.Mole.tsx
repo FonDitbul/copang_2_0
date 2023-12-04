@@ -65,11 +65,7 @@ export default function CartCard(cart: CartCardProps) {
   };
   return (
     <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-      <img
-        src={cart.Product.mainImage}
-        alt="product-image"
-        className="w-full rounded-lg sm:w-40"
-      />
+      <img src={cart.Product.mainImage} alt="product-image" className="w-full rounded-lg sm:w-40" />
       <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
         <div className="mt-5 sm:mt-0">
           <CheckBox checked={status === 'ACTIVE'} onClick={changeProductStatusEvent} />

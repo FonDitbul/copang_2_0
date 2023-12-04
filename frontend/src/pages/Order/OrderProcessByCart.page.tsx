@@ -12,9 +12,11 @@ import OrderBuyerCardMole from '../../components/Order/OrderProcess/OrderBuyerCa
 import OrderProductOrgan from '../../components/Order/OrderProcess/OrderProduct.Organ';
 import OrderShippingAddressMole from '../../components/Order/OrderProcess/OrderShippingAddress.Mole';
 import OrderBuyerMole from '../../components/Order/OrderProcess/OrderBuyer.Mole';
-import OrderBuyButtonMole, { BuyProductType, CartBuyProductType } from '../../components/Order/OrderProcess/OrderBuyButton.Mole';
+import OrderBuyButtonMole, { CartBuyProductType } from '../../components/Order/OrderProcess/OrderBuyButton.Mole';
 import OrderBuyCostTotalOrgan from '../../components/Order/OrderProcess/OrderBuyCostTotal.Organ';
 import { Address } from '../../interface/Address';
+import Button from '../../components/Common/Atom/Button';
+import { Link } from 'react-router-dom';
 
 export type OrderBuyer = Pick<Buyer, 'name' | 'email' | 'phoneNumber'>;
 export default function OrderProcessByCartPage() {
@@ -89,22 +91,28 @@ export default function OrderProcessByCartPage() {
     getAddress();
   }, []);
 
-  if (carts.length === 0) {
-    return (
-      <div>
-        <span>구매하고자 하는 물품이 존재하지 않습니다.</span>
-      </div>
-    );
-  }
-
   return (
     <div className="h-screen bg-dark-100 pt-20 content-center">
       <h1 className="mb-10 text-center text-2xl font-bold"> 결제하기 페이지 </h1>
       <OrderProductOrgan carts={carts} />
       <OrderBuyerMole buyer={buyer} setFunction={setBuyer} />
-      <OrderShippingAddressMole addresses={addressArray} setFunction={setBuyAddress} />
 
-      <OrderBuyerCardMole creditCards={cardArray} setFunction={setBuyCard} />
+      {/*TODO 해당 부분은 array 가 없을시 Input 으로 받을 수 있게 변경*/}
+      {addressArray.length === 0 ? (
+        <Button>
+          <Link to="/account/credit-card">주소 추가하러 가기</Link>
+        </Button>
+      ) : (
+        <OrderShippingAddressMole addresses={addressArray} setFunction={setBuyAddress} />
+      )}
+
+      {cardArray.length === 0 ? (
+        <Button>
+          <Link to="/account/address">카드 추가하러 가기</Link>
+        </Button>
+      ) : (
+        <OrderBuyerCardMole creditCards={cardArray} setFunction={setBuyCard} />
+      )}
 
       <OrderBuyCostTotalOrgan carts={carts} />
 

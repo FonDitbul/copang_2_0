@@ -20,8 +20,13 @@ export const Client: Axios = axios.create({
 
 Client.interceptors.request.use((config) => {
   try {
-    const accessToken = ClientStorage.getTokenByKey('accessToken');
-    const accessTokenExpireAt = ClientStorage.getTokenByKey('accessTokenExpireAt');
+    const accessToken = ClientStorage.getTokenOrNullByKey('accessToken');
+    const accessTokenExpireAt = ClientStorage.getTokenOrNullByKey('accessTokenExpireAt');
+
+    if (!accessToken || !accessTokenExpireAt) {
+      // token 없을시 return
+      return config;
+    }
 
     const currentDate = new Date();
     const accessTokenExpireDate = new Date(accessTokenExpireAt);
@@ -42,7 +47,7 @@ Client.interceptors.response.use(
     return response;
   },
   async function (error) {
-    if (error.response.data && (error.response.data.errorCode === 10002 || error.response.data.errorCode === 10001)) {
+    if (error.response.data && (error.response.data.errorCode == 10002 || error.response.data.errorCode == 10001)) {
       try {
         const originalRequest = error.config;
 

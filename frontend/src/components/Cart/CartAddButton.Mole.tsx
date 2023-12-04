@@ -20,6 +20,9 @@ export function CartAddButton({ productId }: CartAddButtonProps) {
         if (e.response!.data.errorCode === 21001) {
           return alert('이미 장바구니에 존재하는 상품입니다. ');
         }
+        if (e.response!.data.errorCode === 10001) {
+          return alert('로그인 후 이용해 주세요.');
+        }
       }
       return alert('에러가 발생했습니다. 다시 시도해주세요.');
     }

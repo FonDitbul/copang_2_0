@@ -7,13 +7,13 @@ interface cartCostProps {
   carts: Cart[];
 }
 export default function OrderBuyCostTotalOrgan(cartCost: cartCostProps) {
-  const [carts, setCarts] = useState([] as Cart[]);
+  const carts = cartCost.carts;
+
   const [totalCost, setTotalCost] = useState(0);
   const [totalProductCost, setTotalProductCost] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
 
   useEffect(() => {
-    setCarts(cartCost.carts);
     const cartCostArray = carts.map((cart) => {
       return calculateCartCost(cart);
     });

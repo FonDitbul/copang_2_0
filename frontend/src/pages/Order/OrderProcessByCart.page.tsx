@@ -100,7 +100,7 @@ export default function OrderProcessByCartPage() {
       {/*TODO 해당 부분은 array 가 없을시 Input 으로 받을 수 있게 변경*/}
       {addressArray.length === 0 ? (
         <Button>
-          <Link to="/account/credit-card">주소 추가하러 가기</Link>
+          <Link to="/account/address">주소 추가하러 가기</Link>
         </Button>
       ) : (
         <OrderShippingAddressMole addresses={addressArray} setFunction={setBuyAddress} />
@@ -108,7 +108,7 @@ export default function OrderProcessByCartPage() {
 
       {cardArray.length === 0 ? (
         <Button>
-          <Link to="/account/address">카드 추가하러 가기</Link>
+          <Link to="/account/credit-card">카드 추가하러 가기</Link>
         </Button>
       ) : (
         <OrderBuyerCardMole creditCards={cardArray} setFunction={setBuyCard} />
